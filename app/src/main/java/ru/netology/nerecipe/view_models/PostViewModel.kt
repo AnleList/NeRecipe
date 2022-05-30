@@ -4,8 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nerecipe.adapters.PostInteractionListener
-import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.PostRepository
+import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.impl.PostRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
@@ -25,73 +26,76 @@ class PostViewModel(
     val data by repository::data
 
     val sharePostContent = SingleLiveEvent<String>()
-    val navToPostViewing = SingleLiveEvent<Post?>()
+    val navToRecipeViewing = SingleLiveEvent<Recipe?>()
     val navToPostEditContentEvent = SingleLiveEvent<String>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
-    private val currentPost = MutableLiveData<Post?>(null)
+    private val currentRecipe = MutableLiveData<Recipe?>(null)
     val sharePostVideo = SingleLiveEvent<String?>()
 
     fun onEditBackPressed(draft: String){
-        if (currentPost.value != null) {
-            currentPost.value?.copy(
+        if (currentRecipe.value != null) {
+            currentRecipe.value?.copy(
                 draftTextContent = draft
             )?.let {
                 repository.save(it)
             }
-            currentPost.value = null
+            currentRecipe.value = null
         }
     }
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
-        val postToAdd = currentPost.value?.copy(
-            textContent = content,
+        val recipeToAdd = currentRecipe.value?.copy(
+            ingredients = content,
             draftTextContent = null
-            ) ?: Post(
+            ) ?: Recipe(
             id = PostRepository.NEW_POST_ID,
             author = "New author",
-            textContent = content,
+            ingredients = content,
             draftTextContent = null,
             videoContent = null,
-            published = (sdf.format(Date())).toString()
+            published = (sdf.format(Date())).toString(),
+            recipeCategory = RecipeCategories.Russian,
+            recipeName = "",
+            stages = ""
         )
-        repository.save(postToAdd)
-        currentPost.value = null
+        repository.save(recipeToAdd)
+        currentRecipe.value = null
     }
 
-    override fun onShareVideoClicked(post: Post) {
-        sharePostVideo.value = post.videoContent
+    override fun onShareVideoClicked(recipe: Recipe) {
+        sharePostVideo.value = recipe.videoContent
     }
 
-    override fun onHeartClicked(post: Post) =
-        repository.likeById(post.id)
+    override fun onHeartClicked(recipe: Recipe) =
+        repository.likeById(recipe.id)
 
-    override fun onShareClicked(post: Post) {
-        sharePostContent.value = post.textContent
-        repository.shareBiId(post.id)
+    override fun onShareClicked(recipe: Recipe) {
+        sharePostContent.value = recipe.ingredients
+        repository.shareBiId(recipe.id)
     }
 
-    override fun onRemoveClicked(post: Post) {
-        repository.removeById(post.id)
+    override fun onRemoveClicked(recipe: Recipe) {
+        repository.removeById(recipe.id)
         navToFeedFragment.call()
     }
 
-    override fun onEditClicked(post: Post) {
+    override fun onEditClicked(recipe: Recipe) {
         navToPostEditContentEvent.value =
-            post.draftTextContent ?: post.textContent
-        currentPost.value = post
+            recipe.draftTextContent ?: recipe.ingredients
+        currentRecipe.value = recipe
     }
 
     override fun onUnDoClicked() {
-        currentPost.value = null
+        currentRecipe.value = null
     }
 
     override fun onAddClicked() {
       navToPostEditContentEvent.call()
     }
 
-    override fun onPostContentClicked(post: Post) {
-        navToPostViewing.value = post
+    override fun onPostContentClicked(recipe: Recipe) {
+        navToRecipeViewing.value = recipe
     }
 }

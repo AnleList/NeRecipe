@@ -1,14 +1,14 @@
 package ru.netology.nerecipe.adapters
 
-import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.Recipe
 
 interface PostInteractionListener {
-    fun onHeartClicked(post: Post)
-    fun onShareClicked(post: Post)
-    fun onRemoveClicked(post: Post)
-    fun onEditClicked(post: Post)
+    fun onHeartClicked(recipe: Recipe)
+    fun onShareClicked(recipe: Recipe)
+    fun onRemoveClicked(recipe: Recipe)
+    fun onEditClicked(recipe: Recipe)
     fun onUnDoClicked()
     fun onAddClicked()
-    fun onShareVideoClicked(post: Post)
-    fun onPostContentClicked(post: Post)
+    fun onShareVideoClicked(recipe: Recipe)
+    fun onPostContentClicked(recipe: Recipe)
 }

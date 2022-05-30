@@ -10,7 +10,7 @@ import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.R
-import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.PostViewingFragmentBinding
 import ru.netology.nerecipe.valueToStringForShowing
 import ru.netology.nerecipe.view_models.PostViewModel
@@ -38,13 +38,13 @@ class PostViewingFragment : Fragment() {
         layoutInflater, container, false
     ).also { binding ->
 
-        var postToViewing: Post = args.postToViewing
+        var recipeToViewing: Recipe = args.postToViewing
 
         viewModel.data.observe(viewLifecycleOwner) {posts ->
-            postToViewing = posts.first {it.id == postToViewing.id}
+            recipeToViewing = posts.first {it.id == recipeToViewing.id}
             with(binding.includedPost) {
                 postAvatar.setImageResource(
-                    when (postToViewing.author) {
+                    when (recipeToViewing.author) {
                         "Нетология. Университет интернет-профессий" ->
                             R.drawable.ic_launcher_foreground
                         "Skillbox. Образовательная платформа" ->
@@ -53,17 +53,17 @@ class PostViewingFragment : Fragment() {
                             R.drawable.ic_baseline_tag_faces_24
                     }
                 )
-                postAuthor.text = postToViewing.author
-                postPublished.text = postToViewing.published
-                postTextContent.text = postToViewing.textContent
-                fabVideo.visibility = if (postToViewing.videoContent != null) {
+                postAuthor.text = recipeToViewing.author
+                postPublished.text = recipeToViewing.published
+                postTextContent.text = recipeToViewing.ingredients
+                fabVideo.visibility = if (recipeToViewing.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
-                postVideoView.visibility = if (postToViewing.videoContent != null) {
+                postVideoView.visibility = if (recipeToViewing.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
                 views.text = valueToStringForShowing(
-                    when (postToViewing.author) {
+                    when (recipeToViewing.author) {
                         "Нетология. Университет интернет-профессий" ->
                             2999999
                         "Skillbox. Образовательная платформа" ->
@@ -72,11 +72,11 @@ class PostViewingFragment : Fragment() {
                             0
                     }
                 )
-                postHeart.text = valueToStringForShowing(postToViewing.likes)
-                postHeart.isChecked = postToViewing.likedByMe
-                share.text = valueToStringForShowing(postToViewing.shared)
-                share.isChecked = postToViewing.sharedByMe
-                postHeart.setOnClickListener { viewModel.onHeartClicked(postToViewing) }
+                postHeart.text = valueToStringForShowing(recipeToViewing.likes)
+                postHeart.isChecked = recipeToViewing.likedByMe
+                share.text = valueToStringForShowing(recipeToViewing.shared)
+                share.isChecked = recipeToViewing.sharedByMe
+                postHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
             }
             val popupMenu by lazy {
                 PopupMenu(requireContext(), binding.includedPost.postMenuButton).apply {
@@ -84,12 +84,12 @@ class PostViewingFragment : Fragment() {
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.removeItem -> {
-                                viewModel.onRemoveClicked(postToViewing)
+                                viewModel.onRemoveClicked(recipeToViewing)
                                 findNavController().popBackStack()
                                 true
                             }
                             R.id.editItem -> {
-                                viewModel.onEditClicked(postToViewing)
+                                viewModel.onEditClicked(recipeToViewing)
                                 true
                             }
                             else -> false
@@ -102,19 +102,19 @@ class PostViewingFragment : Fragment() {
             }
 
             binding.includedPost.postHeart.setOnClickListener {
-                viewModel.onHeartClicked(postToViewing)
+                viewModel.onHeartClicked(recipeToViewing)
             }
             binding.includedPost.share.setOnClickListener {
-                viewModel.onShareClicked(postToViewing)
+                viewModel.onShareClicked(recipeToViewing)
             }
             binding.includedPost.fabVideo.setOnClickListener {
-                viewModel.onShareVideoClicked(postToViewing)
+                viewModel.onShareVideoClicked(recipeToViewing)
             }
             binding.includedPost.postVideoView.setOnClickListener {
-                viewModel.onShareVideoClicked(postToViewing)
+                viewModel.onShareVideoClicked(recipeToViewing)
             }
             binding.includedPost.postTextContent.setOnClickListener {
-                viewModel.onEditClicked(postToViewing)
+                viewModel.onEditClicked(recipeToViewing)
             }
         }
 

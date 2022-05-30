@@ -13,7 +13,7 @@ interface PostDao {
     @Insert
     fun insert(post: PostEntity)
 
-    @Query("UPDATE posts SET textContent = :content WHERE id = :id")
+    @Query("UPDATE posts SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
     @Query("UPDATE posts SET draftTextContent = :draft WHERE id = :id")
@@ -25,7 +25,7 @@ interface PostDao {
         else if (post.draftTextContent != null) {
             updateDraftById(post.id, post.draftTextContent)
         } else
-            updateContentById(post.id, post.textContent)
+            updateContentById(post.id, post.recipeName)
 
     @Query(
         """

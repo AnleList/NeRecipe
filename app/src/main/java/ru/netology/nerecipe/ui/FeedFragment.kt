@@ -47,7 +47,7 @@ class FeedFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-        viewModel.navToPostViewing.observe(this) { post ->
+        viewModel.navToRecipeViewing.observe(this) { post ->
             val direction
                 = post?.let {
                 FeedFragmentDirections.actionFeedFragmentToPostViewingFragment(it)

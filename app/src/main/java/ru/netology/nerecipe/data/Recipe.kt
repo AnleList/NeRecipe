@@ -7,10 +7,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Parcelize
-data class Post(
+data class Recipe(
     val id: Long,
     val author: String,
-    val textContent: String,
+    val recipeName: String,
+    val recipeCategory: RecipeCategories,
+    val ingredients: String,
+    val stages: String,
     val draftTextContent: String?,
     val videoContent: String?,
     val published: String,

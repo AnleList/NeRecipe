@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.R
-import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.PostCardLayoutBinding
 import ru.netology.nerecipe.valueToStringForShowing
 
 internal class PostsAdapter(
     private val interactionListener: PostInteractionListener
-) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Recipe, PostsAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ internal class PostsAdapter(
         listener: PostInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var post: Post
+        private lateinit var recipe: Recipe
 
         private val popupMenu by lazy {
             PopupMenu(itemView.context, binding.postMenuButton).apply {
@@ -39,11 +39,11 @@ internal class PostsAdapter(
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.removeItem -> {
-                            listener.onRemoveClicked(post)
+                            listener.onRemoveClicked(recipe)
                             true
                         }
                         R.id.editItem -> {
-                            listener.onEditClicked(post)
+                            listener.onEditClicked(recipe)
                             true
                         }
                         else -> false
@@ -54,33 +54,33 @@ internal class PostsAdapter(
 
         init {
             binding.postHeart.setOnClickListener {
-                listener.onHeartClicked(post)
+                listener.onHeartClicked(recipe)
             }
             binding.share.setOnClickListener {
-                listener.onShareClicked(post)
+                listener.onShareClicked(recipe)
             }
             binding.fabVideo.setOnClickListener {
-                listener.onShareVideoClicked(post)
+                listener.onShareVideoClicked(recipe)
             }
             binding.postVideoView.setOnClickListener {
-                listener.onShareVideoClicked(post)
+                listener.onShareVideoClicked(recipe)
             }
             binding.postMenuButton.setOnClickListener {
                 popupMenu.show()
             }
             binding.postTextContent.setOnClickListener {
                 listener.onPostContentClicked(
-                    post
+                    recipe
                 )
             }
         }
 
-        fun bind(post: Post) {
-            this.post = post
+        fun bind(recipe: Recipe) {
+            this.recipe = recipe
             with(binding)
             {
                 postAvatar.setImageResource(
-                    when (post.author) {
+                    when (recipe.author) {
                         "Нетология. Университет интернет-профессий" ->
                             R.drawable.ic_launcher_foreground
                         "Skillbox. Образовательная платформа" ->
@@ -89,17 +89,17 @@ internal class PostsAdapter(
                             R.drawable.ic_baseline_tag_faces_24
                     }
                 )
-                postAuthor.text = post.author
-                postPublished.text = post.published
-                postTextContent.text = post.textContent
-                fabVideo.visibility = if (post.videoContent != null) {
+                postAuthor.text = recipe.author
+                postPublished.text = recipe.published
+                postTextContent.text = recipe.ingredients
+                fabVideo.visibility = if (recipe.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
-                postVideoView.visibility = if (post.videoContent != null) {
+                postVideoView.visibility = if (recipe.videoContent != null) {
                     View.VISIBLE
                 } else View.GONE
                 views.text = valueToStringForShowing(
-                    when (post.author) {
+                    when (recipe.author) {
                         "Нетология. Университет интернет-профессий" ->
                             2999999
                         "Skillbox. Образовательная платформа" ->
@@ -108,20 +108,20 @@ internal class PostsAdapter(
                             0
                     }
                 )
-                postHeart.text = valueToStringForShowing(post.likes)
-                postHeart.isChecked = post.likedByMe
-                share.text = valueToStringForShowing(post.shared)
-                share.isChecked = post.sharedByMe
+                postHeart.text = valueToStringForShowing(recipe.likes)
+                postHeart.isChecked = recipe.likedByMe
+                share.text = valueToStringForShowing(recipe.shared)
+                share.isChecked = recipe.sharedByMe
             }
         }
     }
 
-    private object DiffCallback : DiffUtil.ItemCallback<Post>() {
+    private object DiffCallback : DiffUtil.ItemCallback<Recipe>() {
 
-        override fun areItemsTheSame(oldItem: Post, newItem: Post) =
+        override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe) =
            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Post, newItem: Post) =
+        override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe) =
             oldItem == newItem
     }
 }
