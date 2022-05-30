@@ -1,4 +1,4 @@
-package ru.netology.nmedia.ui
+package ru.netology.nerecipe.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.nmedia.R
-import ru.netology.nmedia.adapters.PostsAdapter
-import ru.netology.nmedia.databinding.FeedFragmetBinding
-import ru.netology.nmedia.view_models.PostViewModel
-
+import ru.netology.nerecipe.R
+import ru.netology.nerecipe.adapters.PostsAdapter
+import ru.netology.nerecipe.databinding.FeedFragmetBinding
+import ru.netology.nerecipe.view_models.PostViewModel
 
 class FeedFragment : Fragment() {
 

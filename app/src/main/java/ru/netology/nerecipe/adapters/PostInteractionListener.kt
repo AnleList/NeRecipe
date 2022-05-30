@@ -1,6 +1,6 @@
-package ru.netology.nmedia.adapters
+package ru.netology.nerecipe.adapters
 
-import ru.netology.nmedia.data.Post
+import ru.netology.nerecipe.data.Post
 
 interface PostInteractionListener {
     fun onHeartClicked(post: Post)

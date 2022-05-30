@@ -1,4 +1,4 @@
-package ru.netology.nmedia.ui
+package ru.netology.nerecipe.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,11 @@ import android.widget.PopupMenu
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.netology.nmedia.R
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.databinding.PostViewingFragmentBinding
-import ru.netology.nmedia.valueToStringForShowing
-import ru.netology.nmedia.view_models.PostViewModel
+import ru.netology.nerecipe.R
+import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.databinding.PostViewingFragmentBinding
+import ru.netology.nerecipe.valueToStringForShowing
+import ru.netology.nerecipe.view_models.PostViewModel
 
 class PostViewingFragment : Fragment() {
 

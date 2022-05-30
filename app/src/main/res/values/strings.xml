@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">nmedia</string>
-    <string name="hallo">NMedia! Hallo!</string>
+    <string name="app_name" translatable="false">NeRecipe</string>
+    <string name="hallo">NeRecipe! Hallo!</string>
     <string name="avatar" translatable="false">Avatar</string>
     <string name="date">21 may at 18:36</string>
     <string name="name">Netology. University of Internet Professions</string>

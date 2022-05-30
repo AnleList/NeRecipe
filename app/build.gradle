@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-        applicationId "ru.netology.nmedia"
+        applicationId "ru.netology.nerecipe"
         minSdk 23
         targetSdk 31
         versionCode 1
@@ -37,7 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'ru.netology.nmedia'
+    namespace 'ru.netology.nerecipe'
 }
 
 dependencies {

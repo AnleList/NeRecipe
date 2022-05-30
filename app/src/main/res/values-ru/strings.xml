@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">НМедиа</string>
-    <string name="hallo">НМедиа! Здравствуйте!</string>
+    <string name="hallo">NeRecipe! Здравствуйте!</string>
     <string name="name">Нетология. Университет интернет-профессий</string>
     <string name="date">21 мая в 18:36</string>
     <string name="about">Помогаем расти в профессии и открывать новые карьерные горизонты 💫<br/>

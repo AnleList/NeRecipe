@@ -1,4 +1,4 @@
-package ru.netology.nmedia.data
+package ru.netology.nerecipe.data
 
 import android.os.Parcelable
 //import kotlinx.android.parcel.Parcelize

@@ -1,4 +1,4 @@
-package ru.netology.nmedia.db
+package ru.netology.nerecipe.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,12 +1,12 @@
-package ru.netology.nmedia.data. impl
+package ru.netology.nerecipe.data.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.db.PostDao
-import ru.netology.nmedia.db.toEntity
-import ru.netology.nmedia.db.toModel
+import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.PostRepository
+import ru.netology.nerecipe.db.PostDao
+import ru.netology.nerecipe.db.toEntity
+import ru.netology.nerecipe.db.toModel
 
 class PostRepositoryImpl(
     private val dao: PostDao

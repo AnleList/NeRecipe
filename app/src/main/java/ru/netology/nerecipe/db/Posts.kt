@@ -1,7 +1,7 @@
-package ru.netology.nmedia.db
+package ru.netology.nerecipe.db
 
 
-import ru.netology.nmedia.data.Post
+import ru.netology.nerecipe.data.Post
 
 internal fun PostEntity.toModel() = Post(
     id = id,

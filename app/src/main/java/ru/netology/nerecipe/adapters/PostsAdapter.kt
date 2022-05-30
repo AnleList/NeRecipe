@@ -1,4 +1,4 @@
-package ru.netology.nmedia.adapters
+package ru.netology.nerecipe.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,10 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nmedia.R
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.databinding.PostCardLayoutBinding
-import ru.netology.nmedia.valueToStringForShowing
+import ru.netology.nerecipe.R
+import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.databinding.PostCardLayoutBinding
+import ru.netology.nerecipe.valueToStringForShowing
 
 internal class PostsAdapter(
     private val interactionListener: PostInteractionListener

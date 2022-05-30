@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">НМЕДИА</string>
-    <string name="hallo">НМедиа! Доброй ночи!</string>
+    <string name="hallo">NeRecipe! Доброй ночи!</string>
 </resources>

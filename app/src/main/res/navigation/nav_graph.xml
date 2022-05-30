@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="ru.netology.nmedia.ui.FeedFragment"
+        android:name="ru.netology.nerecipe.ui.FeedFragment"
         tools:layout="@layout/feed_fragmet" >
         <action
             android:id="@+id/action_feedFragment_to_postContentFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/postContentFragment"
-        android:name="ru.netology.nmedia.ui.PostEditContentFragment"
+        android:name="ru.netology.nerecipe.ui.PostEditContentFragment"
         tools:layout="@layout/post_edit_content_fragment" >
 
         <argument
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/postViewingFragment"
-        android:name="ru.netology.nmedia.ui.PostViewingFragment"
+        android:name="ru.netology.nerecipe.ui.PostViewingFragment"
         android:label="post_viewing_fragment"
         tools:layout="@layout/post_viewing_fragment" >
         <action
@@ -36,7 +36,7 @@
             app:destination="@id/postContentFragment" />
         <argument
             android:name="postToViewing"
-            app:argType="ru.netology.nmedia.data.Post" />
+            app:argType="ru.netology.nerecipe.data.Post" />
         <action
             android:id="@+id/action_postViewingFragment_to_feedFragment"
             app:destination="@id/feedFragment" />

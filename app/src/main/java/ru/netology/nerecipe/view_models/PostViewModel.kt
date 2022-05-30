@@ -1,14 +1,14 @@
-package ru.netology.nmedia.view_models
+package ru.netology.nerecipe.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.adapters.PostInteractionListener
-import ru.netology.nmedia.data.Post
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.impl.PostRepositoryImpl
-import ru.netology.nmedia.db.AppDb
-import ru.netology.nmedia.util.SingleLiveEvent
+import ru.netology.nerecipe.adapters.PostInteractionListener
+import ru.netology.nerecipe.data.Post
+import ru.netology.nerecipe.data.PostRepository
+import ru.netology.nerecipe.data.impl.PostRepositoryImpl
+import ru.netology.nerecipe.db.AppDb
+import ru.netology.nerecipe.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,8 +1,6 @@
-package ru.netology.nmedia.ui
+package ru.netology.nerecipe.ui
 
-import android.app.Instrumentation
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
@@ -11,10 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import kotlinx.coroutines.flow.callbackFlow
-import ru.netology.nmedia.databinding.PostEditContentFragmentBinding
-import ru.netology.nmedia.util.showKeyboard
-import ru.netology.nmedia.view_models.PostViewModel
+import ru.netology.nerecipe.databinding.PostEditContentFragmentBinding
+import ru.netology.nerecipe.util.showKeyboard
+import ru.netology.nerecipe.view_models.PostViewModel
 
 
 class PostEditContentFragment : Fragment() {

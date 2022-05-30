@@ -1,4 +1,4 @@
-package ru.netology.nmedia
+package ru.netology.nerecipe
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
