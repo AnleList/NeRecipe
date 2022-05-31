@@ -14,12 +14,24 @@
         android:id="@+id/postsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="id/filter_by_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="174dp"
-        tools:listitem="@layout/post_card_layout"/>
+        tools:layout_editor_absoluteX="4dp"
+        tools:listitem="@layout/post_card_layout" />
+
+    <EditText
+        android:id="@+id/filter_by_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:inputType="textCapWords"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postsRecyclerView"
+        app:layout_constraintVertical_bias="0.586"
+        tools:layout_editor_absoluteX="4dp"
+        tools:text="Европейская" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
