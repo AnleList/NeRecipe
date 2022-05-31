@@ -58,7 +58,7 @@ class PostViewModel(
             published = (sdf.format(Date())).toString(),
             recipeCategory = RecipeCategories.Russian,
             recipeName = "",
-            stages = ""
+            stages = emptyList()
         )
         repository.save(recipeToAdd)
         currentRecipe.value = null
