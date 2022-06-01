@@ -29,22 +29,31 @@
             app:layout_constraintTop_toBottomOf="@id/recipe_name"
             tools:text="www.RussianFood.com" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="recipe_category, heart"
+            android:paddingVertical="8dp"/>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/recipe_author"
-            app:layout_constraintEnd_toStartOf="@id/heart"
+            app:layout_constraintTop_toTopOf="@id/heart"
             app:layout_constraintBottom_toBottomOf="@id/heart"
-            tools:text="Европейская"/>
+            app:layout_constraintEnd_toStartOf="@id/heart"
+            app:layout_constraintTop_toBottomOf="@id/recipe_author"
+            tools:text="Европейская" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/heart"
             style="@style/Widget.AppTheme.LikeCheckbox"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:button="@drawable/heart_selector"
             android:contentDescription="@string/likes"
             app:layout_constraintTop_toTopOf="@id/recipe_category"
