@@ -29,39 +29,27 @@
             app:layout_constraintTop_toBottomOf="@id/recipe_name"
             tools:text="www.RussianFood.com" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="top"
-            app:constraint_referenced_ids="recipe_category, heart"
-            android:paddingVertical="8dp"/>
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_category"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="@id/heart"
+            app:layout_constraintTop_toBottomOf="@id/recipe_author"
             app:layout_constraintEnd_toStartOf="@id/heart"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/heart"
-            tools:text="Европейская" />
+            app:layout_constraintBottom_toBottomOf="@id/heart"
+            tools:text="Европейская"/>
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/heart"
             style="@style/Widget.AppTheme.LikeCheckbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:button="@drawable/heart_selector"
             android:contentDescription="@string/likes"
             app:layout_constraintTop_toTopOf="@id/recipe_category"
             app:layout_constraintBottom_toBottomOf="@id/recipe_category"
             app:layout_constraintStart_toEndOf="recipe_category"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingStart="8dp"
-            tools:ignore="RtlSymmetry" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
