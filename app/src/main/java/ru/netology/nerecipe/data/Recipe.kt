@@ -10,8 +10,8 @@ import kotlinx.serialization.Serializable
 data class Recipe(
     val id: Long,
     val author: String,
-    val recipeName: String,
-    val recipeCategory: RecipeCategories,
+    val name: String,
+    val category: RecipeCategories,
     val ingredients: String,
     val stages: List<Stage>?,
     val draftTextContent: String?,

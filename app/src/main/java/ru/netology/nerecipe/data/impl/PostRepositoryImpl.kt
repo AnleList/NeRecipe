@@ -23,8 +23,8 @@ class PostRepositoryImpl(
             val recipeNetology = Recipe(
                 id = 0L,
                 author = "www.RussianFood.com",
-                recipeName = "Картофель по-французски.",
-                recipeCategory = RecipeCategories.European,
+                name = "Картофель по-французски.",
+                category = RecipeCategories.European,
                 ingredients = "Ингредиенты:\n" +
                         "картофель \n" +
                         "\n" +

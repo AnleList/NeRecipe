@@ -5,7 +5,7 @@ import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
 
 
-@Entity(tableName = "posts")
+@Entity(tableName = "recipes")
 @TypeConverters(StageListConverter::class)
 class PostEntity (
     @PrimaryKey(autoGenerate = true)

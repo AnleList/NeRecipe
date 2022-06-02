@@ -7,16 +7,16 @@ import androidx.room.Query
 
 @Dao
 interface PostDao {
-    @Query("SELECT * FROM posts ORDER BY id DESC")
+    @Query("SELECT * FROM recipes ORDER BY id DESC")
     fun getAll(): LiveData<List<PostEntity>>
 
     @Insert
     fun insert(post: PostEntity)
 
-    @Query("UPDATE posts SET recipeName = :content WHERE id = :id")
+    @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
-    @Query("UPDATE posts SET draftTextContent = :draft WHERE id = :id")
+    @Query("UPDATE recipes SET draftTextContent = :draft WHERE id = :id")
     fun updateDraftById(id: Long, draft: String)
 
     fun save(post: PostEntity) =
@@ -29,7 +29,7 @@ interface PostDao {
 
     @Query(
         """
-            UPDATE posts SET
+            UPDATE recipes SET
             likes = likes + CASE WHEN likedByMe THEN -1 ELSE 1 END,
             likedByMe = CASE WHEN likedByMe THEN 0 ELSE 1 END
             WHERE id = :id
@@ -37,12 +37,12 @@ interface PostDao {
     )
     fun likeById(id: Long)
 
-    @Query("DELETE FROM posts WHERE id = :id")
+    @Query("DELETE FROM recipes WHERE id = :id")
     fun removeById(id: Long)
 
     @Query(
         """
-        UPDATE posts SET
+        UPDATE recipes SET
         sharedByMe = CASE WHEN sharedByMe THEN 0 ELSE 1 END,
         shared = shared + 1
         WHERE id = :id
@@ -50,6 +50,6 @@ interface PostDao {
     )
     fun shareBiId(id: Long)
 
-    @Query("SELECT COUNT(id) FROM posts LIMIT 1")
+    @Query("SELECT COUNT(id) FROM recipes LIMIT 1")
     fun hasAnyPosts(): Boolean
 }

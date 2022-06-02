@@ -11,13 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.databinding.PostEditContentFragmentBinding
 import ru.netology.nerecipe.util.showKeyboard
-import ru.netology.nerecipe.view_models.PostViewModel
+import ru.netology.nerecipe.view_models.RecipeViewModel
 
 
 class PostEditContentFragment : Fragment() {
 
         private val args by navArgs<PostEditContentFragmentArgs>()
-        private val viewModel by activityViewModels<PostViewModel>()
+        private val viewModel by activityViewModels<RecipeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

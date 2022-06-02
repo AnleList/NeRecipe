@@ -7,8 +7,8 @@ internal fun PostEntity.toModel(): Recipe {
     return Recipe(
         id = id,
         author = author,
-        recipeName = recipeName,
-        recipeCategory = recipeCategory,
+        name = recipeName,
+        category = recipeCategory,
         ingredients = ingredients,
         stages = stages,
         draftTextContent = draftTextContent,
@@ -26,8 +26,8 @@ internal fun Recipe.toEntity(): PostEntity {
     return PostEntity(
         id = id,
         author = author,
-        recipeName = recipeName,
-        recipeCategory = recipeCategory,
+        recipeName = name,
+        recipeCategory = category,
         ingredients = ingredients,
         stages = stages,
         draftTextContent = draftTextContent,

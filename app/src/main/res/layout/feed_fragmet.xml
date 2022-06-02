@@ -9,15 +9,13 @@
     android:padding="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postsRecyclerView"
+        android:id="@+id/recipesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-8dp"
-        tools:listitem="@layout/post_card_layout" />
+        tools:listitem="@layout/recipe_card_layout" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -33,14 +31,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:inputType="textCapWords"
+        android:inputType="text"
         android:paddingTop="8dp"
         android:paddingEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/filter"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlSymmetry"
-        tools:text="Европейская" />
+        tools:text="Европейская"
+        android:autofillHints="укажите категорю здесь"/>
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/filter"
@@ -62,8 +61,8 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#0000ffff"
         android:contentDescription="@string/fabContentDescription"
-        app:layout_constraintBottom_toBottomOf="@+id/postsRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/postsRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/recipesRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recipesRecyclerView"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
         tools:ignore="RtlSymmetry" />
 

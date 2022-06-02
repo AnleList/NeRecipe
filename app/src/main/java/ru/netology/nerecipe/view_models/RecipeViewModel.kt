@@ -3,7 +3,7 @@ package ru.netology.nerecipe.view_models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nerecipe.adapters.PostInteractionListener
+import ru.netology.nerecipe.adapters.RecipeInteractionListener
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.PostRepository
 import ru.netology.nerecipe.data.RecipeCategories
@@ -13,9 +13,9 @@ import ru.netology.nerecipe.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostViewModel(
+class RecipeViewModel(
     application: Application
-): AndroidViewModel(application), PostInteractionListener {
+): AndroidViewModel(application), RecipeInteractionListener {
 
     private val repository: PostRepository = PostRepositoryImpl(
             dao = AppDb.getInstance(
@@ -25,12 +25,12 @@ class PostViewModel(
 
     val data by repository::data
 
-    val sharePostContent = SingleLiveEvent<String>()
+//    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = SingleLiveEvent<Recipe?>()
     val navToPostEditContentEvent = SingleLiveEvent<String>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentRecipe = MutableLiveData<Recipe?>(null)
-    val sharePostVideo = SingleLiveEvent<String?>()
+//    val sharePostVideo = SingleLiveEvent<String?>()
 
     fun onEditBackPressed(draft: String){
         if (currentRecipe.value != null) {
@@ -56,25 +56,25 @@ class PostViewModel(
             draftTextContent = null,
             videoContent = null,
             published = (sdf.format(Date())).toString(),
-            recipeCategory = RecipeCategories.Russian,
-            recipeName = "",
+            category = RecipeCategories.Russian,
+            name = "",
             stages = emptyList()
         )
         repository.save(recipeToAdd)
         currentRecipe.value = null
     }
 
-    override fun onShareVideoClicked(recipe: Recipe) {
-        sharePostVideo.value = recipe.videoContent
-    }
+//    override fun onShareVideoClicked(recipe: Recipe) {
+//        sharePostVideo.value = recipe.videoContent
+//    }
 
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
 
-    override fun onShareClicked(recipe: Recipe) {
-        sharePostContent.value = recipe.ingredients
-        repository.shareBiId(recipe.id)
-    }
+//    override fun onShareClicked(recipe: Recipe) {
+//        sharePostContent.value = recipe.ingredients
+//        repository.shareBiId(recipe.id)
+//    }
 
     override fun onRemoveClicked(recipe: Recipe) {
         repository.removeById(recipe.id)
