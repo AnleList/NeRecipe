@@ -33,4 +33,5 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="notification_user_liked">%1$s posted a new post:</string>
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
+    <string name="menuButtonDesc">menu button</string>
 </resources>

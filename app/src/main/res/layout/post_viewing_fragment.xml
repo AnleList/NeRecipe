@@ -16,6 +16,7 @@
         android:layout_height="48dp"
         android:checkable="false"
         app:icon="@drawable/menu"
+        android:contentDescription="@string/menuButtonDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

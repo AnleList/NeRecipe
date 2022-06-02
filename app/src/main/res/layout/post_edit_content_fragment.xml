@@ -11,13 +11,14 @@
         android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:scrollbars="vertical"
         android:layout_margin="8dp"
-        android:paddingBottom="80dp"
         android:background="@android:color/transparent"
-        />
+        android:gravity="start|top"
+        android:hint="@string/editRes"
+        android:inputType="textMultiLine"
+        android:paddingBottom="80dp"
+        android:scrollbars="vertical"
+        android:importantForAutofill="no" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -30,7 +31,8 @@
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/saveButtonDescription"
         app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/ic_save_24"/>
+        app:srcCompat="@drawable/ic_save_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
