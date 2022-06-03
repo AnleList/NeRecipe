@@ -2,7 +2,9 @@ package ru.netology.nerecipe.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
 import ru.netology.nerecipe.adapters.RecipeInteractionListener
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.RecipeRepository
@@ -17,12 +19,17 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
+    private val changeFilter = MutableLiveData<String?>(null)
+
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).postDao,
         filter = null
         )
 
-    val data by repository::data
+//    val data by repository::data
+    val data = changeFilter.switchMap{filter ->
+        repository.getAll(filter)
+}
 
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = SingleLiveEvent<Recipe?>()
@@ -30,6 +37,7 @@ class RecipeViewModel(
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
+
 
     fun onEditBackPressed(draft: String){
         if (currentRecipe.value != null) {
@@ -71,7 +79,7 @@ class RecipeViewModel(
         repository.likeById(recipe.id)
 
     override fun inFilterChange(filter: String) {
-        repository.changeFilter(filter)
+        changeFilter.value = filter
     }
 
 //    override fun onShareClicked(recipe: Recipe) {

@@ -14,10 +14,7 @@ class RecipeRepositoryImpl(
     private val dao: PostDao, override var filter: String?
 ) : RecipeRepository {
 
-    private var filterToDao = if (filter == null) "%"
-    else "$filter%"
-
-    override val data = dao.getAll(filterToDao).map { entities ->
+    override val data = dao.getAll("%").map { entities ->
         entities.map { it.toModel() }
     }
 
@@ -200,8 +197,10 @@ class RecipeRepositoryImpl(
         dao.save(recipe.toEntity())
     }
 
-    override fun changeFilter(funFilter: String) {
-        filter = funFilter
+    override fun changeFilter(filter: String): LiveData<List<Recipe>> {
+        return dao.getAll(filter).map { entities ->
+            entities.map { it.toModel() }
+        }
     }
 
     override fun likeById(recipeId: Long) {
@@ -216,5 +215,11 @@ class RecipeRepositoryImpl(
         dao.removeById(recipeId)
     }
 
-    override fun getAll(): LiveData<List<Recipe>> = data
+    override fun getAll(filter: String?): LiveData<List<Recipe>> {
+        val filterToDao = if (filter == null) "%"
+        else "$filter%"
+        return dao.getAll(filterToDao).map { entities ->
+            entities.map { it.toModel() }
+        }
+    }
 }
