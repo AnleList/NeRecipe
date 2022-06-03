@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/stage_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/stage_text"
-        tools:ignore="ImageContrastCheck" />
+        tools:ignore="ImageContrastCheck"
+        android:src="@drawable/recipe1stage1image"/>
 
     <TextView
         android:id="@+id/stage_text"

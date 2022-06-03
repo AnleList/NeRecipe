@@ -1,14 +1,20 @@
 package ru.netology.nerecipe.db
 
 import ru.netology.nerecipe.data.Recipe
+import ru.netology.nerecipe.data.RecipeCategories
 
 internal fun PostEntity.toModel(): Recipe {
+
+    var resultRecipeCategory = RecipeCategories.Other
+    for (part in RecipeCategories.values()){
+        if (recipeCategory == part.value) resultRecipeCategory = RecipeCategories.valueOf(part.name)
+    }
 
     return Recipe(
         id = id,
         author = author,
         name = recipeName,
-        category = recipeCategory,
+        category = resultRecipeCategory,
         ingredients = ingredients,
         stages = stages,
         draftTextContent = draftTextContent,
@@ -27,7 +33,7 @@ internal fun Recipe.toEntity(): PostEntity {
         id = id,
         author = author,
         recipeName = name,
-        recipeCategory = category,
+        recipeCategory = category.value,
         ingredients = ingredients,
         stages = stages,
         draftTextContent = draftTextContent,

@@ -1,6 +1,8 @@
 package ru.netology.nerecipe.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.nerecipe.adapters.RecipesAdapter
 import ru.netology.nerecipe.databinding.FeedFragmetBinding
 import ru.netology.nerecipe.view_models.RecipeViewModel
+
 
 class FeedFragment : Fragment() {
 
@@ -63,11 +66,22 @@ class FeedFragment : Fragment() {
     ) = FeedFragmetBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
+        var filterText: String
+
         val adapter = RecipesAdapter(viewModel)
         binding.recipesRecyclerView.adapter = adapter
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
         }
+
+        binding.filterByName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                filterText = s.toString()
+                viewModel.inFilterChange(filterText)
+            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
         binding.fab.setOnClickListener {
             viewModel.onAddClicked()
         }

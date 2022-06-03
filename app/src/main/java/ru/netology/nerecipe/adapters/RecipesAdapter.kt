@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeCardLayoutBinding
+import ru.netology.nerecipe.valueToStringForShowing
 
 internal class RecipesAdapter(
     private val interactionListener: RecipeInteractionListener
@@ -77,7 +78,9 @@ internal class RecipesAdapter(
             {
                 recipeName.text = recipe.name
                 recipeAuthor.text = recipe.author
-                recipeCategory.text = recipe.category.toString()
+                recipeCategory.text = recipe.category.value
+                recipeCardHeart.isChecked = recipe.likedByMe
+                recipeCardHeart.text = valueToStringForShowing(recipe.likes)
 //                postAvatar.setImageResource(
 //                    when (recipe.author) {
 //                        "Нетология. Университет интернет-профессий" ->

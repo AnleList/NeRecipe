@@ -7,7 +7,7 @@ import ru.netology.nerecipe.adapters.RecipeInteractionListener
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.PostRepository
 import ru.netology.nerecipe.data.RecipeCategories
-import ru.netology.nerecipe.data.impl.PostRepositoryImpl
+import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
 import java.text.SimpleDateFormat
@@ -17,10 +17,11 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    private val repository: PostRepository = PostRepositoryImpl(
+    private val repository: PostRepository = RecipeRepositoryImpl(
             dao = AppDb.getInstance(
                 context = application
-            ).postDao
+            ).postDao,
+        filter = null
         )
 
     val data by repository::data
@@ -70,6 +71,10 @@ class RecipeViewModel(
 
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
+
+    override fun inFilterChange(filter: String) {
+        repository.changeFilter(filter)
+    }
 
 //    override fun onShareClicked(recipe: Recipe) {
 //        sharePostContent.value = recipe.ingredients

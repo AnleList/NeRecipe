@@ -1,13 +1,12 @@
 package ru.netology.nerecipe.db
 
 import androidx.room.*
-import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
 
 
 @Entity(tableName = "recipes")
 @TypeConverters(StageListConverter::class)
-class PostEntity (
+class PostEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long,
@@ -16,7 +15,7 @@ class PostEntity (
     @ColumnInfo(name = "recipeName")
     val recipeName: String,
     @ColumnInfo(name = "recipeCategory")
-    val recipeCategory: RecipeCategories,
+    val recipeCategory: String,
     @ColumnInfo(name = "ingredients")
     val ingredients: String,
     @ColumnInfo(name = "stages")

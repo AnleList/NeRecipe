@@ -8,4 +8,5 @@ enum class RecipeCategories (val value: String) {
     American("Американская"),
     Russian("Русская"),
     Mediterranean ("Средиземноморская"),
+    Other("Другая"),
 }

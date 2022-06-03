@@ -7,8 +7,8 @@ import androidx.room.Query
 
 @Dao
 interface PostDao {
-    @Query("SELECT * FROM recipes ORDER BY id DESC")
-    fun getAll(): LiveData<List<PostEntity>>
+    @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
+    fun getAll(ink: String): LiveData<List<PostEntity>>
 
     @Insert
     fun insert(post: PostEntity)
@@ -51,5 +51,5 @@ interface PostDao {
     fun shareBiId(id: Long)
 
     @Query("SELECT COUNT(id) FROM recipes LIMIT 1")
-    fun hasAnyPosts(): Boolean
+    fun hasAnyRecipes(): Boolean
 }
