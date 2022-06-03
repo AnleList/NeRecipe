@@ -11,8 +11,9 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stage_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stage_text"
         tools:ignore="ImageContrastCheck" />
 
     <TextView
@@ -20,9 +21,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/stage_image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="яяяяяяяПодготавливаем продукты для картофеля по-французски." />
+        tools:text="Подготавливаем продукты для картофеля по-французски." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

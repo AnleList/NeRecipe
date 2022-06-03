@@ -49,7 +49,7 @@ internal class RecipesAdapter(
 //        }
 
         init {
-            binding.heart.setOnClickListener {
+            binding.recipeCardHeart.setOnClickListener {
                 listener.onHeartClicked(recipe)
             }
 //            binding.share.setOnClickListener {

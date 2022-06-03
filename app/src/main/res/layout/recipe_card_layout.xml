@@ -30,20 +30,22 @@
             app:layout_constraintTop_toBottomOf="@id/recipe_name"
             tools:text="www.RussianFood.com" />
 
+
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@id/heart"
-            app:layout_constraintEnd_toStartOf="@id/heart"
+            app:layout_constraintBottom_toBottomOf="@id/recipeCardHeart"
+            app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recipe_author"
+            app:layout_constraintTop_toTopOf="@id/recipeCardHeart"
             tools:text="Европейская" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/heart"
+            android:id="@+id/recipeCardHeart"
             style="@style/Widget.AppTheme.LikeCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +53,8 @@
             android:contentDescription="@string/likes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="recipe_category"
-            app:layout_constraintTop_toBottomOf="@id/recipe_author" />
+            app:layout_constraintTop_toBottomOf="@id/recipe_author"
+            android:layout_marginTop="8dp"
+            />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
