@@ -2,16 +2,16 @@ package ru.netology.nerecipe.data
 
 import androidx.lifecycle.LiveData
 
-interface PostRepository {
+interface RecipeRepository {
 
     val data: LiveData<List<Recipe>>
     var filter: String?
 
 
     fun getAll(): LiveData<List<Recipe>>
-    fun likeById(postId: Long)
-    fun shareBiId(postId: Long)
-    fun removeById(postId: Long)
+    fun likeById(recipeId: Long)
+    fun shareBiId(recipeId: Long)
+    fun removeById(recipeId: Long)
     fun save(recipe: Recipe)
     fun changeFilter(filter: String)
 

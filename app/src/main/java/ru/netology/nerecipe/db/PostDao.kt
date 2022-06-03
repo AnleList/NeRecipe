@@ -10,6 +10,9 @@ interface PostDao {
     @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
     fun getAll(ink: String): LiveData<List<PostEntity>>
 
+    @Query("SELECT * FROM recipes WHERE id = :id")
+    fun getById(id: Long): PostEntity
+
     @Insert
     fun insert(post: PostEntity)
 

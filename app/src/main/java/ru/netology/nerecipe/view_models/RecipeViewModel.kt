@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nerecipe.adapters.RecipeInteractionListener
 import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.PostRepository
+import ru.netology.nerecipe.data.RecipeRepository
 import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
@@ -17,10 +17,8 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    private val repository: PostRepository = RecipeRepositoryImpl(
-            dao = AppDb.getInstance(
-                context = application
-            ).postDao,
+    private val repository: RecipeRepository = RecipeRepositoryImpl(
+        dao = AppDb.getInstance(context = application).postDao,
         filter = null
         )
 
@@ -51,7 +49,7 @@ class RecipeViewModel(
             ingredients = content,
             draftTextContent = null
             ) ?: Recipe(
-            id = PostRepository.NEW_POST_ID,
+            id = RecipeRepository.NEW_POST_ID,
             author = "New author",
             ingredients = content,
             draftTextContent = null,

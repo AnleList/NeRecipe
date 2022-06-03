@@ -3,7 +3,7 @@ package ru.netology.nerecipe.data.impl
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.PostRepository
+import ru.netology.nerecipe.data.RecipeRepository
 import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
 import ru.netology.nerecipe.db.PostDao
@@ -12,7 +12,7 @@ import ru.netology.nerecipe.db.toModel
 
 class RecipeRepositoryImpl(
     private val dao: PostDao, override var filter: String?
-) : PostRepository {
+) : RecipeRepository {
 
     private var filterToDao = if (filter == null) "%"
     else "$filter%"
