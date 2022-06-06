@@ -11,5 +11,5 @@ interface RecipeInteractionListener {
     fun onUnDoClicked()
     fun onAddClicked()
 //    fun onShareVideoClicked(recipe: Recipe)
-    fun onPostContentClicked(recipe: Recipe)
+    fun navToRecipeViewFun(recipe: Recipe)
 }

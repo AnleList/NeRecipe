@@ -30,7 +30,7 @@
         android:id="@+id/postViewingFragment"
         android:name="ru.netology.nerecipe.ui.PostViewingFragment"
         android:label="post_viewing_fragment"
-        tools:layout="@layout/post_viewing_fragment" >
+        tools:layout="@layout/recipe_viewing_fragment" >
         <action
             android:id="@+id/action_postViewingFragment_to_postContentFragment"
             app:destination="@id/postContentFragment" />

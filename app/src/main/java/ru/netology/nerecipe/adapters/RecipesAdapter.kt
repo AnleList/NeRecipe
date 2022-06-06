@@ -53,6 +53,18 @@ internal class RecipesAdapter(
             binding.recipeCardHeart.setOnClickListener {
                 listener.onHeartClicked(recipe)
             }
+            binding.recipeName.setOnLongClickListener {
+                listener.navToRecipeViewFun(recipe)
+                return@setOnLongClickListener false
+            }
+            binding.recipeAuthor.setOnLongClickListener {
+                listener.navToRecipeViewFun(recipe)
+                return@setOnLongClickListener false
+            }
+            binding.recipeCategory.setOnLongClickListener {
+                listener.navToRecipeViewFun(recipe)
+                return@setOnLongClickListener false
+            }
 //            binding.share.setOnClickListener {
 //                listener.onShareClicked(recipe)
 //            }

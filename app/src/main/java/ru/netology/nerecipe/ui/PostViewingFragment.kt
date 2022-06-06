@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.databinding.PostViewingFragmentBinding
+import ru.netology.nerecipe.databinding.RecipeViewingFragmentBinding
 import ru.netology.nerecipe.valueToStringForShowing
 import ru.netology.nerecipe.view_models.RecipeViewModel
 
@@ -34,7 +34,7 @@ class PostViewingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = PostViewingFragmentBinding.inflate(
+    ) = RecipeViewingFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
 
