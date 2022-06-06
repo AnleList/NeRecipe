@@ -29,6 +29,7 @@ class RecipeViewModel(
 //    val data by repository::data
     val data = changeFilter.switchMap{filter ->
         repository.getAll(filter)
+
 }
 
 //    val sharePostContent = SingleLiveEvent<String>()

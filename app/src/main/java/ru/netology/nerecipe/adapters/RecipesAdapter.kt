@@ -53,16 +53,25 @@ internal class RecipesAdapter(
             binding.recipeCardHeart.setOnClickListener {
                 listener.onHeartClicked(recipe)
             }
-            binding.recipeName.setOnLongClickListener {
+            binding.recipeName.setOnClickListener {
                 listener.navToRecipeViewFun(recipe)
+            }
+            binding.recipeAuthor.setOnClickListener {
+                listener.navToRecipeViewFun(recipe)
+            }
+            binding.recipeCategory.setOnClickListener {
+                listener.navToRecipeViewFun(recipe)
+            }
+            binding.recipeName.setOnLongClickListener {
+                TODO("Not yet implemented")
                 return@setOnLongClickListener false
             }
             binding.recipeAuthor.setOnLongClickListener {
-                listener.navToRecipeViewFun(recipe)
+                TODO("Not yet implemented")
                 return@setOnLongClickListener false
             }
             binding.recipeCategory.setOnLongClickListener {
-                listener.navToRecipeViewFun(recipe)
+                TODO("Not yet implemented")
                 return@setOnLongClickListener false
             }
 //            binding.share.setOnClickListener {

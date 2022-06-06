@@ -10,21 +10,23 @@ import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.R
+import ru.netology.nerecipe.adapters.RecipesAdapter
+import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeViewingFragmentBinding
 import ru.netology.nerecipe.valueToStringForShowing
 import ru.netology.nerecipe.view_models.RecipeViewModel
 
-class PostViewingFragment : Fragment() {
+class RecipeViewingFragment : Fragment() {
 
-    private val args by navArgs<PostViewingFragmentArgs>()
+    private val args by navArgs<RecipeViewingFragmentArgs>()
     private val viewModel by activityViewModels<RecipeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.navToPostEditContentEvent.observe(this) { postContent ->
-            val direction = PostViewingFragmentDirections
+            val direction = RecipeViewingFragmentDirections
                 .actionPostViewingFragmentToPostContentFragment(postContent)
             findNavController().navigate(direction)
         }
@@ -38,11 +40,20 @@ class PostViewingFragment : Fragment() {
         layoutInflater, container, false
     ).also { binding ->
 
-        var recipeToViewing: Recipe = args.postToViewing
+        val adapter = StagesAdapter(viewModel)
+        binding.stagesRecyclerView.adapter = adapter
+        viewModel.navToRecipeViewing.observe(viewLifecycleOwner) {recipe ->
+            adapter.submitList(recipe.stages)
+        }
+
+        var recipeToViewing: Recipe = args.recipeToViewing
 
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             recipeToViewing = recipes.first {it.id == recipeToViewing.id}
-//            with(binding.includedRecipe) {
+            with(binding) {
+                recipeName.text = recipeToViewing.name
+                recipeAuthor.text = recipeToViewing.author
+                recipeCategory.text = recipeToViewing.category.value
 //                postAvatar.setImageResource(
 //                    when (recipeToViewing.author) {
 //                        "Нетология. Университет интернет-профессий" ->
@@ -77,7 +88,7 @@ class PostViewingFragment : Fragment() {
 //                share.text = valueToStringForShowing(recipeToViewing.shared)
 //                share.isChecked = recipeToViewing.sharedByMe
 //                postHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
-//            }
+            }
 //            val popupMenu by lazy {
 //                PopupMenu(requireContext(), binding.includedRecipe.postMenuButton).apply {
 //                    inflate(R.menu.options_post)
@@ -131,8 +142,8 @@ class PostViewingFragment : Fragment() {
 //        }
     }.root
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
 }

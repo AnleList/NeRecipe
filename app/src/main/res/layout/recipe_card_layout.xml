@@ -31,17 +31,18 @@
             tools:text="www.RussianFood.com" />
 
 
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_category"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@id/recipeCardHeart"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recipeCardHeart"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_author"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Европейская" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
