@@ -203,16 +203,14 @@ class RecipeRepositoryImpl(
         }
     }
 
-    override fun moveRecipeUpById(recipe: Recipe) {
-        val recipeToMoveDown = dao.getById(recipe.id - 1L).toModel()
-        dao.update(recipe.copy(id = recipeToMoveDown.id).toEntity())
-        dao.update(recipeToMoveDown.copy(id = recipe.id).toEntity())
+    override fun moveRecipeToPosition(recipe: Recipe, destinationPosition: Long) {
+        val destinationRecipe = dao.getById(destinationPosition).toModel()
+        dao.update(recipe.copy(id = destinationRecipe.id).toEntity())
+        dao.update(destinationRecipe.copy(id = recipe.id).toEntity())
+    }
 
-//        dao.updateRecipeById(recipeToMoveDown.id, recipe.author, recipe.name, recipe.category,
-//            recipe.ingredients, recipe.stages, recipe.draftTextContent, recipe.videoContent,
-//            recipe.published, recipe.likedByMe, recipe.likes, recipe.sharedByMe, recipe.shared)
-//
-//        dao.updateRecipeById(recipe.id, recipeToMoveDown.author, recipeToMoveDown.name)
+    override fun countOfRecipes(): Long {
+        return dao.countOfRecipes()
     }
 
     override fun likeById(recipeId: Long) {

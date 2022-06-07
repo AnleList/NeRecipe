@@ -68,7 +68,22 @@
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
             app:srcCompat="@drawable/ic_baseline_arrow_circle_down_24"
             android:visibility="gone"
+            tools:visibility="visible"
             tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_set_invisible"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#0000ffff"
+            android:contentDescription="@string/fabContentDescription"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_down"
+            app:layout_constraintEnd_toStartOf="@id/fab_down"
+            app:layout_constraintTop_toTopOf="@id/fab_up"
+            app:srcCompat="@drawable/ic_baseline_disabled_visible_24"
+            tools:ignore="RtlSymmetry"
+            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_up"
@@ -80,6 +95,7 @@
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
             app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24"
             android:visibility="gone"
+            tools:visibility="visible"
             tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

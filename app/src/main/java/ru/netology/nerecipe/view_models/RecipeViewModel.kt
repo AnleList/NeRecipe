@@ -2,7 +2,6 @@ package ru.netology.nerecipe.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import ru.netology.nerecipe.adapters.RecipeInteractionListener
@@ -80,7 +79,13 @@ class RecipeViewModel(
         repository.likeById(recipe.id)
 
     override fun recipeUp(recipe: Recipe) {
-        repository.moveRecipeUpById(recipe)
+        if (recipe.id == 1L) return else
+        repository.moveRecipeToPosition(recipe, recipe.id - 1L)
+    }
+
+    override fun recipeDown(recipe: Recipe) {
+        if (recipe.id == repository.countOfRecipes()) return else
+        repository.moveRecipeToPosition(recipe, recipe.id + 1L)
     }
 
     override fun inFilterChange(filter: String) {

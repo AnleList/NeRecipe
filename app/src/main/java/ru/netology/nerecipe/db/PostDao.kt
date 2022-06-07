@@ -23,36 +23,6 @@ interface PostDao {
     @Update()
     fun update(post: PostEntity)
 
-//    @Query("""UPDATE recipes SET
-//        author = :author,
-//        recipeName = :name,
-//        recipeCategory = :name,
-//        ingredients = :ingredients,
-//        stages = :stages,
-//        draftTextContent = :draftTextContent,
-//        videoContent = :videoContent,
-//        published = :published,
-//        likedByMe = :likedByMe,
-//        likes = :likes,
-//        sharedByMe = :sharedByMe,
-//        shared = :shared
-//        WHERE id = :id""")
-//    fun updateRecipeById(
-//         id: Long,
-//         author: String,
-//         name: String,
-//         category: RecipeCategories,
-//         ingredients: String,
-//         stages: List<Stage>?,
-//         draftTextContent: String?,
-//         videoContent: String?,
-//         published: String,
-//         likedByMe: Boolean,
-//         likes: Int,
-//         sharedByMe: Boolean,
-//         shared: Int,
-//    )
-
     @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
@@ -92,4 +62,7 @@ interface PostDao {
 
     @Query("SELECT COUNT(id) FROM recipes LIMIT 1")
     fun hasAnyRecipes(): Boolean
+
+    @Query("SELECT COUNT(id) FROM recipes")
+    fun countOfRecipes(): Long
 }
