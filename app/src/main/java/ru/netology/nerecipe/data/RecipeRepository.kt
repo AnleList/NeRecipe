@@ -14,6 +14,7 @@ interface RecipeRepository {
     fun removeById(recipeId: Long)
     fun save(recipe: Recipe)
     fun changeFilter(filter: String): LiveData<List<Recipe>>
+    fun moveRecipeUpById(recipe: Recipe)
 
     companion object {
         const val NEW_POST_ID = 0L

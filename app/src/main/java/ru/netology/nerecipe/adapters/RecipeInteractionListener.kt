@@ -4,6 +4,7 @@ import ru.netology.nerecipe.data.Recipe
 
 interface RecipeInteractionListener {
     fun onHeartClicked(recipe: Recipe)
+    fun recipeUp(recipe: Recipe)
     fun inFilterChange(filter: String)
 //    fun onShareClicked(recipe: Recipe)
     fun onRemoveClicked(recipe: Recipe)

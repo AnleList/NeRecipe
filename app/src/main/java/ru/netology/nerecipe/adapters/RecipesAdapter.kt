@@ -74,6 +74,9 @@ internal class RecipesAdapter(
                 TODO("Not yet implemented")
                 return@setOnLongClickListener false
             }
+            binding.fabUp.setOnClickListener {
+                listener.recipeUp(recipe)
+            }
 //            binding.share.setOnClickListener {
 //                listener.onShareClicked(recipe)
 //            }

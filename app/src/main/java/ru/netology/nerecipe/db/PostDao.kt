@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
+import ru.netology.nerecipe.data.Recipe
+import ru.netology.nerecipe.data.RecipeCategories
+import ru.netology.nerecipe.data.Stage
 
 @Dao
 interface PostDao {
@@ -15,6 +19,39 @@ interface PostDao {
 
     @Insert
     fun insert(post: PostEntity)
+
+    @Update()
+    fun update(post: PostEntity)
+
+//    @Query("""UPDATE recipes SET
+//        author = :author,
+//        recipeName = :name,
+//        recipeCategory = :name,
+//        ingredients = :ingredients,
+//        stages = :stages,
+//        draftTextContent = :draftTextContent,
+//        videoContent = :videoContent,
+//        published = :published,
+//        likedByMe = :likedByMe,
+//        likes = :likes,
+//        sharedByMe = :sharedByMe,
+//        shared = :shared
+//        WHERE id = :id""")
+//    fun updateRecipeById(
+//         id: Long,
+//         author: String,
+//         name: String,
+//         category: RecipeCategories,
+//         ingredients: String,
+//         stages: List<Stage>?,
+//         draftTextContent: String?,
+//         videoContent: String?,
+//         published: String,
+//         likedByMe: Boolean,
+//         likes: Int,
+//         sharedByMe: Boolean,
+//         shared: Int,
+//    )
 
     @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)

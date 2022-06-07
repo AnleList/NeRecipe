@@ -79,6 +79,10 @@ class RecipeViewModel(
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
 
+    override fun recipeUp(recipe: Recipe) {
+        repository.moveRecipeUpById(recipe)
+    }
+
     override fun inFilterChange(filter: String) {
         changeFilter.value = filter
     }
