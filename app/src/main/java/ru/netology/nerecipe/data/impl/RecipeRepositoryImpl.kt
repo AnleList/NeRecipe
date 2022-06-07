@@ -80,7 +80,6 @@ class RecipeRepositoryImpl(
                     "В кастрюлю наливаем 500 миллилитров сливок или молока (можно пополам), ставим на огонь. Добавляем 2 чайные ложки без верха соли, 0,5 чайной ложки черного молотого перца, щепотку мускатного ореха, доводим до кипения.",
                     "https://img1.russianfood.com/dycontent/images_upl/174/big_173316.jpg")
                 ),
-                draftTextContent = null,
                 videoContent = "https://youtu.be/xOgT2qYAzds",
                 published = "21 мая 2020",
                 likedByMe = true,
@@ -179,7 +178,6 @@ class RecipeRepositoryImpl(
                         "Добавляем имбирь, куркуму, карри и кориандр. Пряности выбирайте по своему вкусу - традиционно сюда в состав входит зира, но у нас в семье любителей нет, поэтому я её не добавляю.",
                         "https://img1.russianfood.com/dycontent/images_upl/411/sm_410284.jpg")
                 ),
-                draftTextContent = null,
                 videoContent = "https://youtu.be/v8xA-yuZywY",
                 published = "21 мая 2020",
                 likedByMe = false,

@@ -43,20 +43,23 @@ class FeedFragment : Fragment() {
 //
         viewModel.navToRecipeEditContentEvent.observe(this) { recipe ->
             val direction
-                = FeedFragmentDirections.actionFeedFragmentToPostContentFragment(recipe)
-            findNavController().navigate(direction)
-        }
-
-        viewModel.navToRecipeViewing.observe(this) { recipe ->
-            val direction
                 = recipe?.let {
-                FeedFragmentDirections.actionFeedFragmentToPostViewingFragment(it)
-                }
+                FeedFragmentDirections.actionFeedFragmentToRecipeContentFragment(recipe)
+            }
             if (direction != null) {
                 findNavController().navigate(direction)
             }
         }
 
+        viewModel.navToRecipeViewing.observe(this) { recipe ->
+            val direction
+                = recipe?.let {
+                FeedFragmentDirections.actionFeedFragmentToRecipeViewingFragment(it)
+                }
+            if (direction != null) {
+                findNavController().navigate(direction)
+            }
+        }
     }
 
     override fun onCreateView(
