@@ -89,28 +89,28 @@ class RecipeViewingFragment : Fragment() {
 //                share.isChecked = recipeToViewing.sharedByMe
 //                postHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
             }
-//            val popupMenu by lazy {
-//                PopupMenu(requireContext(), binding.includedRecipe.postMenuButton).apply {
-//                    inflate(R.menu.options_post)
-//                    setOnMenuItemClickListener { menuItem ->
-//                        when (menuItem.itemId) {
-//                            R.id.removeItem -> {
-//                                viewModel.onRemoveClicked(recipeToViewing)
-//                                findNavController().popBackStack()
-//                                true
-//                            }
-//                            R.id.editItem -> {
-//                                viewModel.onEditClicked(recipeToViewing)
-//                                true
-//                            }
-//                            else -> false
-//                        }
-//                    }
-//                }
-//            }
-//            binding.includedRecipe.postMenuButton.setOnClickListener {
-//                popupMenu.show()
-//            }
+            val popupMenu by lazy {
+                PopupMenu(requireContext(), binding.postMenuButton).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.removeItem -> {
+                                viewModel.onRemoveClicked(recipeToViewing)
+                                findNavController().popBackStack()
+                                true
+                            }
+                            R.id.editItem -> {
+                                viewModel.onEditClicked(recipeToViewing)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }
+            }
+            binding.postMenuButton.setOnClickListener {
+                popupMenu.show()
+            }
 //
 //            binding.includedRecipe.postHeart.setOnClickListener {
 //                viewModel.onHeartClicked(recipeToViewing)

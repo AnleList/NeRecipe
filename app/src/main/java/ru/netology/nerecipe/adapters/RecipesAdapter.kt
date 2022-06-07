@@ -3,9 +3,11 @@ package ru.netology.nerecipe.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ru.netology.nerecipe.R
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeCardLayoutBinding
 import ru.netology.nerecipe.valueToStringForShowing
@@ -31,24 +33,24 @@ internal class RecipesAdapter(
 
         private lateinit var recipe: Recipe
 
-//        private val popupMenu by lazy {
-//            PopupMenu(itemView.context, binding.postMenuButton).apply {
-//                inflate(R.menu.options_post)
-//                setOnMenuItemClickListener { menuItem ->
-//                    when (menuItem.itemId) {
-//                        R.id.removeItem -> {
-//                            listener.onRemoveClicked(recipe)
-//                            true
-//                        }
-//                        R.id.editItem -> {
-//                            listener.onEditClicked(recipe)
-//                            true
-//                        }
-//                        else -> false
-//                    }
-//                }
-//            }
-//        }
+        private val popupMenu by lazy {
+            PopupMenu(itemView.context, binding.recipeCardMenuButton).apply {
+                inflate(R.menu.options_post)
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.removeItem -> {
+                            listener.onRemoveClicked(recipe)
+                            true
+                        }
+                        R.id.editItem -> {
+                            listener.onEditClicked(recipe)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+        }
 
         init {
             binding.recipeCardHeart.setOnClickListener {
@@ -92,6 +94,9 @@ internal class RecipesAdapter(
                 binding.fabDown.visibility = View.INVISIBLE
                 binding.fabSetInvisible.visibility = View.INVISIBLE
             }
+            binding.recipeCardMenuButton.setOnClickListener {
+                popupMenu.show()
+            }
 //            binding.share.setOnClickListener {
 //                listener.onShareClicked(recipe)
 //            }
@@ -100,9 +105,6 @@ internal class RecipesAdapter(
 //            }
 //            binding.postVideoView.setOnClickListener {
 //                listener.onShareVideoClicked(recipe)
-//            }
-//            binding.postMenuButton.setOnClickListener {
-//                popupMenu.show()
 //            }
 //            binding.postTextContent.setOnClickListener {
 //                listener.onPostContentClicked(
