@@ -9,41 +9,41 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.netology.nerecipe.databinding.PostEditContentFragmentBinding
+import ru.netology.nerecipe.databinding.RecipeEditContentFragmentBinding
 import ru.netology.nerecipe.util.showKeyboard
 import ru.netology.nerecipe.view_models.RecipeViewModel
 
 
-class PostEditContentFragment : Fragment() {
+class RecipeEditContentFragment : Fragment() {
 
-        private val args by navArgs<PostEditContentFragmentArgs>()
+        private val args by navArgs<RecipeEditContentFragmentArgs>()
         private val viewModel by activityViewModels<RecipeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = PostEditContentFragmentBinding.inflate(
+    ) = RecipeEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
-        with(binding.edit) {
-            setText(args.initialContent)
-            setSelection(binding.edit.text.length)
-            requestFocus()
-            showSoftInputOnFocus
-            showKeyboard()
-        }
+//        with(binding.edit) {
+////            setText(args.initialContent)
+////            setSelection(binding.edit.text.length)
+////            requestFocus()
+////            showSoftInputOnFocus
+////            showKeyboard()
+//        }
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    viewModel.onEditBackPressed(
-                        binding.edit.text.toString()
-                    )
-                    findNavController().popBackStack()
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true /* enabled by default */) {
+//                override fun handleOnBackPressed() {
+//                    viewModel.onEditBackPressed(
+//                        binding.edit.text.toString()
+//                    )
+//                    findNavController().popBackStack()
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
 
 
@@ -52,7 +52,7 @@ class PostEditContentFragment : Fragment() {
         }
     }.root
 
-    private fun PostEditContentFragmentBinding.onSaveButtonClicked() {
+    private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
         val textToSave = edit.text
         viewModel.onSaveClicked(textToSave.toString())
         if (!textToSave.isNullOrBlank()) {

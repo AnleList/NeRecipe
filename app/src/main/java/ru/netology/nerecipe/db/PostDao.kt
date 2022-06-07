@@ -26,16 +26,10 @@ interface PostDao {
     @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
-    @Query("UPDATE recipes SET draftTextContent = :draft WHERE id = :id")
-    fun updateDraftById(id: Long, draft: String)
-
     fun save(post: PostEntity) =
-        if (post.id == 0L)
-            insert(post)
-        else if (post.draftTextContent != null) {
-            updateDraftById(post.id, post.draftTextContent)
-        } else
-            updateContentById(post.id, post.recipeName)
+        if (post.id == 0L) insert(post)
+//        else if (post.draftTextContent != null) updateDraftById(post.id, post.draftTextContent)
+        else updateContentById(post.id, post.recipeName)
 
     @Query(
         """

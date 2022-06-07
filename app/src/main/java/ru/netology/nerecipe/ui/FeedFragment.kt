@@ -41,11 +41,11 @@ class FeedFragment : Fragment() {
 //            startActivity(shareIntent)
 //        }
 //
-//        viewModel.navToPostEditContentEvent.observe(this) { postContent ->
-//            val direction
-//                = FeedFragmentDirections.actionFeedFragmentToPostContentFragment(postContent)
-//            findNavController().navigate(direction)
-//        }
+        viewModel.navToRecipeEditContentEvent.observe(this) { recipe ->
+            val direction
+                = FeedFragmentDirections.actionFeedFragmentToPostContentFragment(recipe)
+            findNavController().navigate(direction)
+        }
 
         viewModel.navToRecipeViewing.observe(this) { recipe ->
             val direction

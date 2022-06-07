@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@+id/post_menu_button"
         app:layout_constraintEnd_toEndOf="@+id/recipe_name"
         app:layout_constraintStart_toStartOf="@id/recipe_name"
         app:layout_constraintTop_toBottomOf="@id/recipe_name"
@@ -60,8 +61,8 @@
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/viewing_heart"
         style="@style/Widget.AppTheme.LikeCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:button="@drawable/heart_selector"
         android:contentDescription="@string/likes"
         app:layout_constraintEnd_toEndOf="parent"

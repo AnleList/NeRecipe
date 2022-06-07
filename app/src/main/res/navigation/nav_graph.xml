@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/postContentFragment"
-        android:name="ru.netology.nerecipe.ui.PostEditContentFragment"
-        tools:layout="@layout/post_edit_content_fragment" >
+        android:name="ru.netology.nerecipe.ui.RecipeEditContentFragment"
+        tools:layout="@layout/recipe_edit_content_fragment" >
 
         <argument
             android:name="initialContent"
-            app:argType="string"
+            app:argType="recipe"
             app:nullable="true" />
     </fragment>
     <fragment

@@ -20,8 +20,6 @@ class PostEntity(
     val ingredients: String,
     @ColumnInfo(name = "stages")
     val stages: List<Stage>?,
-    @ColumnInfo(name = "draftTextContent")
-    val draftTextContent: String?,
     @ColumnInfo(name = "videoContent")
     val videoContent: String?,
     @ColumnInfo(name = "published")

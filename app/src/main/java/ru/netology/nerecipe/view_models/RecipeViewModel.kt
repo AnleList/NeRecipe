@@ -33,34 +33,32 @@ class RecipeViewModel(
 
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = MutableLiveData<Recipe>()
-    val navToPostEditContentEvent = SingleLiveEvent<String>()
+    val navToRecipeEditContentEvent = SingleLiveEvent<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
 
 
-    fun onEditBackPressed(draft: String){
-        if (currentRecipe.value != null) {
-            currentRecipe.value?.copy(
-                draftTextContent = draft
-            )?.let {
-                repository.save(it)
-            }
-            currentRecipe.value = null
-        }
-    }
+//    fun onEditBackPressed(draft: String){
+//        if (currentRecipe.value != null) {
+//            currentRecipe.value?.copy(
+//                draftTextContent = draft
+//            )?.let {
+//                repository.save(it)
+//            }
+//            currentRecipe.value = null
+//        }
+//    }
 
     fun onSaveClicked(content: String) {
         if (content.isBlank()) return
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
         val recipeToAdd = currentRecipe.value?.copy(
             ingredients = content,
-            draftTextContent = null
             ) ?: Recipe(
             id = RecipeRepository.NEW_POST_ID,
             author = "New author",
             ingredients = content,
-            draftTextContent = null,
             videoContent = null,
             published = (sdf.format(Date())).toString(),
             category = RecipeCategories.Russian,
@@ -103,8 +101,7 @@ class RecipeViewModel(
     }
 
     override fun onEditClicked(recipe: Recipe) {
-        navToPostEditContentEvent.value =
-            recipe.draftTextContent ?: recipe.ingredients
+        navToRecipeEditContentEvent.value = recipe
         currentRecipe.value = recipe
     }
 
@@ -113,7 +110,7 @@ class RecipeViewModel(
     }
 
     override fun onAddClicked() {
-      navToPostEditContentEvent.call()
+      navToRecipeEditContentEvent.call()
     }
 
     override fun navToRecipeViewFun(recipe: Recipe) {
