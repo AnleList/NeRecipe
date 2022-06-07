@@ -24,12 +24,12 @@ class RecipeViewingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//
-//        viewModel.navToPostEditContentEvent.observe(this) { postContent ->
-//            val direction = RecipeViewingFragmentDirections
-//                .actionPostViewingFragmentToPostContentFragment(postContent)
-//            findNavController().navigate(direction)
-//        }
+
+        viewModel.navToRecipeEditContentEvent.observe(this) { postContent ->
+            val direction = RecipeViewingFragmentDirections
+                .actionRecipeViewingFragmentToRecipeContentFragment(postContent)
+            findNavController().navigate(direction)
+        }
     }
 
     override fun onCreateView(
@@ -83,11 +83,11 @@ class RecipeViewingFragment : Fragment() {
 //                            0
 //                    }
 //                )
-//                postHeart.text = valueToStringForShowing(recipeToViewing.likes)
-//                postHeart.isChecked = recipeToViewing.likedByMe
 //                share.text = valueToStringForShowing(recipeToViewing.shared)
 //                share.isChecked = recipeToViewing.sharedByMe
-//                postHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
+                viewingHeart.text = valueToStringForShowing(recipeToViewing.likes)
+                viewingHeart.isChecked = recipeToViewing.likedByMe
+                viewingHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
             }
             val popupMenu by lazy {
                 PopupMenu(requireContext(), binding.postMenuButton).apply {
@@ -111,22 +111,6 @@ class RecipeViewingFragment : Fragment() {
             binding.postMenuButton.setOnClickListener {
                 popupMenu.show()
             }
-//
-//            binding.includedRecipe.postHeart.setOnClickListener {
-//                viewModel.onHeartClicked(recipeToViewing)
-//            }
-//            binding.includedRecipe.share.setOnClickListener {
-//                viewModel.onShareClicked(recipeToViewing)
-//            }
-//            binding.includedRecipe.fabVideo.setOnClickListener {
-//                viewModel.onShareVideoClicked(recipeToViewing)
-//            }
-//            binding.includedRecipe.postVideoView.setOnClickListener {
-//                viewModel.onShareVideoClicked(recipeToViewing)
-//            }
-//            binding.includedRecipe.postTextContent.setOnClickListener {
-//                viewModel.onEditClicked(recipeToViewing)
-//            }
         }
 //
 //        viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
