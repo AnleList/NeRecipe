@@ -67,6 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
             app:srcCompat="@drawable/ic_baseline_arrow_circle_down_24"
+            android:visibility="gone"
             tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -78,6 +79,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
             app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24"
+            android:visibility="gone"
             tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

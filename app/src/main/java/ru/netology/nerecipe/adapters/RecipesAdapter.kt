@@ -1,6 +1,7 @@
 package ru.netology.nerecipe.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -63,19 +64,24 @@ internal class RecipesAdapter(
                 listener.navToRecipeViewFun(recipe)
             }
             binding.recipeName.setOnLongClickListener {
-                TODO("Not yet implemented")
-                return@setOnLongClickListener false
+                binding.fabUp.visibility = View.VISIBLE
+                binding.fabDown.visibility = View.VISIBLE
+                return@setOnLongClickListener true
             }
             binding.recipeAuthor.setOnLongClickListener {
-                TODO("Not yet implemented")
-                return@setOnLongClickListener false
+                binding.fabUp.visibility = View.VISIBLE
+                binding.fabDown.visibility = View.VISIBLE
+                return@setOnLongClickListener true
             }
             binding.recipeCategory.setOnLongClickListener {
-                TODO("Not yet implemented")
-                return@setOnLongClickListener false
+                binding.fabUp.visibility = View.VISIBLE
+                binding.fabDown.visibility = View.VISIBLE
+                return@setOnLongClickListener true
             }
             binding.fabUp.setOnClickListener {
                 listener.recipeUp(recipe)
+                binding.fabUp.visibility = View.GONE
+                binding.fabDown.visibility = View.GONE
             }
 //            binding.share.setOnClickListener {
 //                listener.onShareClicked(recipe)
