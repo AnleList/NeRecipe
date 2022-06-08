@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeEditContentFragmentBinding
 import ru.netology.nerecipe.util.showKeyboard
 import ru.netology.nerecipe.view_models.RecipeViewModel
@@ -16,8 +17,8 @@ import ru.netology.nerecipe.view_models.RecipeViewModel
 
 class RecipeEditContentFragment : Fragment() {
 
-        private val args by navArgs<RecipeEditContentFragmentArgs>()
-        private val viewModel by activityViewModels<RecipeViewModel>()
+    private val args by navArgs<RecipeEditContentFragmentArgs>()
+    private val viewModel by activityViewModels<RecipeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,12 +27,14 @@ class RecipeEditContentFragment : Fragment() {
     ) = RecipeEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
+        val recipeToEdit: Recipe? = args.initialContent
         with(binding) {
-            recipeName.setText(args.initialContent?.name)
-//            setSelection(binding.edit.text.length)
-//            requestFocus()
-//            showSoftInputOnFocus
-//            showKeyboard()
+            if (recipeToEdit != null) {
+                recipeName.setText(recipeToEdit.name)
+                author.setText(recipeToEdit.author)
+                category.setText(recipeToEdit.category.value)
+                ingredients.setText(recipeToEdit.ingredients)
+            }
         }
 
 //        val callback: OnBackPressedCallback =
