@@ -23,7 +23,6 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="aboutHint">write about yourself</string>
     <string name="saveButtonDescription">save Button</string>
     <string name="editButtonDescription">edit Button</string>
-    <string name="editRes">Edit</string>
     <string name="likes">Likes</string>
     <string name="chooser_share_post">Share post</string>
     <string name="chooser_share_post_video">Share post video</string>
@@ -34,4 +33,11 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
     <string name="menuButtonDesc">menu button</string>
+    <string name="edd_stage">edd next stage here</string>
+    <string name="ingredients">enter the ingredients list here</string>
+    <string name="edd_stage_url">enter the URL of the image here</string>
+    <string name="category">enter the category here</string>
+    <string name="edit">Edit</string>
+    <string name="author">enter the author name here</string>
+    <string name="recipe_name">enter the recipe name here</string>
 </resources>

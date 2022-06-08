@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,31 +8,90 @@
     tools:context=".ui.RecipeEditContentFragment">
 
     <EditText
-        android:id="@+id/edit"
+        android:id="@+id/recipe_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/recipe_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/author"
+        app:layout_constraintTop_toBottomOf="@id/recipe_name" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoComplete"
+        android:hint="@string/category"
+        app:layout_constraintTop_toBottomOf="@id/author" />
+
+    <EditText
+        android:id="@+id/ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/ingredients"
+        app:layout_constraintTop_toBottomOf="@id/category" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/edd_stage_text"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-26dp"
+        tools:listitem="@layout/card_viewing_layout" />
+
+    <EditText
+        android:id="@+id/edd_stage_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@android:color/transparent"
         android:gravity="start|top"
-        android:hint="@string/editRes"
+        android:hint="@string/edd_stage"
+        android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:paddingBottom="80dp"
+        android:minHeight="24dp"
         android:scrollbars="vertical"
-        android:importantForAutofill="no" />
+        app:layout_constraintBottom_toTopOf="@id/edd_stage_url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edd_stage_url"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"/>
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|top"
+        android:hint="@string/edd_stage_url"
+        android:importantForAutofill="no"
+        android:inputType="textUri"
+        android:minHeight="24dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ok"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#0000ffff"
         android:contentDescription="@string/saveButtonDescription"
-        app:layout_anchor="@id/bottomAppBar"
+        app:layout_constraintBottom_toBottomOf="@+id/edd_stage_url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edd_stage_text"
         app:srcCompat="@drawable/ic_save_24" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,16 +44,16 @@ class RecipeEditContentFragment : Fragment() {
 //                }
 //            }
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-
-
-        binding.ok.setOnClickListener {
-            binding.onSaveButtonClicked()
-        }
+//
+//
+//
+//        binding.ok.setOnClickListener {
+//            binding.onSaveButtonClicked()
+//        }
     }.root
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
-        val textToSave = edit.text
+        val textToSave = eddStageText.text
         viewModel.onSaveClicked(textToSave.toString())
         if (!textToSave.isNullOrBlank()) {
             val answerBundle = Bundle(1)

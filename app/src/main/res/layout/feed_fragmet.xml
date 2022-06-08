@@ -30,7 +30,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:autofillHints="укажите категорю здесь"
         android:background="@android:color/transparent"
         android:inputType="text"
         android:minHeight="48dp"
@@ -40,7 +39,7 @@
         app:layout_constraintEnd_toStartOf="@+id/filter"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlSymmetry"
-        tools:text="Европейская" />
+        android:hint="@string/category" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/filter"

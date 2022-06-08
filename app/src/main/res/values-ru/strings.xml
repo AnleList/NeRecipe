@@ -22,7 +22,7 @@ http://netolo.gy/fEU
     <string name="aboutHint">напиши о себе</string>
     <string name="saveButtonDescription">кнопка сохранить</string>
     <string name="editButtonDescription">кнопка изменить</string>
-    <string name="editRes">Изменить</string>
+    <string name="edd_stage">введите следующую стадию</string>
     <string name="likes">Лайки</string>
     <string name="chooser_share_post">Поделиться записью</string>
     <string name="chooser_share_post_video">Отправить видео записи</string>
@@ -33,4 +33,10 @@ http://netolo.gy/fEU
     <string name="channel_remote_name">Уведомления с сервера</string>
     <string name="channel_remote_description">Уведомления с удалённого сервера</string>
     <string name="menuButtonDesc">кнопка меню</string>
+    <string name="edd_stage_url">введите URL адрес изображения здесь</string>
+    <string name="edit">Изменить</string>
+    <string name="category">введите категорию сдесь</string>
+    <string name="ingredients">введите список ингредиентов здесь</string>
+    <string name="author">введите имя автора здесь</string>
+    <string name="recipe_name">введите название рецепта здесь</string>
 </resources>
