@@ -26,13 +26,13 @@ class RecipeEditContentFragment : Fragment() {
     ) = RecipeEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
-//        with(binding.edit) {
-////            setText(args.initialContent)
-////            setSelection(binding.edit.text.length)
-////            requestFocus()
-////            showSoftInputOnFocus
-////            showKeyboard()
-//        }
+        with(binding) {
+            recipeName.setText(args.initialContent?.name)
+//            setSelection(binding.edit.text.length)
+//            requestFocus()
+//            showSoftInputOnFocus
+//            showKeyboard()
+        }
 
 //        val callback: OnBackPressedCallback =
 //            object : OnBackPressedCallback(true /* enabled by default */) {
@@ -44,12 +44,10 @@ class RecipeEditContentFragment : Fragment() {
 //                }
 //            }
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-//
-//
-//
-//        binding.ok.setOnClickListener {
-//            binding.onSaveButtonClicked()
-//        }
+
+        binding.save.setOnClickListener {
+            binding.onSaveButtonClicked()
+        }
     }.root
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
