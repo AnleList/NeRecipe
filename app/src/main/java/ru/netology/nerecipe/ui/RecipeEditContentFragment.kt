@@ -25,6 +25,7 @@ class RecipeEditContentFragment : Fragment() {
 
     private val args by navArgs<RecipeEditContentFragmentArgs>()
     private val viewModel by activityViewModels<RecipeViewModel>()
+    private lateinit var selectedCategory: RecipeCategories
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +34,8 @@ class RecipeEditContentFragment : Fragment() {
     ) = RecipeEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
+
+        val recipeToEdit: Recipe? = args.initialContent
 
         val adapter = StagesAdapter(viewModel)
         binding.stagesRecyclerView.adapter = adapter
@@ -46,35 +49,43 @@ class RecipeEditContentFragment : Fragment() {
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.categoryAmerican -> {
-                            binding.category.text = RecipeCategories.American.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.American
                             true
                         }
                         R.id.categoryRussian -> {
-                            binding.category.text = RecipeCategories.Russian.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Russian
                             true
                         }
                         R.id.categoryAsian -> {
-                            binding.category.text = RecipeCategories.Asian.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Asian
                             true
                         }
                         R.id.categoryPanasian -> {
-                            binding.category.text = RecipeCategories.Panasian.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Panasian
                             true
                         }
                         R.id.categoryMediterranean -> {
-                            binding.category.text = RecipeCategories.Mediterranean.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Mediterranean
                             true
                         }
                         R.id.categoryEuropean -> {
-                            binding.category.text = RecipeCategories.European.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.European
                             true
                         }
                         R.id.categoryEastern -> {
-                            binding.category.text = RecipeCategories.Eastern.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Eastern
                             true
                         }
                         R.id.categoryOther -> {
-                            binding.category.text = RecipeCategories.Other.value
+                            binding.category.text = menuItem.title
+                            selectedCategory = RecipeCategories.Other
                             true
                         }
                         else -> false
@@ -83,12 +94,21 @@ class RecipeEditContentFragment : Fragment() {
             }
         }
 
-        val recipeToEdit: Recipe? = args.initialContent
         with(binding) {
             if (recipeToEdit != null) {
+                selectedCategory = recipeToEdit.category
                 recipeName.setText(recipeToEdit.name)
                 author.setText(recipeToEdit.author)
-                category.setText(recipeToEdit.category.value)
+                category.text = when (recipeToEdit.category) {
+                    RecipeCategories.American -> getString(R.string.categoryAmerican)
+                    RecipeCategories.Asian -> getString(R.string.categoryAsian)
+                    RecipeCategories.Eastern -> getString(R.string.categoryEastern)
+                    RecipeCategories.European -> getString(R.string.categoryEuropean)
+                    RecipeCategories.Mediterranean -> getString(R.string.categoryMediterranean)
+                    RecipeCategories.Other -> getString(R.string.categoryOther)
+                    RecipeCategories.Panasian -> getString(R.string.categoryPanasian)
+                    RecipeCategories.Russian -> getString(R.string.categoryRussian)
+                }
                 ingredients.setText(recipeToEdit.ingredients)
             }
             eddStageText.setOnFocusChangeListener() { _, hasFocus ->
@@ -123,13 +143,15 @@ class RecipeEditContentFragment : Fragment() {
     }.root
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
-//        val recipeToUpdate = if (args.initialContent != null) args.initialContent!!.copy(
-//        ) else Recipe(
-//            id = 0,
-//            name = recipeName.text.toString(),
-//            author = author.text.toString(),
-//            category =
+//        val recipeToUpdate = recipeToEdit?.copy(
 //        )
+//            ?: if (!recipeName.text.isNullOrBlank()) Recipe(
+//                id = 0,
+//                name = recipeName.text.toString(),
+//                author = author.text.toString(),
+//                category =
+//            )
+//        else
 
         val textToSave = eddStageText.text
         viewModel.onSaveClicked(textToSave.toString())
