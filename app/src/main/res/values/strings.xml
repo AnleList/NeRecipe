@@ -48,4 +48,5 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="categoryRussian">Russian</string>
     <string name="categoryMediterranean">Mediterranean</string>
     <string name="categoryOther">Other</string>
+    <string name="notSaveToast">fill in all the fields, or hold down the button to save and exit</string>
 </resources>

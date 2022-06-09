@@ -47,4 +47,5 @@ http://netolo.gy/fEU
     <string name="categoryRussian">Русская</string>
     <string name="categoryMediterranean">Средиземноморская</string>
     <string name="categoryOther">Другая</string>
+    <string name="notSaveToast">заполните все поля, или зажмите кнопку чтобы сохранить и выйти</string>
 </resources>

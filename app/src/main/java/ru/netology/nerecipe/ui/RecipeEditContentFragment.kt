@@ -28,6 +28,7 @@ class RecipeEditContentFragment : Fragment() {
     private val viewModel by activityViewModels<RecipeViewModel>()
     private lateinit var selectedCategory: RecipeCategories
     private var nextStageId by Delegates.notNull<Int>()
+    private val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -148,7 +149,6 @@ class RecipeEditContentFragment : Fragment() {
     }.root
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
         val stageToAdd = Stage(
             id = nextStageId,
             text = addStageText.text.toString(),
@@ -173,8 +173,19 @@ class RecipeEditContentFragment : Fragment() {
                 published = (sdf.format(Date())).toString(),
                 stages = stages
             )
-        if (recipeName.text.isNullOrBlank()) {
-            Toast.makeText(activity, "message...", Toast.LENGTH_SHORT).show()
+        if (recipeName.text.isNullOrBlank()
+            || author.text.isNullOrBlank()
+            || category.text.isNullOrBlank()
+            || ingredients.text.isNullOrBlank()) {
+            Toast.makeText(activity, getString(R.string.notSaveToast), Toast.LENGTH_LONG).show()
+            return
+        }
+        else if (addStageText.text.isNullOrBlank() && args.initialContent.stages.isEmpty()) {
+            Toast.makeText(activity, getString(R.string.notSaveToast), Toast.LENGTH_LONG).show()
+            return
+        }
+        else if (addStageText.text.isNullOrBlank()) {
+            Toast.makeText(activity, getString(R.string.notSaveToast), Toast.LENGTH_LONG).show()
             return
         }
         else {
