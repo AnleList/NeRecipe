@@ -36,8 +36,16 @@ Varshavskoe shosse, 1, p. 6, 1st floor, office 105A, Moscow</string>
     <string name="edd_stage">edd next stage here</string>
     <string name="ingredients">enter the ingredients list here</string>
     <string name="edd_stage_url">enter the URL of the image here</string>
-    <string name="category">enter the category here</string>
+    <string name="category">choose the category</string>
     <string name="edit">Edit</string>
     <string name="author">enter the author name here</string>
     <string name="recipe_name">enter the recipe name here</string>
+    <string name="categoryEuropean">European</string>
+    <string name="categoryAsian">Asian</string>
+    <string name="categoryPanasian">Panasian</string>
+    <string name="categoryEastern">Eastern</string>
+    <string name="categoryAmerican">American</string>
+    <string name="categoryRussian">Russian</string>
+    <string name="categoryMediterranean">Mediterranean</string>
+    <string name="categoryOther">Other</string>
 </resources>

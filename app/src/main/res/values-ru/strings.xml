@@ -35,8 +35,16 @@ http://netolo.gy/fEU
     <string name="menuButtonDesc">кнопка меню</string>
     <string name="edd_stage_url">введите URL адрес изображения здесь</string>
     <string name="edit">Изменить</string>
-    <string name="category">введите категорию сдесь</string>
+    <string name="category">выберите категорию</string>
     <string name="ingredients">введите список ингредиентов здесь</string>
     <string name="author">введите имя автора здесь</string>
     <string name="recipe_name">введите название рецепта здесь</string>
+    <string name="categoryEuropean">Европейская</string>
+    <string name="categoryAsian">Азиатская</string>
+    <string name="categoryPanasian">Паназиатская</string>
+    <string name="categoryEastern">Восточная</string>
+    <string name="categoryAmerican">Американская</string>
+    <string name="categoryRussian">Русская</string>
+    <string name="categoryMediterranean">Средиземноморская</string>
+    <string name="categoryOther">Другая</string>
 </resources>
