@@ -61,14 +61,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/edd_stage_text"
+        app:layout_constraintBottom_toTopOf="@id/add_stage_text"
         app:layout_constraintTop_toBottomOf="@+id/ingredients"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="-26dp"
         tools:listitem="@layout/stages_viewing_layout" />
 
     <EditText
-        android:id="@+id/edd_stage_text"
+        android:id="@+id/add_stage_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -108,7 +108,7 @@
         android:contentDescription="@string/saveButtonDescription"
         app:layout_constraintBottom_toBottomOf="@+id/edd_stage_url"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edd_stage_text"
+        app:layout_constraintTop_toTopOf="@+id/add_stage_text"
         app:srcCompat="@drawable/ic_save_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

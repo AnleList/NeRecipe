@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +20,9 @@ import ru.netology.nerecipe.data.Stage
 import ru.netology.nerecipe.databinding.RecipeEditContentFragmentBinding
 import ru.netology.nerecipe.util.showKeyboard
 import ru.netology.nerecipe.view_models.RecipeViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.properties.Delegates
 
 
 class RecipeEditContentFragment : Fragment() {
@@ -26,6 +30,8 @@ class RecipeEditContentFragment : Fragment() {
     private val args by navArgs<RecipeEditContentFragmentArgs>()
     private val viewModel by activityViewModels<RecipeViewModel>()
     private lateinit var selectedCategory: RecipeCategories
+    private lateinit var stages: MutableList<Stage>
+    private var nextStageId by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +41,14 @@ class RecipeEditContentFragment : Fragment() {
         layoutInflater, container, false
     ).also { binding ->
 
-        val recipeToEdit: Recipe? = args.initialContent
+        val recipeToEdit: Recipe = args.initialContent
 
         val adapter = StagesAdapter(viewModel)
         binding.stagesRecyclerView.adapter = adapter
         viewModel.navToRecipeEditContentEvent.observe(viewLifecycleOwner) {recipe ->
-            adapter.submitList(recipe.stages)
+            if (recipe != null) {
+                adapter.submitList(recipe.stages)
+            }
         }
 
         val categoryPopupMenu by lazy {
@@ -95,7 +103,7 @@ class RecipeEditContentFragment : Fragment() {
         }
 
         with(binding) {
-            if (recipeToEdit != null) {
+            if (recipeToEdit.id != 0L) {
                 selectedCategory = recipeToEdit.category
                 recipeName.setText(recipeToEdit.name)
                 author.setText(recipeToEdit.author)
@@ -111,7 +119,7 @@ class RecipeEditContentFragment : Fragment() {
                 }
                 ingredients.setText(recipeToEdit.ingredients)
             }
-            eddStageText.setOnFocusChangeListener() { _, hasFocus ->
+            addStageText.setOnFocusChangeListener() { _, hasFocus ->
                 if (hasFocus)
                     binding.stagesRecyclerView.smoothScrollToPosition(
                         adapter.itemCount - 1
@@ -131,6 +139,7 @@ class RecipeEditContentFragment : Fragment() {
 //        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         binding.save.setOnClickListener {
+            nextStageId = adapter.itemCount + 1
             binding.onSaveButtonClicked()
         }
         binding.save.setOnLongClickListener {
@@ -143,29 +152,47 @@ class RecipeEditContentFragment : Fragment() {
     }.root
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonClicked() {
-//        val recipeToUpdate = recipeToEdit?.copy(
-//        )
-//            ?: if (!recipeName.text.isNullOrBlank()) Recipe(
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
+        val stageToAdd = Stage(
+            id = nextStageId,
+            text = addStageText.text.toString(),
+            imageURL = eddStageUrl.text.toString()
+            )
+        if (stageToAdd != null) {
+            stages.add(stageToAdd)
+        }
+        val recipeToUpdate = if (!recipeName.text.isNullOrBlank())
+            args.initialContent?.copy(
+                name = recipeName.text.toString(),
+                author = author.text.toString(),
+                category = selectedCategory,
+                ingredients = ingredients.text.toString(),
+            )
+//            ?: Recipe(
 //                id = 0,
 //                name = recipeName.text.toString(),
 //                author = author.text.toString(),
-//                category =
+//                category = selectedCategory,
+//                ingredients = ingredients.text.toString(),
+//                published = (sdf.format(Date())).toString(),
+//                stages =
 //            )
-//        else
+        else null
+//            Toast.makeText(activity, "message...", Toast.LENGTH_SHORT).show()
 
-        val textToSave = eddStageText.text
+        val textToSave = addStageText.text
         viewModel.onSaveClicked(textToSave.toString())
-        if (!textToSave.isNullOrBlank()) {
+        if (recipeToUpdate != null) {
             val answerBundle = Bundle(1)
             answerBundle.putString(RESULT_KEY, textToSave.toString())
             setFragmentResult(REQUEST_KEY, answerBundle)
         }
-        findNavController().popBackStack()
+
     }
 
 
     private fun RecipeEditContentFragmentBinding.onSaveButtonLongClicked() {
-        TODO("Not yet implemented")
+        findNavController().popBackStack()
     }
 
     companion object {

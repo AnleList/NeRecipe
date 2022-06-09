@@ -13,7 +13,7 @@ data class Recipe(
     val name: String,
     val category: RecipeCategories,
     val ingredients: String,
-    val stages: List<Stage>?,
+    val stages: List<Stage>,
     val videoContent: String?,
     val published: String,
     var likedByMe: Boolean = false,

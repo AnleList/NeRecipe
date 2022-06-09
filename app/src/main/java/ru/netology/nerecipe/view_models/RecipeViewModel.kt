@@ -110,7 +110,9 @@ class RecipeViewModel(
     }
 
     override fun onAddClicked() {
-//      navToRecipeEditContentEvent.call()
+        navToRecipeEditContentEvent.value =
+            Recipe(0,"","",RecipeCategories.Other,"", emptyList(),
+                null, "", false, 0 ,false, 0)
     }
 
     override fun navToRecipeViewFun(recipe: Recipe) {
