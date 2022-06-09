@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.Stage
-import ru.netology.nerecipe.databinding.CardViewingLayoutBinding
-import ru.netology.nerecipe.databinding.RecipeCardLayoutBinding
+import ru.netology.nerecipe.databinding.StagesViewingLayoutBinding
 
 internal class StagesAdapter(
     private val interactionListener: RecipeInteractionListener
@@ -17,7 +15,7 @@ internal class StagesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = CardViewingLayoutBinding.inflate(inflater, parent, false)
+        val binding = StagesViewingLayoutBinding.inflate(inflater, parent, false)
         return ViewHolder(binding, interactionListener)
     }
 
@@ -26,7 +24,7 @@ internal class StagesAdapter(
     }
 
     class ViewHolder (
-        private val binding: CardViewingLayoutBinding,
+        private val binding: StagesViewingLayoutBinding,
         listener: RecipeInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 

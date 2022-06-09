@@ -33,7 +33,7 @@ class RecipeViewModel(
 
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = MutableLiveData<Recipe>()
-    val navToRecipeEditContentEvent = SingleLiveEvent<Recipe>()
+    val navToRecipeEditContentEvent = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
@@ -110,7 +110,7 @@ class RecipeViewModel(
     }
 
     override fun onAddClicked() {
-      navToRecipeEditContentEvent.call()
+//      navToRecipeEditContentEvent.call()
     }
 
     override fun navToRecipeViewFun(recipe: Recipe) {

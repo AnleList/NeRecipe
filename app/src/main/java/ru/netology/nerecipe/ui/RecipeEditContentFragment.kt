@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeEditContentFragmentBinding
 import ru.netology.nerecipe.util.showKeyboard
@@ -27,6 +28,13 @@ class RecipeEditContentFragment : Fragment() {
     ) = RecipeEditContentFragmentBinding.inflate(
         layoutInflater, container, false
     ).also { binding ->
+
+        val adapter = StagesAdapter(viewModel)
+        binding.stagesRecyclerView.adapter = adapter
+        viewModel.navToRecipeEditContentEvent.observe(viewLifecycleOwner) {recipe ->
+            adapter.submitList(recipe.stages)
+        }
+
         val recipeToEdit: Recipe? = args.initialContent
         with(binding) {
             if (recipeToEdit != null) {
@@ -34,6 +42,12 @@ class RecipeEditContentFragment : Fragment() {
                 author.setText(recipeToEdit.author)
                 category.setText(recipeToEdit.category.value)
                 ingredients.setText(recipeToEdit.ingredients)
+            }
+            eddStageText.setOnFocusChangeListener() { _, hasFocus ->
+                if (hasFocus)
+                    binding.stagesRecyclerView.smoothScrollToPosition(
+                        adapter.itemCount - 1
+                    )
             }
         }
 
