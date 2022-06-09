@@ -29,7 +29,8 @@ interface PostDao {
     fun save(post: PostEntity) =
         if (post.id == 0L) insert(post)
 //        else if (post.draftTextContent != null) updateDraftById(post.id, post.draftTextContent)
-        else updateContentById(post.id, post.recipeName)
+        else update(post)
+//            updateContentById(post.id, post.recipeName)
 
     @Query(
         """

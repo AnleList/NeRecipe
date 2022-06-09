@@ -5,20 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.viewbinding.ViewBinding
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
 import ru.netology.nerecipe.databinding.RecipeEditContentFragmentBinding
-import ru.netology.nerecipe.util.showKeyboard
 import ru.netology.nerecipe.view_models.RecipeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +27,6 @@ class RecipeEditContentFragment : Fragment() {
     private val args by navArgs<RecipeEditContentFragmentArgs>()
     private val viewModel by activityViewModels<RecipeViewModel>()
     private lateinit var selectedCategory: RecipeCategories
-    private lateinit var stages: MutableList<Stage>
     private var nextStageId by Delegates.notNull<Int>()
 
     override fun onCreateView(
@@ -156,38 +152,41 @@ class RecipeEditContentFragment : Fragment() {
         val stageToAdd = Stage(
             id = nextStageId,
             text = addStageText.text.toString(),
-            imageURL = eddStageUrl.text.toString()
+            imageURL = addStageUrl.text.toString()
             )
-        if (stageToAdd != null) {
-            stages.add(stageToAdd)
-        }
-        val recipeToUpdate = if (!recipeName.text.isNullOrBlank())
-            args.initialContent?.copy(
+        var stages: MutableList<Stage> = args.initialContent.stages.toMutableList()
+        stages.add(stageToAdd)
+        val recipeToUpdate = if (args.initialContent.id != 0L)
+            args.initialContent.copy(
                 name = recipeName.text.toString(),
                 author = author.text.toString(),
                 category = selectedCategory,
                 ingredients = ingredients.text.toString(),
+                stages = stages
             )
-//            ?: Recipe(
-//                id = 0,
-//                name = recipeName.text.toString(),
-//                author = author.text.toString(),
-//                category = selectedCategory,
-//                ingredients = ingredients.text.toString(),
-//                published = (sdf.format(Date())).toString(),
-//                stages =
-//            )
-        else null
-//            Toast.makeText(activity, "message...", Toast.LENGTH_SHORT).show()
-
-        val textToSave = addStageText.text
-        viewModel.onSaveClicked(textToSave.toString())
-        if (recipeToUpdate != null) {
-            val answerBundle = Bundle(1)
-            answerBundle.putString(RESULT_KEY, textToSave.toString())
-            setFragmentResult(REQUEST_KEY, answerBundle)
+            else args.initialContent.copy(
+                id = 0,
+                name = recipeName.text.toString(),
+                author = author.text.toString(),
+                category = selectedCategory,
+                ingredients = ingredients.text.toString(),
+                published = (sdf.format(Date())).toString(),
+                stages = stages
+            )
+        if (recipeName.text.isNullOrBlank()) {
+            Toast.makeText(activity, "message...", Toast.LENGTH_SHORT).show()
+            return
+        }
+        else {
+            viewModel.onSaveClicked(recipeToUpdate)
+            viewModel.onEditClicked(recipeToUpdate)
         }
 
+//        if (recipeToUpdate != null) {
+//            val answerBundle = Bundle(1)
+//            answerBundle.putString(RESULT_KEY, recipeToUpdate)
+//            setFragmentResult(REQUEST_KEY, answerBundle)
+//        }
     }
 
 

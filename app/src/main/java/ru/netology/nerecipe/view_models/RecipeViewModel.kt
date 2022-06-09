@@ -50,22 +50,8 @@ class RecipeViewModel(
 //        }
 //    }
 
-    fun onSaveClicked(content: String) {
-        if (content.isBlank()) return
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
-        val recipeToAdd = currentRecipe.value?.copy(
-            ingredients = content,
-            ) ?: Recipe(
-            id = RecipeRepository.NEW_POST_ID,
-            author = "New author",
-            ingredients = content,
-            videoContent = null,
-            published = (sdf.format(Date())).toString(),
-            category = RecipeCategories.Russian,
-            name = "",
-            stages = emptyList()
-        )
-        repository.save(recipeToAdd)
+    fun onSaveClicked(recipeToSave: Recipe) {
+        repository.save(recipeToSave)
         currentRecipe.value = null
     }
 
