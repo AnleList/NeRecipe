@@ -43,7 +43,7 @@ internal class RecipesAdapter(
                             true
                         }
                         R.id.editItem -> {
-                            listener.onEditClicked(recipe)
+                            listener.editRecipe(recipe)
                             true
                         }
                         else -> false

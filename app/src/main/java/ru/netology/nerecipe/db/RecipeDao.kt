@@ -10,7 +10,7 @@ import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
 
 @Dao
-interface PostDao {
+interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
     fun getAll(ink: String): LiveData<List<PostEntity>>
 

@@ -35,10 +35,10 @@ http://netolo.gy/fEU
     <string name="menuButtonDesc">кнопка меню</string>
     <string name="edd_stage_url">введите URL адрес изображения здесь</string>
     <string name="edit">Изменить</string>
-    <string name="category">выберите категорию</string>
-    <string name="ingredients">введите список ингредиентов здесь</string>
-    <string name="author">введите имя автора здесь</string>
-    <string name="recipe_name">введите название рецепта здесь</string>
+    <string name="category">выберите категорию*</string>
+    <string name="ingredients">введите список ингредиентов здесь*</string>
+    <string name="author">введите имя автора здесь*</string>
+    <string name="recipe_name">введите название рецепта здесь*</string>
     <string name="categoryEuropean">Европейская</string>
     <string name="categoryAsian">Азиатская</string>
     <string name="categoryPanasian">Паназиатская</string>
@@ -47,5 +47,8 @@ http://netolo.gy/fEU
     <string name="categoryRussian">Русская</string>
     <string name="categoryMediterranean">Средиземноморская</string>
     <string name="categoryOther">Другая</string>
-    <string name="notSaveToast">заполните все поля, или зажмите кнопку чтобы сохранить и выйти</string>
+    <string name="notAllStar">заполните все поля c *</string>
+    <string name="noCookingStep">добавьте хотя бы 1 этап приготовления</string>
+    <string name="exitHint">длительное нажатие для сохранения и выхода</string>
+    <string name="feedCategoryHint">начните вводить категорию здесь</string>
 </resources>

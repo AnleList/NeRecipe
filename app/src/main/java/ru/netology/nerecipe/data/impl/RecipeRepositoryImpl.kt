@@ -6,12 +6,12 @@ import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.RecipeRepository
 import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.Stage
-import ru.netology.nerecipe.db.PostDao
+import ru.netology.nerecipe.db.RecipeDao
 import ru.netology.nerecipe.db.toEntity
 import ru.netology.nerecipe.db.toModel
 
 class RecipeRepositoryImpl(
-    private val dao: PostDao, override var filter: String?
+    private val dao: RecipeDao, override var filter: String?
 ) : RecipeRepository {
 
     override val data = dao.getAll("%").map { entities ->

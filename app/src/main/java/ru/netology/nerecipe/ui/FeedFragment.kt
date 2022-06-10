@@ -41,7 +41,7 @@ class FeedFragment : Fragment() {
 //            startActivity(shareIntent)
 //        }
 //
-        viewModel.navToRecipeEditContentEvent.observe(this) { recipe ->
+        viewModel.navToRecipeEdit.observe(this) { recipe ->
             val direction
                 = recipe?.let {
                 FeedFragmentDirections.actionFeedFragmentToRecipeContentFragment(recipe)

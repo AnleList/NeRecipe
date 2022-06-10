@@ -1,6 +1,5 @@
 package ru.netology.nerecipe.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.R
-import ru.netology.nerecipe.adapters.RecipesAdapter
 import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeViewingFragmentBinding
@@ -25,7 +23,7 @@ class RecipeViewingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.navToRecipeEditContentEvent.observe(this) { postContent ->
+        viewModel.navToRecipeEdit.observe(this) { postContent ->
             val direction = RecipeViewingFragmentDirections
                 .actionRecipeViewingFragmentToRecipeContentFragment(postContent)
             findNavController().navigate(direction)
@@ -100,7 +98,7 @@ class RecipeViewingFragment : Fragment() {
                                 true
                             }
                             R.id.editItem -> {
-                                viewModel.onEditClicked(recipeToViewing)
+                                viewModel.editRecipe(recipeToViewing)
                                 true
                             }
                             else -> false

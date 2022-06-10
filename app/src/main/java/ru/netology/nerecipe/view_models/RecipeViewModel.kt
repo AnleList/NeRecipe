@@ -11,8 +11,6 @@ import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RecipeViewModel(
     application: Application
@@ -21,7 +19,7 @@ class RecipeViewModel(
     private val changeFilter = MutableLiveData<String?>(null)
 
     private val repository: RecipeRepository = RecipeRepositoryImpl(
-        dao = AppDb.getInstance(context = application).postDao,
+        dao = AppDb.getInstance(context = application).recipeDao,
         filter = null
         )
 
@@ -33,7 +31,7 @@ class RecipeViewModel(
 
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = MutableLiveData<Recipe>()
-    val navToRecipeEditContentEvent = MutableLiveData<Recipe>()
+    val navToRecipeEdit = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     private val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
@@ -50,7 +48,7 @@ class RecipeViewModel(
 //        }
 //    }
 
-    fun onSaveClicked(recipeToSave: Recipe) {
+    override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
         currentRecipe.value = null
     }
@@ -86,8 +84,8 @@ class RecipeViewModel(
         navToFeedFragment.call()
     }
 
-    override fun onEditClicked(recipe: Recipe) {
-        navToRecipeEditContentEvent.value = recipe
+    override fun editRecipe(recipe: Recipe) {
+        navToRecipeEdit.value = recipe
         currentRecipe.value = recipe
     }
 
@@ -96,7 +94,7 @@ class RecipeViewModel(
     }
 
     override fun onAddClicked() {
-        navToRecipeEditContentEvent.value =
+        navToRecipeEdit.value =
             Recipe(0,"","",RecipeCategories.Other,"", emptyList(),
                 null, "", false, 0 ,false, 0)
     }
