@@ -3,7 +3,7 @@ package ru.netology.nerecipe.db
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.RecipeCategories
 
-internal fun PostEntity.toModel(): Recipe {
+internal fun RecipeEntity.toModel(): Recipe {
 
     var resultRecipeCategory = RecipeCategories.Other
     for (part in RecipeCategories.values()){
@@ -26,9 +26,9 @@ internal fun PostEntity.toModel(): Recipe {
     )
 }
 
-internal fun Recipe.toEntity(): PostEntity {
+internal fun Recipe.toEntity(): RecipeEntity {
 
-    return PostEntity(
+    return RecipeEntity(
         id = id,
         author = author,
         recipeName = name,

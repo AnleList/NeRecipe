@@ -6,7 +6,7 @@ import ru.netology.nerecipe.data.Stage
 
 @Entity(tableName = "recipes")
 @TypeConverters(StageListConverter::class)
-class PostEntity(
+class RecipeEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long,

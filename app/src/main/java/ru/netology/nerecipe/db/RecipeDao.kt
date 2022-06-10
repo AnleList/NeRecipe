@@ -5,32 +5,27 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.RecipeCategories
-import ru.netology.nerecipe.data.Stage
 
 @Dao
 interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
-    fun getAll(ink: String): LiveData<List<PostEntity>>
+    fun getAll(ink: String): LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM recipes WHERE id = :id")
-    fun getById(id: Long): PostEntity
+    fun getById(id: Long): RecipeEntity
 
     @Insert
-    fun insert(post: PostEntity)
+    fun insert(recipe: RecipeEntity)
 
     @Update()
-    fun update(post: PostEntity)
+    fun update(recipe: RecipeEntity)
 
     @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
-    fun save(post: PostEntity) =
-        if (post.id == 0L) insert(post)
-//        else if (post.draftTextContent != null) updateDraftById(post.id, post.draftTextContent)
-        else update(post)
-//            updateContentById(post.id, post.recipeName)
+    fun save(recipe: RecipeEntity) =
+        if (recipe.id == 0L) insert(recipe)
+        else update(recipe)
 
     @Query(
         """

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [PostEntity::class],
+    entities = [RecipeEntity::class],
     version = 1
 )
 abstract class AppDb : RoomDatabase() {
