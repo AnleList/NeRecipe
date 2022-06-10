@@ -88,8 +88,8 @@ class RecipeViewingFragment : Fragment() {
                 viewingHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
             }
             val popupMenu by lazy {
-                PopupMenu(requireContext(), binding.postMenuButton).apply {
-                    inflate(R.menu.options_post)
+                PopupMenu(requireContext(), binding.feedFragmentMenuButton).apply {
+                    inflate(R.menu.options_recipe)
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.removeItem -> {
@@ -106,7 +106,7 @@ class RecipeViewingFragment : Fragment() {
                     }
                 }
             }
-            binding.postMenuButton.setOnClickListener {
+            binding.feedFragmentMenuButton.setOnClickListener {
                 popupMenu.show()
             }
         }

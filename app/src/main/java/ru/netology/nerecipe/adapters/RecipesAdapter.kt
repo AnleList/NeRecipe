@@ -35,7 +35,7 @@ internal class RecipesAdapter(
 
         private val popupMenu by lazy {
             PopupMenu(itemView.context, binding.recipeCardMenuButton).apply {
-                inflate(R.menu.options_post)
+                inflate(R.menu.options_recipe)
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.removeItem -> {

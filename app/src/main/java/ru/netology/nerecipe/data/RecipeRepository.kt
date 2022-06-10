@@ -16,8 +16,4 @@ interface RecipeRepository {
     fun changeFilter(filter: String): LiveData<List<Recipe>>
     fun moveRecipeToPosition(recipe: Recipe, destinationPosition: Long)
     fun countOfRecipes(): Long
-
-    companion object {
-        const val NEW_POST_ID = 0L
-    }
 }
