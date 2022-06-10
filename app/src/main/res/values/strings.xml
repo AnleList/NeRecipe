@@ -13,7 +13,7 @@
     <string name="fabContentDescription">floating button: \"add\"</string>
     <string name="videoViewContentDescription">video content</string>
     <string name="fabVideoContentDescription">play button</string>
-    <string name="notification_user_liked">%1$s posted a new post:</string>
+    <string name="notification_user_liked">%1$s like</string>
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
     <string name="menuButtonDesc">menu button</string>

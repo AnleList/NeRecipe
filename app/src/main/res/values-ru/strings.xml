@@ -13,7 +13,7 @@
     <string name="fabContentDescription">плавающая кнопка: \"добавить\"</string>
     <string name="videoViewContentDescription">видео содержимое</string>
     <string name="fabVideoContentDescription">кнопка воспроизведения</string>
-    <string name="notification_user_liked">%1$s опубликовал новый пост:</string>
+    <string name="notification_user_liked">%1$s понравилось</string>
     <string name="channel_remote_name">Уведомления с сервера</string>
     <string name="channel_remote_description">Уведомления с удалённого сервера</string>
     <string name="menuButtonDesc">кнопка меню</string>
