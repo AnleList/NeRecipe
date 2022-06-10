@@ -97,20 +97,6 @@ internal class RecipesAdapter(
             binding.recipeCardMenuButton.setOnClickListener {
                 popupMenu.show()
             }
-//            binding.share.setOnClickListener {
-//                listener.onShareClicked(recipe)
-//            }
-//            binding.fabVideo.setOnClickListener {
-//                listener.onShareVideoClicked(recipe)
-//            }
-//            binding.postVideoView.setOnClickListener {
-//                listener.onShareVideoClicked(recipe)
-//            }
-//            binding.postTextContent.setOnClickListener {
-//                listener.onPostContentClicked(
-//                    recipe
-//                )
-//            }
         }
 
         fun bind(recipe: Recipe) {
@@ -122,39 +108,6 @@ internal class RecipesAdapter(
                 recipeCategory.text = recipe.category.value
                 recipeCardHeart.isChecked = recipe.likedByMe
                 recipeCardHeart.text = valueToStringForShowing(recipe.likes)
-//                postAvatar.setImageResource(
-//                    when (recipe.author) {
-//                        "Нетология. Университет интернет-профессий" ->
-//                            R.drawable.ic_launcher_foreground
-//                        "Skillbox. Образовательная платформа" ->
-//                            R.drawable.ic_skillbox
-//                        else ->
-//                            R.drawable.ic_baseline_tag_faces_24
-//                    }
-//                )
-//                postAuthor.text = recipe.author
-//                postPublished.text = recipe.published
-//                postTextContent.text = recipe.ingredients
-//                fabVideo.visibility = if (recipe.videoContent != null) {
-//                    View.VISIBLE
-//                } else View.GONE
-//                postVideoView.visibility = if (recipe.videoContent != null) {
-//                    View.VISIBLE
-//                } else View.GONE
-//                views.text = valueToStringForShowing(
-//                    when (recipe.author) {
-//                        "Нетология. Университет интернет-профессий" ->
-//                            2999999
-//                        "Skillbox. Образовательная платформа" ->
-//                            999
-//                        else ->
-//                            0
-//                    }
-//                )
-//                postHeart.text = valueToStringForShowing(recipe.likes)
-//                postHeart.isChecked = recipe.likedByMe
-//                share.text = valueToStringForShowing(recipe.shared)
-//                share.isChecked = recipe.sharedByMe
             }
         }
     }

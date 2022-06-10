@@ -8,7 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface RecipeDao {
-    @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
+    @Query("SELECT * FROM recipes WHERE recipeName LIKE :ink")
     fun getAll(ink: String): LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM recipes WHERE id = :id")

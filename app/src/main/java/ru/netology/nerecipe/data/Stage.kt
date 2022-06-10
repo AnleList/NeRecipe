@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Parcelize
 data class Stage(
-    val id: Int,
+    var id: Int,
     val text: String,
     val imageURL: String,
 ) : Parcelable

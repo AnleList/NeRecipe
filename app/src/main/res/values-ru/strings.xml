@@ -34,5 +34,7 @@
     <string name="notAllStar">заполните все поля c *</string>
     <string name="noCookingStep">добавьте хотя бы 1 этап приготовления</string>
     <string name="exitHint">длительное нажатие для сохранения и выхода</string>
-    <string name="feedCategoryHint">начните вводить категорию здесь</string>
+    <string name="feedFilterHint">начните вводить название здесь</string>
+    <string name="stageImage">изображение стадии</string>
+    <string name="deleteButton">кнопка удалить</string>
 </resources>

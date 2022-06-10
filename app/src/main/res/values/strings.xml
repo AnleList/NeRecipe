@@ -35,5 +35,7 @@
     <string name="notAllStar">fill in all the fields with *</string>
     <string name="noCookingStep">add at least 1 cooking step</string>
     <string name="exitHint">long press to save and exit</string>
-    <string name="feedCategoryHint">start entering a category here</string>
+    <string name="feedFilterHint">start typing the name here</string>
+    <string name="stageImage">satage image</string>
+    <string name="deleteButton">delete button</string>
 </resources>

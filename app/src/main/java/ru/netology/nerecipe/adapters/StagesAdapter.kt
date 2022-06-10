@@ -1,6 +1,7 @@
 package ru.netology.nerecipe.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -28,17 +29,30 @@ internal class StagesAdapter(
         listener: RecipeInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-
         private lateinit var stage: Stage
 
         init {
-            binding.stageImage.setOnLongClickListener {
-                TODO("Not yet implemented")
-                return@setOnLongClickListener false
-            }
             binding.stageText.setOnLongClickListener {
-                TODO("Not yet implemented")
-                return@setOnLongClickListener false
+                binding.fabUp.visibility = View.VISIBLE
+                binding.fabDown.visibility = View.VISIBLE
+                binding.fabSetInvisible.visibility = View.VISIBLE
+                binding.fabDeleteStage.visibility = View.VISIBLE
+                return@setOnLongClickListener true
+            }
+            binding.fabUp.setOnClickListener {
+                listener.stageUp(stage)
+            }
+            binding.fabDown.setOnClickListener {
+                listener.stageDown(stage)
+            }
+            binding.fabSetInvisible.setOnClickListener {
+                binding.fabUp.visibility = View.INVISIBLE
+                binding.fabDown.visibility = View.INVISIBLE
+                binding.fabSetInvisible.visibility = View.INVISIBLE
+                binding.fabDeleteStage.visibility = View.INVISIBLE
+            }
+            binding.fabDeleteStage.setOnClickListener {
+                listener.deleteStage(stage)
             }
         }
         fun bind(stage: Stage) {

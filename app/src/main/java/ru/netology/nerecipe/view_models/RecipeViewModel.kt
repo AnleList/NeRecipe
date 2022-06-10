@@ -8,6 +8,7 @@ import ru.netology.nerecipe.adapters.RecipeInteractionListener
 import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.data.RecipeRepository
 import ru.netology.nerecipe.data.RecipeCategories
+import ru.netology.nerecipe.data.Stage
 import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
@@ -33,7 +34,7 @@ class RecipeViewModel(
     val navToRecipeViewing = MutableLiveData<Recipe>()
     val navToRecipeEdit = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
-    private val currentRecipe = MutableLiveData<Recipe?>(null)
+    val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
 
 
@@ -50,7 +51,6 @@ class RecipeViewModel(
 
     override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
-        currentRecipe.value = null
     }
 
 //    override fun onShareVideoClicked(recipe: Recipe) {
@@ -84,9 +84,45 @@ class RecipeViewModel(
         navToFeedFragment.call()
     }
 
+    override fun stageUp(stage: Stage) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.toMutableList() ?: return
+        val destinationStage: Stage
+        if (stage.id == 1) return else {
+            destinationStage = stagesToSave[stage.id-2]
+            stagesToSave[stage.id-2] = stage.copy(id = destinationStage.id)
+            stagesToSave[stage.id-1] = destinationStage.copy(id = stage.id)
+        }
+        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
+        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
+    }
+
+    override fun stageDown(stage: Stage) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.toMutableList() ?: return
+        val destinationStage: Stage
+        if (stage.id >= stagesToSave.size) return else {
+            destinationStage = stagesToSave[stage.id]
+            stagesToSave[stage.id] = stage.copy(id = destinationStage.id)
+            stagesToSave[stage.id-1] = destinationStage.copy(id = stage.id)
+        }
+        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
+        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
+    }
+
+    override fun deleteStage(stage: Stage) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.filter {it.id != stage.id} as MutableList<Stage>
+        for ((index, eachStage) in stagesToSave.withIndex()) {
+            eachStage.id = index + 1
+        }
+        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
+        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
+    }
+
     override fun editRecipe(recipe: Recipe) {
-        navToRecipeEdit.value = recipe
         currentRecipe.value = recipe
+        navToRecipeEdit.value = recipe
     }
 
     override fun onUnDoClicked() {
@@ -100,6 +136,7 @@ class RecipeViewModel(
     }
 
     override fun navToRecipeViewFun(recipe: Recipe) {
+        currentRecipe.value = recipe
         navToRecipeViewing.value = recipe
     }
 }

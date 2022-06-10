@@ -40,8 +40,10 @@ class RecipeViewingFragment : Fragment() {
 
         val adapter = StagesAdapter(viewModel)
         binding.stagesRecyclerView.adapter = adapter
-        viewModel.navToRecipeViewing.observe(viewLifecycleOwner) {recipe ->
-            adapter.submitList(recipe.stages)
+        viewModel.currentRecipe.observe(viewLifecycleOwner) {recipe ->
+            if (recipe != null) {
+                adapter.submitList(recipe.stages)
+            }
         }
 
         var recipeToViewing: Recipe = args.recipeToViewing
@@ -52,37 +54,6 @@ class RecipeViewingFragment : Fragment() {
                 recipeName.text = recipeToViewing.name
                 recipeAuthor.text = recipeToViewing.author
                 recipeCategory.text = recipeToViewing.category.value
-//                postAvatar.setImageResource(
-//                    when (recipeToViewing.author) {
-//                        "Нетология. Университет интернет-профессий" ->
-//                            R.drawable.ic_launcher_foreground
-//                        "Skillbox. Образовательная платформа" ->
-//                            R.drawable.ic_skillbox
-//                        else ->
-//                            R.drawable.ic_baseline_tag_faces_24
-//                    }
-//                )
-//                postAuthor.text = recipeToViewing.author
-//                postPublished.text = recipeToViewing.published
-//                postTextContent.text = recipeToViewing.ingredients
-//                fabVideo.visibility = if (recipeToViewing.videoContent != null) {
-//                    View.VISIBLE
-//                } else View.GONE
-//                postVideoView.visibility = if (recipeToViewing.videoContent != null) {
-//                    View.VISIBLE
-//                } else View.GONE
-//                views.text = valueToStringForShowing(
-//                    when (recipeToViewing.author) {
-//                        "Нетология. Университет интернет-профессий" ->
-//                            2999999
-//                        "Skillbox. Образовательная платформа" ->
-//                            999
-//                        else ->
-//                            0
-//                    }
-//                )
-//                share.text = valueToStringForShowing(recipeToViewing.shared)
-//                share.isChecked = recipeToViewing.sharedByMe
                 viewingHeart.text = valueToStringForShowing(recipeToViewing.likes)
                 viewingHeart.isChecked = recipeToViewing.likedByMe
                 viewingHeart.setOnClickListener { viewModel.onHeartClicked(recipeToViewing) }
@@ -110,18 +81,6 @@ class RecipeViewingFragment : Fragment() {
                 popupMenu.show()
             }
         }
-//
-//        viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
-//            val intent = Intent().apply {
-//                action = Intent.ACTION_SEND
-//                putExtra(Intent.EXTRA_TEXT, postContent)
-//                type = "text/plain"
-//            }
-//            val shareIntent = Intent.createChooser(
-//                intent, getString(R.string.chooser_share_post)
-//            )
-//            startActivity(shareIntent)
-//        }
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

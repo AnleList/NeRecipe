@@ -41,7 +41,7 @@ class RecipeEditContentFragment : Fragment() {
 
         val adapter = StagesAdapter(viewModel)
         binding.stagesRecyclerView.adapter = adapter
-        viewModel.navToRecipeEdit.observe(viewLifecycleOwner) { recipe ->
+        viewModel.currentRecipe.observe(viewLifecycleOwner) {recipe ->
             if (recipe != null) {
                 adapter.submitList(recipe.stages)
             }
@@ -192,11 +192,6 @@ class RecipeEditContentFragment : Fragment() {
             viewModel.saveRecipe(recipeToUpdate)
             viewModel.editRecipe(recipeToUpdate)
         }
-//        if (recipeToUpdate != null) {
-//            val answerBundle = Bundle(1)
-//            answerBundle.putString(RESULT_KEY, recipeToUpdate)
-//            setFragmentResult(REQUEST_KEY, answerBundle)
-//        }
     }
 
     private fun RecipeEditContentFragmentBinding.saveRecipeAndExit() {
