@@ -8,7 +8,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/recipe_card_menu_button"
-            style="@style/Widget.AppTheme.ShareButton"
+            style="@style/Widget.AppTheme.ButtonsTheme"
             android:checkable="false"
             android:layout_width="48dp"
             android:layout_height="48dp"

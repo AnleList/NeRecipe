@@ -9,6 +9,7 @@ import ru.netology.nerecipe.data.Stage
 import ru.netology.nerecipe.db.RecipeDao
 import ru.netology.nerecipe.db.toEntity
 import ru.netology.nerecipe.db.toModel
+import java.util.*
 
 class RecipeRepositoryImpl(
     private val dao: RecipeDao, override var filter: String?
@@ -223,11 +224,18 @@ class RecipeRepositoryImpl(
         dao.removeById(recipeId)
     }
 
-    override fun getAll(filter: String?): LiveData<List<Recipe>> {
+    override fun getAll(filter: String?,
+                        categories: List<RecipeCategories>): LiveData<List<Recipe>> {
         val filterToDao = if (filter == null) "%"
         else "$filter%"
-        return dao.getAll(filterToDao).map { entities ->
+        var liveDataToReturn = dao.getAll(filterToDao).map { entities ->
             entities.map { it.toModel() }
         }
+        categories.forEach { category ->
+            liveDataToReturn = liveDataToReturn.map { recipes ->
+                recipes.filter {it.category == category }
+            }
+        }
+        return liveDataToReturn
     }
 }

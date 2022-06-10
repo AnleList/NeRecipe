@@ -10,7 +10,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/feed_fragment_menu_button"
-        style="@style/Widget.AppTheme.ShareButton"
+        style="@style/Widget.AppTheme.ButtonsTheme"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:checkable="false"

@@ -5,9 +5,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.RecipesAdapter
 import ru.netology.nerecipe.databinding.FeedFragmetBinding
 import ru.netology.nerecipe.view_models.RecipeViewModel
@@ -20,27 +22,6 @@ class FeedFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        viewModel.sharePostVideo.observe(this) { postVideoContent ->
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(postVideoContent))
-//            val shareIntent = Intent.createChooser(
-//                intent, getString(R.string.chooser_share_post_video)
-//            )
-//            startActivity(shareIntent)
-//        }
-//
-//        viewModel.sharePostContent.observe(this) { postContent ->
-//            val intent = Intent().apply {
-//                action = Intent.ACTION_SEND
-//                putExtra(Intent.EXTRA_TEXT, postContent)
-//                type = "text/plain"
-//            }
-//
-//            val shareIntent = Intent.createChooser(
-//                intent, getString(R.string.chooser_share_post)
-//            )
-//            startActivity(shareIntent)
-//        }
-//
         viewModel.navToRecipeEdit.observe(this) { recipe ->
             val direction
                 = recipe?.let {
@@ -77,6 +58,50 @@ class FeedFragment : Fragment() {
             adapter.submitList(recipes)
         }
 
+        val filterMenu by lazy {
+            PopupMenu(context, binding.filterMenuButton).apply {
+                inflate(R.menu.category_filter)
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.categoryEuropean -> {
+                            menuItem.isChecked = !menuItem.isChecked
+
+                            false
+                        }
+                        R.id.categoryEastern -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryOther -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryPanasian -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryAsian -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryMediterranean -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryRussian -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        R.id.categoryAmerican -> {
+                            menuItem.isChecked = !menuItem.isChecked
+                            false
+                        }
+                        else -> false
+                    }
+                }
+            }
+        }
+
         binding.filterByName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 filterText = s.toString()
@@ -88,10 +113,8 @@ class FeedFragment : Fragment() {
         binding.fab.setOnClickListener {
             viewModel.onAddClicked()
         }
+        binding.filterMenuButton.setOnClickListener {
+            filterMenu.show()
+        }
     }.root
-
-    companion object {
-        const val TAG = "FeedFragment"
-    }
-
 }

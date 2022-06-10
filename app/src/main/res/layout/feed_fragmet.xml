@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="filter, filter_by_name"
+        app:constraint_referenced_ids="filterMenuButton, filter_by_name"
         android:paddingVertical="8dp"/>
 
     <EditText
@@ -36,18 +36,19 @@
         android:paddingTop="8dp"
         android:paddingEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/filter"
+        app:layout_constraintEnd_toStartOf="@+id/filterMenuButton"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlSymmetry"
         android:autofillHints="auto"
         android:hint="@string/feedFilterHint" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/filter"
-        style="@style/Widget.AppTheme.LikeCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/ic_baseline_filter_list_24"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filterMenuButton"
+        style="@style/Widget.AppTheme.ButtonsTheme"
+        android:checkable="false"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon= "@drawable/ic_baseline_filter_list_24"
         app:layout_constraintBottom_toBottomOf="@+id/filter_by_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/filter_by_name"

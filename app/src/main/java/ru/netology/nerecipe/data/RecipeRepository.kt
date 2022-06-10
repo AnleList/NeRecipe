@@ -8,7 +8,7 @@ interface RecipeRepository {
     var filter: String?
 
 
-    fun getAll(filter: String?): LiveData<List<Recipe>>
+    fun getAll(filter: String?, categories: List<RecipeCategories>): LiveData<List<Recipe>>
     fun likeById(recipeId: Long)
     fun shareBiId(recipeId: Long)
     fun removeById(recipeId: Long)

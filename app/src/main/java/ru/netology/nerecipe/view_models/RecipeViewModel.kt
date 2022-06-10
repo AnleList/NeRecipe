@@ -18,15 +18,26 @@ class RecipeViewModel(
 ): AndroidViewModel(application), RecipeInteractionListener {
 
     private val changeFilter = MutableLiveData<String?>(null)
+    private val filterByCategory = MutableLiveData(
+        listOf(
+            RecipeCategories.Other,
+            RecipeCategories.Russian,
+            RecipeCategories.Eastern,
+            RecipeCategories.European,
+            RecipeCategories.Mediterranean,
+            RecipeCategories.Panasian,
+            RecipeCategories.American,
+            RecipeCategories.Asian,
+        )
+    )
 
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).recipeDao,
         filter = null
         )
 
-//    val data by repository::data
     val data = changeFilter.switchMap{filter ->
-        repository.getAll(filter)
+        repository.getAll(filter, filterByCategory.value!!)
 
 }
 
@@ -52,10 +63,6 @@ class RecipeViewModel(
     override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
     }
-
-//    override fun onShareVideoClicked(recipe: Recipe) {
-//        sharePostVideo.value = recipe.videoContent
-//    }
 
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
