@@ -29,12 +29,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/category"
-        android:inputType="textAutoComplete"
         app:layout_constraintBottom_toBottomOf="@+id/category_menu_button"
         app:layout_constraintEnd_toStartOf="@+id/category_menu_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/category_menu_button"
-        android:paddingStart="4dp"/>
+        android:paddingStart="4dp"
+        tools:ignore="RtlSymmetry" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/category_menu_button"

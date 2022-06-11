@@ -2,10 +2,7 @@ package ru.netology.nerecipe.data.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.RecipeRepository
-import ru.netology.nerecipe.data.RecipeCategories
-import ru.netology.nerecipe.data.Stage
+import ru.netology.nerecipe.data.*
 import ru.netology.nerecipe.db.RecipeDao
 import ru.netology.nerecipe.db.toEntity
 import ru.netology.nerecipe.db.toModel
@@ -224,16 +221,17 @@ class RecipeRepositoryImpl(
         dao.removeById(recipeId)
     }
 
-    override fun getAll(filter: String?,
-                        categories: List<RecipeCategories>): LiveData<List<Recipe>> {
-        val filterToDao = if (filter == null) "%"
-        else "$filter%"
+    override fun getAll(filter: RecipeFilter
+    ): LiveData<List<Recipe>> {
+        val filterByName = filter.byName
+        val filterToDao = if (filterByName == null) "%"
+        else "$filterByName%"
         var liveDataToReturn = dao.getAll(filterToDao).map { entities ->
             entities.map { it.toModel() }
         }
-        categories.forEach { category ->
+        filter.byCategories.forEach { category ->
             liveDataToReturn = liveDataToReturn.map { recipes ->
-                recipes.filter {it.category == category }
+                recipes.filter {it.category == category}
             }
         }
         return liveDataToReturn

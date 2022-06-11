@@ -5,7 +5,7 @@ import ru.netology.nerecipe.data.Stage
 
 interface RecipeInteractionListener {
     fun onHeartClicked(recipe: Recipe)
-    fun inFilterChange(filter: String)
+    fun inFilterByNameChange(filter: String)
     fun editRecipe(recipe: Recipe)
     fun saveRecipe(recipeToSave: Recipe)
     fun onUnDoClicked()

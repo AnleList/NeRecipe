@@ -5,10 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import ru.netology.nerecipe.adapters.RecipeInteractionListener
-import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.RecipeRepository
-import ru.netology.nerecipe.data.RecipeCategories
-import ru.netology.nerecipe.data.Stage
+import ru.netology.nerecipe.data.*
 import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
@@ -17,8 +14,7 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    private val changeFilter = MutableLiveData<String?>(null)
-    private val filterByCategory = MutableLiveData(
+    val filterByCategory = MutableLiveData(
         listOf(
             RecipeCategories.Other,
             RecipeCategories.Russian,
@@ -30,35 +26,25 @@ class RecipeViewModel(
             RecipeCategories.Asian,
         )
     )
+    private val filterByName = MutableLiveData<String?>(null)
+    private val recipeFilter = MutableLiveData(
+        RecipeFilter(filterByName.value, filterByCategory.value!!)
+    )
 
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).recipeDao,
         filter = null
         )
 
-    val data = changeFilter.switchMap{filter ->
-        repository.getAll(filter, filterByCategory.value!!)
-
+    val data = recipeFilter.switchMap{ recipeFilter ->
+        repository.getAll(recipeFilter)
 }
-
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = MutableLiveData<Recipe>()
     val navToRecipeEdit = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     val currentRecipe = MutableLiveData<Recipe?>(null)
 //    val sharePostVideo = SingleLiveEvent<String?>()
-
-
-//    fun onEditBackPressed(draft: String){
-//        if (currentRecipe.value != null) {
-//            currentRecipe.value?.copy(
-//                draftTextContent = draft
-//            )?.let {
-//                repository.save(it)
-//            }
-//            currentRecipe.value = null
-//        }
-//    }
 
     override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
@@ -77,8 +63,9 @@ class RecipeViewModel(
         repository.moveRecipeToPosition(recipe, recipe.id + 1L)
     }
 
-    override fun inFilterChange(filter: String) {
-        changeFilter.value = filter
+    override fun inFilterByNameChange(filter: String) {
+        filterByName.value = filter
+        recipeFilter.value = RecipeFilter(filter, filterByCategory.value!!)
     }
 
 //    override fun onShareClicked(recipe: Recipe) {
