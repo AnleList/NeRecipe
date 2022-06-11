@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.RecipesAdapter
+import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.databinding.FeedFragmetBinding
 import ru.netology.nerecipe.view_models.RecipeViewModel
 
@@ -65,35 +66,42 @@ class FeedFragment : Fragment() {
                     when (menuItem.itemId) {
                         R.id.categoryEuropean -> {
                             menuItem.isChecked = !menuItem.isChecked
-
+                            viewModel.inFilterByCategoryChange(RecipeCategories.European)
                             false
                         }
                         R.id.categoryEastern -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Eastern)
                             false
                         }
                         R.id.categoryOther -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Other)
                             false
                         }
                         R.id.categoryPanasian -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Panasian)
                             false
                         }
                         R.id.categoryAsian -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Asian)
                             false
                         }
                         R.id.categoryMediterranean -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Mediterranean)
                             false
                         }
                         R.id.categoryRussian -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.Russian)
                             false
                         }
                         R.id.categoryAmerican -> {
                             menuItem.isChecked = !menuItem.isChecked
+                            viewModel.inFilterByCategoryChange(RecipeCategories.American)
                             false
                         }
                         else -> false

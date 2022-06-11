@@ -69,6 +69,16 @@ class RecipeViewModel(
         recipeFilter.value = RecipeFilter(filter, filterByCategory.value!!)
     }
 
+    override fun inFilterByCategoryChange(receivedCategory: RecipeCategories) {
+        var listCategory: List<RecipeCategories> = filterByCategory.value!!
+        var isCategoryInList = false
+        listCategory.map { category -> if (category == receivedCategory) isCategoryInList = true }
+        listCategory = if (isCategoryInList) listCategory.filter { it != receivedCategory }
+        else listCategory + receivedCategory
+        filterByCategory.value = listCategory
+        recipeFilter.value = RecipeFilter(filterByName.value, listCategory)
+    }
+
 //    override fun onShareClicked(recipe: Recipe) {
 //        sharePostContent.value = recipe.ingredients
 //        repository.shareBiId(recipe.id)
