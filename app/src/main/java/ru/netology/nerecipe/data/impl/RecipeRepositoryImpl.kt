@@ -7,9 +7,7 @@ import ru.netology.nerecipe.db.RecipeDao
 import ru.netology.nerecipe.db.toEntity
 import ru.netology.nerecipe.db.toModel
 
-class RecipeRepositoryImpl(
-    private val dao: RecipeDao, override var filter: String?
-) : RecipeRepository {
+class RecipeRepositoryImpl( private val dao: RecipeDao): RecipeRepository {
 
     override val data = dao.getAll("%").map { entities ->
         entities.map { it.toModel() }

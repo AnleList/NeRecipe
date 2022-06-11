@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 interface RecipeRepository {
 
     val data: LiveData<List<Recipe>>
-    var filter: String?
-
 
     fun getAll(filter: RecipeFilter
 //        filter: String?, categories: List<RecipeCategories>

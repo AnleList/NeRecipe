@@ -14,32 +14,17 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    private val filterByCategory = MutableLiveData<List<RecipeCategories>>(
-        emptyList()
-//        listOf(
-//            RecipeCategories.Other,
-//            RecipeCategories.Russian,
-//            RecipeCategories.Eastern,
-////            RecipeCategories.European,
-//            RecipeCategories.Mediterranean,
-//            RecipeCategories.Panasian,
-//            RecipeCategories.American,
-//            RecipeCategories.Asian,
-//        )
-    )
+    private val filterByCategory = MutableLiveData<List<RecipeCategories>>(emptyList())
     private val filterByName = MutableLiveData<String?>(null)
     private val recipeFilter = MutableLiveData(
         RecipeFilter(filterByName.value, filterByCategory.value!!)
     )
-
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).recipeDao,
-        filter = null
         )
-
     val data = recipeFilter.switchMap{ recipeFilter ->
         repository.getAll(recipeFilter)
-}
+    }
 //    val sharePostContent = SingleLiveEvent<String>()
     val navToRecipeViewing = MutableLiveData<Recipe>()
     val navToRecipeEdit = MutableLiveData<Recipe>()
