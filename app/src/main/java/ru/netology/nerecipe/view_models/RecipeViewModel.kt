@@ -14,17 +14,18 @@ class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    val filterByCategory = MutableLiveData(
-        listOf(
-            RecipeCategories.Other,
-            RecipeCategories.Russian,
-            RecipeCategories.Eastern,
-            RecipeCategories.European,
-            RecipeCategories.Mediterranean,
-            RecipeCategories.Panasian,
-            RecipeCategories.American,
-            RecipeCategories.Asian,
-        )
+    private val filterByCategory = MutableLiveData<List<RecipeCategories>>(
+        emptyList()
+//        listOf(
+//            RecipeCategories.Other,
+//            RecipeCategories.Russian,
+//            RecipeCategories.Eastern,
+////            RecipeCategories.European,
+//            RecipeCategories.Mediterranean,
+//            RecipeCategories.Panasian,
+//            RecipeCategories.American,
+//            RecipeCategories.Asian,
+//        )
     )
     private val filterByName = MutableLiveData<String?>(null)
     private val recipeFilter = MutableLiveData(

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [RecipeEntity::class],
-    version = 1
+    version = 1, exportSchema = false
 )
 abstract class AppDb : RoomDatabase() {
     abstract val recipeDao: RecipeDao
