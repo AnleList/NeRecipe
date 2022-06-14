@@ -39,7 +39,7 @@ internal class RecipesAdapter(
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.removeItem -> {
-                            listener.onRemoveClicked(recipe)
+                            listener.removeRecipeById(recipe.id)
                             true
                         }
                         R.id.editItem -> {
@@ -65,29 +65,29 @@ internal class RecipesAdapter(
             binding.recipeCategory.setOnClickListener {
                 listener.navToRecipeViewFun(recipe)
             }
-            binding.recipeName.setOnLongClickListener {
-                binding.fabUp.visibility = View.VISIBLE
-                binding.fabDown.visibility = View.VISIBLE
-                binding.fabSetInvisible.visibility = View.VISIBLE
-                return@setOnLongClickListener true
-            }
-            binding.recipeAuthor.setOnLongClickListener {
-                binding.fabUp.visibility = View.VISIBLE
-                binding.fabDown.visibility = View.VISIBLE
-                binding.fabSetInvisible.visibility = View.VISIBLE
-                return@setOnLongClickListener true
-            }
-            binding.recipeCategory.setOnLongClickListener {
-                binding.fabUp.visibility = View.VISIBLE
-                binding.fabDown.visibility = View.VISIBLE
-                binding.fabSetInvisible.visibility = View.VISIBLE
-                return@setOnLongClickListener true
-            }
+//            binding.recipeName.setOnLongClickListener {
+//                binding.fabUp.visibility = View.VISIBLE
+//                binding.fabDown.visibility = View.VISIBLE
+//                binding.fabSetInvisible.visibility = View.VISIBLE
+//                return@setOnLongClickListener true
+//            }
+//            binding.recipeAuthor.setOnLongClickListener {
+//                binding.fabUp.visibility = View.VISIBLE
+//                binding.fabDown.visibility = View.VISIBLE
+//                binding.fabSetInvisible.visibility = View.VISIBLE
+//                return@setOnLongClickListener true
+//            }
+//            binding.recipeCategory.setOnLongClickListener {
+//                binding.fabUp.visibility = View.VISIBLE
+//                binding.fabDown.visibility = View.VISIBLE
+//                binding.fabSetInvisible.visibility = View.VISIBLE
+//                return@setOnLongClickListener true
+//            }
             binding.fabUp.setOnClickListener {
-                listener.recipeUp(recipe)
+                listener.recipeUp(recipe.id)
             }
             binding.fabDown.setOnClickListener {
-                listener.recipeDown(recipe)
+                listener.recipeDown(recipe.id)
             }
             binding.fabSetInvisible.setOnClickListener {
                 binding.fabUp.visibility = View.INVISIBLE

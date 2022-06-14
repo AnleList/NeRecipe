@@ -25,12 +25,11 @@ class RecipeViewModel(
     val data = recipeFilter.switchMap{ recipeFilter ->
         repository.getAll(recipeFilter)
     }
-//    val sharePostContent = SingleLiveEvent<String>()
+
     val navToRecipeViewing = MutableLiveData<Recipe>()
     val navToRecipeEdit = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     val currentRecipe = MutableLiveData<Recipe?>(null)
-//    val sharePostVideo = SingleLiveEvent<String?>()
 
     override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
@@ -39,14 +38,18 @@ class RecipeViewModel(
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
 
-    override fun recipeUp(recipe: Recipe) {
-        if (recipe.id == 1L) return else
-        repository.moveRecipeToPosition(recipe, recipe.id - 1L)
+    override fun recipeUp(recipeID: Long) {
+        if (recipeID == 1L) return else
+        repository.moveRecipeToPosition(recipeID, recipeID - 1L)
     }
 
-    override fun recipeDown(recipe: Recipe) {
-        if (recipe.id == repository.countOfRecipes()) return else
-        repository.moveRecipeToPosition(recipe, recipe.id + 1L)
+    override fun moveRecipe(from: Long, to: Long) {
+        repository.moveRecipeToPosition(from, to)
+    }
+
+    override fun recipeDown(recipeID: Long) {
+        if (recipeID == repository.countOfRecipes()) return else
+        repository.moveRecipeToPosition(recipeID, recipeID + 1L)
     }
 
     override fun inFilterByNameChange(filter: String) {
@@ -64,13 +67,8 @@ class RecipeViewModel(
         recipeFilter.value = RecipeFilter(filterByName.value, listCategory)
     }
 
-//    override fun onShareClicked(recipe: Recipe) {
-//        sharePostContent.value = recipe.ingredients
-//        repository.shareBiId(recipe.id)
-//    }
-
-    override fun onRemoveClicked(recipe: Recipe) {
-        repository.removeById(recipe.id)
+    override fun removeRecipeById(recipeID: Long) {
+        repository.removeById(recipeID)
         navToFeedFragment.call()
     }
 

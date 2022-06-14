@@ -14,6 +14,6 @@ interface RecipeRepository {
     fun removeById(recipeId: Long)
     fun save(recipe: Recipe)
     fun changeFilter(filter: String): LiveData<List<Recipe>>
-    fun moveRecipeToPosition(recipe: Recipe, destinationPosition: Long)
+    fun moveRecipeToPosition(movablePosition: Long, destinationPosition: Long)
     fun countOfRecipes(): Long
 }

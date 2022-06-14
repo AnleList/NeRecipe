@@ -64,7 +64,7 @@ class RecipeViewingFragment : Fragment() {
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.removeItem -> {
-                                viewModel.onRemoveClicked(recipeToViewing)
+                                viewModel.removeRecipeById(recipeToViewing.id)
                                 findNavController().popBackStack()
                                 true
                             }

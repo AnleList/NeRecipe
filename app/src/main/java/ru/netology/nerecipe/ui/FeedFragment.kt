@@ -9,6 +9,8 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.RecipesAdapter
 import ru.netology.nerecipe.data.RecipeCategories
@@ -58,6 +60,31 @@ class FeedFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
         }
+        val simpleCallback = object :
+            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.END) {
+            override fun isLongPressDragEnabled(): Boolean {
+                return true
+            }
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPosition = viewHolder.adapterPosition
+                val toPosition = target.adapterPosition
+                viewModel.moveRecipe(fromPosition.toLong() + 1L, toPosition.toLong() + 1L)
+                return true
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if (direction == ItemTouchHelper.END) {
+                    val position = viewHolder.adapterPosition
+                    viewModel.removeRecipeById(position.toLong() + 1L)
+                    adapter.notifyItemRemoved(position)
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recipesRecyclerView)
 
         val filterMenu by lazy {
             PopupMenu(context, binding.filterMenuButton).apply {

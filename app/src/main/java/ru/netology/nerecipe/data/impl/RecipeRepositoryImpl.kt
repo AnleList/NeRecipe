@@ -196,10 +196,11 @@ class RecipeRepositoryImpl( private val dao: RecipeDao): RecipeRepository {
         }
     }
 
-    override fun moveRecipeToPosition(recipe: Recipe, destinationPosition: Long) {
+    override fun moveRecipeToPosition(movablePosition: Long, destinationPosition: Long) {
         val destinationRecipe = dao.getById(destinationPosition).toModel()
-        dao.update(recipe.copy(id = destinationRecipe.id).toEntity())
-        dao.update(destinationRecipe.copy(id = recipe.id).toEntity())
+        val movableRecipe = dao.getById(movablePosition).toModel()
+        dao.update(movableRecipe.copy(id = destinationRecipe.id).toEntity())
+        dao.update(destinationRecipe.copy(id = movableRecipe.id).toEntity())
     }
 
     override fun countOfRecipes(): Long {
