@@ -65,35 +65,6 @@ internal class RecipesAdapter(
             binding.recipeCategory.setOnClickListener {
                 listener.navToRecipeViewFun(recipe)
             }
-//            binding.recipeName.setOnLongClickListener {
-//                binding.fabUp.visibility = View.VISIBLE
-//                binding.fabDown.visibility = View.VISIBLE
-//                binding.fabSetInvisible.visibility = View.VISIBLE
-//                return@setOnLongClickListener true
-//            }
-//            binding.recipeAuthor.setOnLongClickListener {
-//                binding.fabUp.visibility = View.VISIBLE
-//                binding.fabDown.visibility = View.VISIBLE
-//                binding.fabSetInvisible.visibility = View.VISIBLE
-//                return@setOnLongClickListener true
-//            }
-//            binding.recipeCategory.setOnLongClickListener {
-//                binding.fabUp.visibility = View.VISIBLE
-//                binding.fabDown.visibility = View.VISIBLE
-//                binding.fabSetInvisible.visibility = View.VISIBLE
-//                return@setOnLongClickListener true
-//            }
-            binding.fabUp.setOnClickListener {
-                listener.recipeUp(recipe.id)
-            }
-            binding.fabDown.setOnClickListener {
-                listener.recipeDown(recipe.id)
-            }
-            binding.fabSetInvisible.setOnClickListener {
-                binding.fabUp.visibility = View.INVISIBLE
-                binding.fabDown.visibility = View.INVISIBLE
-                binding.fabSetInvisible.visibility = View.INVISIBLE
-            }
             binding.recipeCardMenuButton.setOnClickListener {
                 popupMenu.show()
             }

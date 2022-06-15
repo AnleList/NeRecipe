@@ -72,6 +72,21 @@ class RecipeViewModel(
         navToFeedFragment.call()
     }
 
+    override fun moveStage(from: Int, to: Int) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.toMutableList() ?: return
+        val destinationStage: Stage
+        val movableStage: Stage
+        if (from == 1 || to >= stagesToSave.size) return else {
+            destinationStage = stagesToSave[to]
+            movableStage = stagesToSave[from]
+            stagesToSave[to] = movableStage.copy(id = destinationStage.id)
+            stagesToSave[from] = destinationStage.copy(id = movableStage.id)
+        }
+        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
+        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
+    }
+
     override fun stageUp(stage: Stage) {
         val stagesToSave: MutableList<Stage> =
             currentRecipe.value?.stages?.toMutableList() ?: return
@@ -98,9 +113,9 @@ class RecipeViewModel(
         currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
     }
 
-    override fun deleteStage(stage: Stage) {
+    override fun deleteStage(position: Int) {
         val stagesToSave: MutableList<Stage> =
-            currentRecipe.value?.stages?.filter {it.id != stage.id} as MutableList<Stage>
+            currentRecipe.value?.stages?.filter {it.id != position+1} as MutableList<Stage>
         for ((index, eachStage) in stagesToSave.withIndex()) {
             eachStage.id = index + 1
         }

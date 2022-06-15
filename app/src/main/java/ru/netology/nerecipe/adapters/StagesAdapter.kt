@@ -32,28 +32,28 @@ internal class StagesAdapter(
         private lateinit var stage: Stage
 
         init {
-            binding.stageText.setOnLongClickListener {
-                binding.fabUp.visibility = View.VISIBLE
-                binding.fabDown.visibility = View.VISIBLE
-                binding.fabSetInvisible.visibility = View.VISIBLE
-                binding.fabDeleteStage.visibility = View.VISIBLE
-                return@setOnLongClickListener true
-            }
-            binding.fabUp.setOnClickListener {
-                listener.stageUp(stage)
-            }
-            binding.fabDown.setOnClickListener {
-                listener.stageDown(stage)
-            }
-            binding.fabSetInvisible.setOnClickListener {
-                binding.fabUp.visibility = View.INVISIBLE
-                binding.fabDown.visibility = View.INVISIBLE
-                binding.fabSetInvisible.visibility = View.INVISIBLE
-                binding.fabDeleteStage.visibility = View.INVISIBLE
-            }
-            binding.fabDeleteStage.setOnClickListener {
-                listener.deleteStage(stage)
-            }
+//            binding.stageText.setOnLongClickListener {
+//                binding.fabUp.visibility = View.VISIBLE
+//                binding.fabDown.visibility = View.VISIBLE
+//                binding.fabSetInvisible.visibility = View.VISIBLE
+//                binding.fabDeleteStage.visibility = View.VISIBLE
+//                return@setOnLongClickListener true
+//            }
+//            binding.fabUp.setOnClickListener {
+//                listener.stageUp(stage)
+//            }
+//            binding.fabDown.setOnClickListener {
+//                listener.stageDown(stage)
+//            }
+//            binding.fabSetInvisible.setOnClickListener {
+//                binding.fabUp.visibility = View.INVISIBLE
+//                binding.fabDown.visibility = View.INVISIBLE
+//                binding.fabSetInvisible.visibility = View.INVISIBLE
+//                binding.fabDeleteStage.visibility = View.INVISIBLE
+//            }
+//            binding.fabDeleteStage.setOnClickListener {
+//                listener.deleteStage(stage)
+//            }
         }
         fun bind(stage: Stage) {
             this.stage = stage

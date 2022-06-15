@@ -17,10 +17,11 @@ interface RecipeInteractionListener {
     fun recipeDown(recipeID: Long)
     fun recipeUp(recipeID: Long)
     fun moveRecipe(from: Long, to: Long)
+    fun moveStage(from: Int, to: Int)
     fun removeRecipeById(recipeID: Long)
     fun stageUp(stage: Stage)
     fun stageDown(stage: Stage)
-    fun deleteStage(stage: Stage)
+    fun deleteStage(position: Int)
 //    fun onShareClicked(recipe: Recipe)
 }
 

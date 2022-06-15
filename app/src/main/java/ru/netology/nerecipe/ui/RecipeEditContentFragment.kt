@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -116,23 +117,12 @@ class RecipeEditContentFragment : Fragment() {
                 ingredients.setText(recipeToEdit.ingredients)
             }
             addStageText.setOnFocusChangeListener() { _, hasFocus ->
-                if (hasFocus)
+                if (hasFocus && !binding.stagesRecyclerView.isEmpty())
                     binding.stagesRecyclerView.smoothScrollToPosition(
                         adapter.itemCount - 1
                     )
             }
         }
-
-//        val callback: OnBackPressedCallback =
-//            object : OnBackPressedCallback(true /* enabled by default */) {
-//                override fun handleOnBackPressed() {
-//                    viewModel.onEditBackPressed(
-//                        binding.edit.text.toString()
-//                    )
-//                    findNavController().popBackStack()
-//                }
-//            }
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         binding.save.setOnClickListener {
             nextStageId = adapter.itemCount + 1
@@ -237,9 +227,4 @@ class RecipeEditContentFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-//
-//    companion object {
-//        const val REQUEST_KEY = "ru.netology.nmedia.PostContent.requestKey"
-//        const val RESULT_KEY = "ru.netology.nmedia.PostContent.postNewContent"
-//    }
 }

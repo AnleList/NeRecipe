@@ -8,6 +8,8 @@ import android.widget.PopupMenu
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
@@ -45,6 +47,31 @@ class RecipeViewingFragment : Fragment() {
                 adapter.submitList(recipe.stages)
             }
         }
+        val simpleCallback = object :
+            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.END) {
+            override fun isLongPressDragEnabled(): Boolean {
+                return true
+            }
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPosition = viewHolder.adapterPosition
+                val toPosition = target.adapterPosition
+                viewModel.moveStage(fromPosition, toPosition)
+                return true
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if (direction == ItemTouchHelper.END) {
+                    val position = viewHolder.adapterPosition
+                    viewModel.deleteStage(position)
+                    adapter.notifyItemRemoved(position)
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(binding.stagesRecyclerView)
 
         var recipeToViewing: Recipe = args.recipeToViewing
 
