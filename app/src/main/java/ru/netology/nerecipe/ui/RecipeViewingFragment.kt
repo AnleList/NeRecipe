@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,6 +17,7 @@ import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeViewingFragmentBinding
 import ru.netology.nerecipe.valueToStringForShowing
 import ru.netology.nerecipe.view_models.RecipeViewModel
+
 
 class RecipeViewingFragment : Fragment() {
 
@@ -47,11 +49,21 @@ class RecipeViewingFragment : Fragment() {
                 adapter.submitList(recipe.stages)
             }
         }
-        val simpleCallback = object :
-            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.END) {
+        val callback = object :
+            ItemTouchHelper.Callback() {
             override fun isLongPressDragEnabled(): Boolean {
                 return true
             }
+
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ): Int {
+                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+                val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+                return makeMovementFlags(dragFlags, swipeFlags)
+            }
+
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -70,7 +82,7 @@ class RecipeViewingFragment : Fragment() {
                 }
             }
         }
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.stagesRecyclerView)
 
         var recipeToViewing: Recipe = args.recipeToViewing
