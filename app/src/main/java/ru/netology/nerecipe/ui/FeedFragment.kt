@@ -1,5 +1,6 @@
 package ru.netology.nerecipe.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -60,11 +61,13 @@ class FeedFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
         }
+
         val simpleCallback = object :
             ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.END) {
             override fun isLongPressDragEnabled(): Boolean {
                 return true
             }
+
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
