@@ -12,16 +12,12 @@ interface RecipeInteractionListener {
     fun saveRecipe(recipeToSave: Recipe)
     fun onUnDoClicked()
     fun onAddClicked()
-    //    fun onShareVideoClicked(recipe: Recipe)
     fun navToRecipeViewFun(recipe: Recipe)
     fun recipeDown(recipeID: Long)
     fun recipeUp(recipeID: Long)
     fun moveRecipe(from: Long, to: Long)
     fun moveStage(from: Int, to: Int)
     fun removeRecipeById(recipeID: Long)
-    fun stageUp(stage: Stage)
-    fun stageDown(stage: Stage)
     fun deleteStage(position: Int)
-//    fun onShareClicked(recipe: Recipe)
 }
 

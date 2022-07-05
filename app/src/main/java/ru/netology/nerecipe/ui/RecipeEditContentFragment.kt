@@ -242,7 +242,7 @@ class RecipeEditContentFragment : Fragment() {
             )
             viewModel.saveRecipe(recipeToEdit)
             viewModel.editRecipe(recipeToEdit)
-            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_SHORT).show()
         }
     }
 

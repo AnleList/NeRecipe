@@ -17,7 +17,7 @@ class RecipeViewModel(
     private val filterByCategory = MutableLiveData<List<RecipeCategories>>(emptyList())
     private val filterByName = MutableLiveData<String?>(null)
     private val recipeFilter = MutableLiveData(
-        RecipeFilter(filterByName.value, filterByCategory.value!!)
+        filterByCategory.value?.let { RecipeFilter(filterByName.value, it) }
     )
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).recipeDao,
@@ -29,7 +29,7 @@ class RecipeViewModel(
     val navToRecipeViewing = MutableLiveData<Recipe>()
     val navToRecipeEdit = MutableLiveData<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
-    val currentRecipe = MutableLiveData<Recipe?>(null)
+    val currentRecipe = MutableLiveData<Recipe>()
 
     override fun saveRecipe(recipeToSave: Recipe) {
         repository.save(recipeToSave)
@@ -54,17 +54,19 @@ class RecipeViewModel(
 
     override fun inFilterByNameChange(filter: String) {
         filterByName.value = filter
-        recipeFilter.value = RecipeFilter(filter, filterByCategory.value!!)
+        recipeFilter.value = filterByCategory.value?.let { RecipeFilter(filter, it) }
     }
 
     override fun inFilterByCategoryChange(receivedCategory: RecipeCategories) {
-        var listCategory: List<RecipeCategories> = filterByCategory.value!!
+        var listCategory: List<RecipeCategories>? = filterByCategory.value
         var isCategoryInList = false
-        listCategory.map { category -> if (category == receivedCategory) isCategoryInList = true }
-        listCategory = if (isCategoryInList) listCategory.filter { it != receivedCategory }
-        else listCategory + receivedCategory
+        listCategory?.map { category -> if (category == receivedCategory) isCategoryInList = true }
+        if (listCategory != null) {
+            listCategory = if (isCategoryInList) listCategory.filter { it != receivedCategory }
+            else listCategory + receivedCategory
+        }
         filterByCategory.value = listCategory
-        recipeFilter.value = RecipeFilter(filterByName.value, listCategory)
+        recipeFilter.value = listCategory?.let { RecipeFilter(filterByName.value, it) }
     }
 
     override fun removeRecipeById(recipeID: Long) {
@@ -83,34 +85,11 @@ class RecipeViewModel(
             stagesToSave[to] = movableStage.copy(id = destinationStage.id)
             stagesToSave[from] = destinationStage.copy(id = movableStage.id)
         }
-        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
-        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
-    }
-
-    override fun stageUp(stage: Stage) {
-        val stagesToSave: MutableList<Stage> =
-            currentRecipe.value?.stages?.toMutableList() ?: return
-        val destinationStage: Stage
-        if (stage.id == 1) return else {
-            destinationStage = stagesToSave[stage.id-2]
-            stagesToSave[stage.id-2] = stage.copy(id = destinationStage.id)
-            stagesToSave[stage.id-1] = destinationStage.copy(id = stage.id)
+        val recipeToSave: Recipe? = currentRecipe.value
+        if (recipeToSave != null) {
+            repository.save(recipeToSave.copy(stages = stagesToSave))
+            currentRecipe.value = recipeToSave.copy(stages = stagesToSave)
         }
-        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
-        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
-    }
-
-    override fun stageDown(stage: Stage) {
-        val stagesToSave: MutableList<Stage> =
-            currentRecipe.value?.stages?.toMutableList() ?: return
-        val destinationStage: Stage
-        if (stage.id >= stagesToSave.size) return else {
-            destinationStage = stagesToSave[stage.id]
-            stagesToSave[stage.id] = stage.copy(id = destinationStage.id)
-            stagesToSave[stage.id-1] = destinationStage.copy(id = stage.id)
-        }
-        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
-        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
     }
 
     override fun deleteStage(position: Int) {
@@ -119,8 +98,11 @@ class RecipeViewModel(
         for ((index, eachStage) in stagesToSave.withIndex()) {
             eachStage.id = index + 1
         }
-        repository.save(currentRecipe.value!!.copy(stages = stagesToSave))
-        currentRecipe.value = currentRecipe.value!!.copy(stages = stagesToSave)
+        val recipeToSave: Recipe? = currentRecipe.value
+        if (recipeToSave != null) {
+            repository.save(recipeToSave.copy(stages = stagesToSave))
+            currentRecipe.value = recipeToSave.copy(stages = stagesToSave)
+        }
     }
 
     override fun editRecipe(recipe: Recipe) {
