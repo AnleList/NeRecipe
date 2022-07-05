@@ -46,6 +46,9 @@ class RecipeEditContentFragment : Fragment() {
         viewModel.currentRecipe.observe(viewLifecycleOwner) {recipe ->
             if (recipe != null) {
                 adapter.submitList(recipe.stages)
+                recipeToEdit = recipeToEdit.copy(
+                    stages = recipe.stages
+                )
             }
 
         }
