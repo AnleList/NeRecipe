@@ -246,6 +246,7 @@ class RecipeEditContentFragment : Fragment() {
     }
 
     private fun RecipeEditContentFragmentBinding.saveRecipeAndExit() {
+        val stages: MutableList<Stage> = recipeToEdit.stages.toMutableList()
         if (recipeName.text.isNullOrBlank()
             || author.text.isNullOrBlank()
             || category.text.isNullOrBlank()
@@ -258,7 +259,6 @@ class RecipeEditContentFragment : Fragment() {
             return
         }
         else {
-            val stages: MutableList<Stage> = args.initialContent.stages.toMutableList()
             if (!addStageText.text.isNullOrBlank()) {
                 stages.add( Stage(
                     id = nextStageId,
@@ -267,15 +267,15 @@ class RecipeEditContentFragment : Fragment() {
                     )
                 )
             }
-            val recipeToUpdate = if (args.initialContent.id != 0L)
-                args.initialContent.copy(
+            val recipeToEdit = if (recipeToEdit.id != 0L)
+                recipeToEdit.copy(
                     name = recipeName.text.toString(),
                     author = author.text.toString(),
                     category = selectedCategory,
                     ingredients = ingredients.text.toString(),
                     stages = stages
                 )
-            else args.initialContent.copy(
+            else recipeToEdit.copy(
                 id = 0,
                 name = recipeName.text.toString(),
                 author = author.text.toString(),
@@ -284,7 +284,7 @@ class RecipeEditContentFragment : Fragment() {
                 published = (sdf.format(Date())).toString(),
                 stages = stages
             )
-            viewModel.saveRecipe(recipeToUpdate)
+            viewModel.saveRecipe(recipeToEdit)
             findNavController().popBackStack()
         }
     }
