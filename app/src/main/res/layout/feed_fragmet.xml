@@ -15,6 +15,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="27dp"
         tools:listitem="@layout/recipe_card_layout" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -61,11 +63,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#0000ffff"
-        android:contentDescription="@string/fabContentDescription"
         app:layout_constraintBottom_toBottomOf="@+id/recipesRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/recipesRecyclerView"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
-        tools:ignore="RtlSymmetry" />
+        android:contentDescription="@string/fabContentDescription"
+        android:backgroundTint="#25DA00FF"
+        android:backgroundTintMode="src_in"
+        app:backgroundTint="#00FFFFFF"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:maxImageSize="36dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
