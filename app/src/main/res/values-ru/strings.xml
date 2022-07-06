@@ -37,4 +37,6 @@
     <string name="feedFilterHint">начните вводить название здесь</string>
     <string name="stageImage">изображение стадии</string>
     <string name="deleteButton">кнопка удалить</string>
+    <string name="favourites">Избранное</string>
+    <string name="home">Дом</string>
 </resources>

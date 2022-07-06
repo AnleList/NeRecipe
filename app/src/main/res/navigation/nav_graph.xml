@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="ru.netology.nerecipe.ui.FeedFragment"
+        android:label="@string/home"
         tools:layout="@layout/feed_fragmet" >
         <action
             android:id="@+id/action_feedFragment_to_recipeContentFragment"
@@ -42,4 +43,9 @@
             android:name="recipeToViewing"
             app:argType="ru.netology.nerecipe.data.Recipe" />
     </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="ru.netology.nerecipe.FavouritesFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/fragment_favourites" />
 </navigation>
