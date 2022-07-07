@@ -219,26 +219,37 @@ class RecipeRepositoryImpl( private val dao: RecipeDao): RecipeRepository {
         dao.removeById(recipeId)
     }
 
-    override fun getAll(filter: RecipeFilter): LiveData<List<Recipe>> {
-        val filterByName = filter.byName
+    override fun getAll(filter: RecipeFilter?): LiveData<List<Recipe>> {
+
+        val filterByName = filter?.byName
         val filterToDao = if (filterByName == null) "%" else "$filterByName%"
         val liveDataFromDao = dao.getAll(filterToDao).map { entities ->
             entities.map { it.toModel() }
         }
-        val liveDataToReturn = liveDataFromDao
-            .map { recipes ->
-            filterRecipesByCategory(filter.byCategories, recipes)
+        val liveDataToReturn = liveDataFromDao.map { recipes ->
+            filterRecipesByCategory(filter?.byCategories,
+                filterRecipesByLikedByMe(filter?.byLikedByMe, recipes)
+                )
         }
         return liveDataToReturn
     }
 
     private fun filterRecipesByCategory(
-        categories: List<RecipeCategories>,
+        categories: List<RecipeCategories>?,
         recipes: List<Recipe>): List<Recipe>{
         var result = recipes
-        categories.forEach { category ->
+        categories?.forEach { category ->
             result = result.filter { it.category != category }
         }
+        return result
+    }
+
+    private fun filterRecipesByLikedByMe(
+        isNeedOnlyLikesByMe: Boolean?,
+        recipes: List<Recipe>
+    ): List<Recipe> {
+        var result = recipes
+        if (isNeedOnlyLikesByMe == true) result = result.filter { it.likedByMe }
         return result
     }
 }

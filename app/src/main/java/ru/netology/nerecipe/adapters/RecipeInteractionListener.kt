@@ -8,6 +8,7 @@ interface RecipeInteractionListener {
     fun onHeartClicked(recipe: Recipe)
     fun inFilterByNameChange(filter: String)
     fun inFilterByCategoryChange(receivedCategory: RecipeCategories)
+    fun inFilterByLikedByMeChange(isNeedOnlyLikedByMe: Boolean)
     fun editRecipe(recipe: Recipe)
     fun saveRecipe(recipeToSave: Recipe)
     fun onUnDoClicked()

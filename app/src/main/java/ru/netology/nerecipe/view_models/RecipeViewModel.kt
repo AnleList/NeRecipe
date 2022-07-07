@@ -15,9 +15,12 @@ class RecipeViewModel(
 ): AndroidViewModel(application), RecipeInteractionListener {
 
     private val filterByCategory = MutableLiveData<List<RecipeCategories>>(emptyList())
-    private val filterByName = MutableLiveData<String?>(null)
+    private val filterByName = MutableLiveData<String>(null)
+    private val filterByLikedByMe = MutableLiveData<Boolean>(false)
     private val recipeFilter = MutableLiveData(
-        filterByCategory.value?.let { RecipeFilter(filterByName.value, it) }
+        filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+        }
     )
     private val repository: RecipeRepository = RecipeRepositoryImpl(
         dao = AppDb.getInstance(context = application).recipeDao,
@@ -54,7 +57,9 @@ class RecipeViewModel(
 
     override fun inFilterByNameChange(filter: String) {
         filterByName.value = filter
-        recipeFilter.value = filterByCategory.value?.let { RecipeFilter(filter, it) }
+        recipeFilter.value = filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+        }
     }
 
     override fun inFilterByCategoryChange(receivedCategory: RecipeCategories) {
@@ -66,8 +71,18 @@ class RecipeViewModel(
             else listCategory + receivedCategory
         }
         filterByCategory.value = listCategory
-        recipeFilter.value = listCategory?.let { RecipeFilter(filterByName.value, it) }
+        recipeFilter.value = filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+        }
     }
+
+    override fun inFilterByLikedByMeChange(isNeedOnlyLikedByMe: Boolean) {
+        filterByLikedByMe.value = isNeedOnlyLikedByMe
+        recipeFilter.value = filterByCategory.value?.let {
+                filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+            }
+    }
+
 
     override fun removeRecipeById(recipeID: Long) {
         repository.removeById(recipeID)

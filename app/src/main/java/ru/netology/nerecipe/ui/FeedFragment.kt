@@ -58,6 +58,7 @@ class FeedFragment : Fragment() {
 
         val adapter = RecipesAdapter(viewModel)
         binding.recipesRecyclerView.adapter = adapter
+        viewModel.inFilterByLikedByMeChange(false)
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
         }
