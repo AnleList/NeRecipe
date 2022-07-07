@@ -189,11 +189,11 @@ class RecipeEditContentFragment : Fragment() {
                     adapter.itemCount - 1
                 )
         }
-        binding.save.setOnLongClickListener {
-            nextStageId = adapter.itemCount + 1
-            binding.saveRecipeAndExit()
-            return@setOnLongClickListener true
-        }
+//        binding.save.setOnLongClickListener {
+//            nextStageId = adapter.itemCount + 1
+//            binding.saveRecipeAndExit()
+//            return@setOnLongClickListener true
+//        }
         binding.categoryMenuButton.setOnClickListener {
             categoryPopupMenu.show()
         }
@@ -208,22 +208,42 @@ class RecipeEditContentFragment : Fragment() {
             Toast.makeText(activity, getString(R.string.notAllStar), Toast.LENGTH_LONG).show()
             return
         }
-        else if (addStageText.text.isNullOrBlank() && args.initialContent.stages.isEmpty()) {
+        else if (addStageText.text.isNullOrBlank() && stages.isEmpty()) {
             Toast.makeText(activity, getString(R.string.noCookingStep), Toast.LENGTH_LONG).show()
             return
         }
-        else if (addStageText.text.isNullOrBlank()) {
-            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_LONG).show()
-            return
-        }
-        else {
+        else if (!addStageText.text.isNullOrBlank()) {
             val stageToAdd = Stage(
                 id = nextStageId,
                 text = addStageText.text.toString(),
                 imageURL = addStageUrl.text.toString()
             )
             stages.add(stageToAdd)
-            val recipeToEdit = if (recipeToEdit.id != 0L)
+            val recipeToEdit =
+                if (recipeToEdit.id != 0L)
+                    recipeToEdit.copy(
+                        name = recipeName.text.toString(),
+                        author = author.text.toString(),
+                        category = selectedCategory,
+                        ingredients = ingredients.text.toString(),
+                        stages = stages
+                    )
+                else recipeToEdit.copy(
+                    id = 0,
+                    name = recipeName.text.toString(),
+                    author = author.text.toString(),
+                    category = selectedCategory,
+                    ingredients = ingredients.text.toString(),
+                    published = (sdf.format(Date())).toString(),
+                    stages = stages
+                )
+            viewModel.editRecipe(recipeToEdit)
+//            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_LONG).show()
+            return
+        }
+        else if (addStageText.text.isNullOrBlank() && stages.isNotEmpty()) {
+            val recipeToEdit =
+                if (recipeToEdit.id != 0L)
                 recipeToEdit.copy(
                     name = recipeName.text.toString(),
                     author = author.text.toString(),
@@ -231,62 +251,63 @@ class RecipeEditContentFragment : Fragment() {
                     ingredients = ingredients.text.toString(),
                     stages = stages
                 )
-            else recipeToEdit.copy(
-                id = 0,
-                name = recipeName.text.toString(),
-                author = author.text.toString(),
-                category = selectedCategory,
-                ingredients = ingredients.text.toString(),
-                published = (sdf.format(Date())).toString(),
-                stages = stages
-            )
+                else recipeToEdit.copy(
+                    id = 0,
+                    name = recipeName.text.toString(),
+                    author = author.text.toString(),
+                    category = selectedCategory,
+                    ingredients = ingredients.text.toString(),
+                    published = (sdf.format(Date())).toString(),
+                    stages = stages
+                )
             viewModel.saveRecipe(recipeToEdit)
-            viewModel.editRecipe(recipeToEdit)
-            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+//            Toast.makeText(activity, getString(R.string.exitHint), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun RecipeEditContentFragmentBinding.saveRecipeAndExit() {
-        val stages: MutableList<Stage> = recipeToEdit.stages.toMutableList()
-        if (recipeName.text.isNullOrBlank()
-            || author.text.isNullOrBlank()
-            || category.text.isNullOrBlank()
-            || ingredients.text.isNullOrBlank()) {
-            Toast.makeText(activity, getString(R.string.notAllStar), Toast.LENGTH_LONG).show()
-            return
-        }
-        else if (addStageText.text.isNullOrBlank() && args.initialContent.stages.isEmpty()) {
-            Toast.makeText(activity, getString(R.string.noCookingStep), Toast.LENGTH_LONG).show()
-            return
-        }
-        else {
-            if (!addStageText.text.isNullOrBlank()) {
-                stages.add( Stage(
-                    id = nextStageId,
-                    text = addStageText.text.toString(),
-                    imageURL = addStageUrl.text.toString()
-                    )
-                )
-            }
-            val recipeToEdit = if (recipeToEdit.id != 0L)
-                recipeToEdit.copy(
-                    name = recipeName.text.toString(),
-                    author = author.text.toString(),
-                    category = selectedCategory,
-                    ingredients = ingredients.text.toString(),
-                    stages = stages
-                )
-            else recipeToEdit.copy(
-                id = 0,
-                name = recipeName.text.toString(),
-                author = author.text.toString(),
-                category = selectedCategory,
-                ingredients = ingredients.text.toString(),
-                published = (sdf.format(Date())).toString(),
-                stages = stages
-            )
-            viewModel.saveRecipe(recipeToEdit)
-            findNavController().popBackStack()
-        }
-    }
+//    private fun RecipeEditContentFragmentBinding.saveRecipeAndExit() {
+//        val stages: MutableList<Stage> = recipeToEdit.stages.toMutableList()
+//        if (recipeName.text.isNullOrBlank()
+//            || author.text.isNullOrBlank()
+//            || category.text.isNullOrBlank()
+//            || ingredients.text.isNullOrBlank()) {
+//            Toast.makeText(activity, getString(R.string.notAllStar), Toast.LENGTH_LONG).show()
+//            return
+//        }
+//        else if (addStageText.text.isNullOrBlank() && stages.isEmpty()) {
+//            Toast.makeText(activity, getString(R.string.noCookingStep), Toast.LENGTH_LONG).show()
+//            return
+//        }
+//        else {
+//            if (!addStageText.text.isNullOrBlank()) {
+//                stages.add( Stage(
+//                    id = nextStageId,
+//                    text = addStageText.text.toString(),
+//                    imageURL = addStageUrl.text.toString()
+//                    )
+//                )
+//            }
+//            val recipeToEdit = if (recipeToEdit.id != 0L)
+//                recipeToEdit.copy(
+//                    name = recipeName.text.toString(),
+//                    author = author.text.toString(),
+//                    category = selectedCategory,
+//                    ingredients = ingredients.text.toString(),
+//                    stages = stages
+//                )
+//            else recipeToEdit.copy(
+//                id = 0,
+//                name = recipeName.text.toString(),
+//                author = author.text.toString(),
+//                category = selectedCategory,
+//                ingredients = ingredients.text.toString(),
+//                published = (sdf.format(Date())).toString(),
+//                stages = stages
+//            )
+//            viewModel.saveRecipe(recipeToEdit)
+//            viewModel.currentRecipe.value = null
+//            findNavController().popBackStack()
+//        }
+//    }
 }
