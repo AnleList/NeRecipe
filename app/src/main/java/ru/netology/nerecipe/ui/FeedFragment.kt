@@ -60,10 +60,12 @@ class FeedFragment : Fragment() {
         viewModel.inFilterByLikedByMeChange(false)
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
+            viewModel.currentRecipe.value = null
         }
 
         val simpleCallback = object :
-            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.END) {
+            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG,
+                ItemTouchHelper.ANIMATION_TYPE_SWIPE_CANCEL) {
             override fun isLongPressDragEnabled(): Boolean {
                 return true
             }
@@ -79,11 +81,6 @@ class FeedFragment : Fragment() {
                 return true
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if (direction == ItemTouchHelper.END) {
-                    val position = viewHolder.adapterPosition
-                    viewModel.removeRecipeById(position.toLong() + 1L)
-                    adapter.notifyItemRemoved(position)
-                }
             }
         }
         val itemTouchHelper = ItemTouchHelper(simpleCallback)

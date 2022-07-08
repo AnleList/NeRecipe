@@ -182,13 +182,13 @@ class RecipeEditContentFragment : Fragment() {
         binding.save.setOnClickListener {
             nextStageId = adapter.itemCount + 1
             binding.saveRecipe()
-            if (!binding.addStageText.text.isNullOrBlank()
-                && binding.stagesRecyclerView.isEmpty()) {
+            if (!(binding.addStageText.text.isNullOrBlank()
+                && !binding.stagesRecyclerView.isEmpty())) {
                 binding.addStageText.setText("")
                 binding.addStageUrl.setText("")
                 if (!binding.stagesRecyclerView.isEmpty())
                     binding.stagesRecyclerView.smoothScrollToPosition(
-                        adapter.itemCount - 1
+                        adapter.itemCount
                     )
             }
         }
