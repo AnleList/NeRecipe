@@ -259,8 +259,11 @@ class RecipeEditContentFragment : Fragment() {
                 )
             viewModel.saveRecipe(recipeToEdit)
             viewModel.currentRecipe.value = null
-            findNavController().popBackStack()
-            if (recipeToEdit.id == 0L) activity?.onBackPressed()
+            findNavController().navigate(
+                RecipeEditContentFragmentDirections.actionRecipeEditFragmentToFeedFragment()
+            )
+//            findNavController().popBackStack()
+//            if (recipeToEdit.id == 0L) activity?.onBackPressed()
         }
     }
 }
