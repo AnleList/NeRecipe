@@ -28,9 +28,9 @@ class RecipeViewingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.navToRecipeEdit.observe(this) { postContent ->
+        viewModel.navToRecipeEdit.observe(this) { recipe ->
             val direction = RecipeViewingFragmentDirections
-                .actionRecipeViewingFragmentToRecipeContentFragment(postContent)
+                .actionRecipeViewingFragmentToRecipeContentFragment(recipe)
             findNavController().navigate(direction)
         }
     }

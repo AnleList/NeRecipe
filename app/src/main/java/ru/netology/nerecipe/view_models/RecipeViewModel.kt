@@ -29,8 +29,8 @@ class RecipeViewModel(
         repository.getAll(recipeFilter)
     }
 
-    val navToRecipeViewing = MutableLiveData<Recipe>()
-    val navToRecipeEdit = MutableLiveData<Recipe>()
+    val navToRecipeViewing = SingleLiveEvent<Recipe>()
+    val navToRecipeEdit = SingleLiveEvent<Recipe>()
     private val navToFeedFragment = SingleLiveEvent<Unit>()
     val currentRecipe = MutableLiveData<Recipe>()
 
@@ -122,7 +122,6 @@ class RecipeViewModel(
 
     override fun editRecipe(recipe: Recipe) {
         currentRecipe.value = recipe
-        navToRecipeEdit.value = recipe
     }
 
     override fun onUnDoClicked() {
