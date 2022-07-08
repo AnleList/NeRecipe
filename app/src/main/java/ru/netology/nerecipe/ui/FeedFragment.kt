@@ -27,9 +27,8 @@ class FeedFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         viewModel.navToRecipeEdit.observe(this) { recipe ->
-            val direction
-                = recipe?.let {
-                FeedFragmentDirections.actionFeedFragmentToRecipeContentFragment(recipe)
+            val direction = recipe?.let {
+                FeedFragmentDirections.actionFeedFragmentToRecipeEditFragment(recipe)
             }
             if (direction != null) {
                 findNavController().navigate(direction)

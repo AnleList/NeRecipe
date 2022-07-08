@@ -11,7 +11,7 @@
         android:label="@string/home"
         tools:layout="@layout/feed_fragmet" >
         <action
-            android:id="@+id/action_feedFragment_to_recipeContentFragment"
+            android:id="@+id/action_feedFragment_to_recipeEditFragment"
             app:destination="@id/recipeEditFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -30,6 +30,9 @@
             android:name="initialContent"
             app:argType="ru.netology.nerecipe.data.Recipe"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_recipeEditFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeViewingFragment"
