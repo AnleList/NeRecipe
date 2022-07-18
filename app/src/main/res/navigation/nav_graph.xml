@@ -37,7 +37,6 @@
     <fragment
         android:id="@+id/recipeViewingFragment"
         android:name="ru.netology.nerecipe.ui.RecipeViewingFragment"
-        android:label="recipe_viewing_fragment"
         tools:layout="@layout/recipe_viewing_fragment">
         <action
             android:id="@+id/action_recipeViewingFragment_to_recipeContentFragment"

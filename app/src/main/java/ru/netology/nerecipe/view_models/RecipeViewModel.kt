@@ -100,11 +100,11 @@ class RecipeViewModel(
             stagesToSave[to] = movableStage.copy(id = destinationStage.id)
             stagesToSave[from] = destinationStage.copy(id = movableStage.id)
         }
-        val recipeToSave: Recipe? = currentRecipe.value
-        if (recipeToSave != null) {
-            repository.save(recipeToSave.copy(stages = stagesToSave))
-            currentRecipe.value = recipeToSave.copy(stages = stagesToSave)
-        }
+//        val recipeToSave: Recipe? = currentRecipe.value
+//        if (recipeToSave != null) {
+//            repository.save(recipeToSave.copy(stages = stagesToSave))
+            currentRecipe.value = currentRecipe.value?.copy(stages = stagesToSave)
+//        }
     }
 
     override fun deleteStage(position: Int) {
@@ -122,6 +122,7 @@ class RecipeViewModel(
 
     override fun editRecipe(recipe: Recipe) {
         currentRecipe.value = recipe
+        navToRecipeEdit.value = recipe
     }
 
     override fun onUnDoClicked() {
