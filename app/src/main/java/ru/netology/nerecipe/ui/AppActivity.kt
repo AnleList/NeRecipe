@@ -21,7 +21,7 @@ class AppActivity : AppCompatActivity() {
             R.id.favouritesFragment,
             R.id.feedFragment,
             R.id.recipeEditFragment,
-            R.id.recipeViewingFragment
+            R.id.recipeViewingFragment,
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

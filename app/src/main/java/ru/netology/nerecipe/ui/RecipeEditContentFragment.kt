@@ -183,7 +183,7 @@ class RecipeEditContentFragment : Fragment() {
             nextStageId = adapter.itemCount + 1
             binding.saveRecipe()
             if (!(binding.addStageText.text.isNullOrBlank()
-                && !binding.stagesRecyclerView.isEmpty())) {
+                        && !binding.stagesRecyclerView.isEmpty())) {
                 binding.addStageText.setText("")
                 binding.addStageUrl.setText("")
                 if (!binding.stagesRecyclerView.isEmpty())
@@ -191,6 +191,7 @@ class RecipeEditContentFragment : Fragment() {
                         adapter.itemCount
                     )
             }
+
         }
 
         binding.categoryMenuButton.setOnClickListener {
@@ -236,7 +237,8 @@ class RecipeEditContentFragment : Fragment() {
                     published = (sdf.format(Date())).toString(),
                     stages = stages
                 )
-            viewModel.editRecipe(recipeToEdit)
+            viewModel.currentRecipe.value = recipeToEdit
+//            viewModel.editRecipe(recipeToEdit)
         }
         else if (addStageText.text.isNullOrBlank() && stages.isNotEmpty()) {
             val recipeToEdit =
@@ -259,10 +261,9 @@ class RecipeEditContentFragment : Fragment() {
                 )
             viewModel.saveRecipe(recipeToEdit)
             viewModel.currentRecipe.value = null
-//            findNavController().navigate(
-//                RecipeEditContentFragmentDirections.actionRecipeEditFragmentToFeedFragment()
-//            )
-            findNavController().popBackStack()
+            findNavController().navigate(
+                RecipeEditContentFragmentDirections.actionRecipeEditFragmentToFeedFragment()
+            )
         }
     }
 }

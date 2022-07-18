@@ -1,17 +1,13 @@
 package ru.netology.nerecipe.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapters.StagesAdapter
 import ru.netology.nerecipe.data.Recipe
@@ -50,59 +46,10 @@ class RecipeViewingFragment : Fragment() {
                 adapter.submitList(recipe.stages)
             }
         }
-        val callback = object :
-            ItemTouchHelper.Callback() {
-            override fun isLongPressDragEnabled(): Boolean {
-                return true
-            }
 
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int {
-                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-                val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-                return makeMovementFlags(dragFlags, swipeFlags)
-            }
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                super.onSelectedChanged(viewHolder, actionState)
-                if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-                    viewHolder?.itemView?.setBackgroundColor(Color.LTGRAY)
-                }
-            }
-            override fun clearView(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ) {
-                super.clearView(recyclerView, viewHolder)
-                viewHolder.itemView.setBackgroundColor(0)
-            }
+        val recipeToViewing: Recipe = args.recipeToViewing
 
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                val fromPosition = viewHolder.adapterPosition
-                val toPosition = target.adapterPosition
-                viewModel.moveStage(fromPosition, toPosition)
-                return true
-            }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if (direction == ItemTouchHelper.END) {
-                    val position = viewHolder.adapterPosition
-                    viewModel.deleteStage(position)
-                    adapter.notifyItemRemoved(position)
-                }
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(binding.stagesRecyclerView)
-
-        var recipeToViewing: Recipe = args.recipeToViewing
-
-        viewModel.data.observe(viewLifecycleOwner) {recipes ->
-            recipeToViewing = recipes.first {it.id == recipeToViewing.id}
+        viewModel.currentRecipe.observe(viewLifecycleOwner) {
             with(binding) {
                 recipeName.text = recipeToViewing.name
                 recipeAuthor.text = recipeToViewing.author
