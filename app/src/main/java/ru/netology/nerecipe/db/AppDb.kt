@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [PostEntity::class],
-    version = 1
+    entities = [RecipeEntity::class],
+    version = 1, exportSchema = false
 )
 abstract class AppDb : RoomDatabase() {
-    abstract val postDao: PostDao
+    abstract val recipeDao: RecipeDao
 
     companion object {
         @Volatile

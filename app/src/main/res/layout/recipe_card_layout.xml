@@ -6,49 +6,61 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recipe_card_menu_button"
+            style="@style/Widget.AppTheme.ButtonsTheme"
+            android:checkable="false"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:icon="@drawable/menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:paddingTop="8dp"
             android:singleLine="true"
             android:textColor="#5D00F5"
             app:layout_constraintBottom_toTopOf="@id/recipe_author"
+            app:layout_constraintEnd_toStartOf="@+id/recipe_card_menu_button"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp"
             tools:text="Картофель по-французски." />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_author"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@id/recipe_name"
+            app:layout_constraintEnd_toStartOf="@+id/recipe_card_menu_button"
             app:layout_constraintStart_toStartOf="@id/recipe_name"
             app:layout_constraintTop_toBottomOf="@id/recipe_name"
             tools:text="www.RussianFood.com" />
 
 
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/recipe_category"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@id/recipeCardHeart"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/recipeCardHeart"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recipeCardHeart"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_author"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Европейская" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/recipeCardHeart"
             style="@style/Widget.AppTheme.LikeCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:button="@drawable/heart_selector"
             android:contentDescription="@string/likes"
             app:layout_constraintBottom_toBottomOf="parent"

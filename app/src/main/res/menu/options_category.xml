@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/categoryEuropean"
+        android:title="@string/categoryEuropean" />
+    <item
+        android:id="@+id/categoryAmerican"
+        android:title="@string/categoryAmerican" />
+    <item
+        android:id="@+id/categoryAsian"
+        android:title="@string/categoryAsian" />
+    <item
+        android:id="@+id/categoryEastern"
+        android:title="@string/categoryEastern" />
+    <item
+        android:id="@+id/categoryMediterranean"
+        android:title="@string/categoryMediterranean" />
+    <item
+        android:id="@+id/categoryPanasian"
+        android:title="@string/categoryPanasian" />
+    <item
+        android:id="@+id/categoryRussian"
+        android:title="@string/categoryRussian" />
+    <item
+        android:id="@+id/categoryOther"
+        android:title="@string/categoryOther" />
+</menu>

@@ -3,93 +3,126 @@ package ru.netology.nerecipe.view_models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
 import ru.netology.nerecipe.adapters.RecipeInteractionListener
-import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.PostRepository
-import ru.netology.nerecipe.data.RecipeCategories
+import ru.netology.nerecipe.data.*
 import ru.netology.nerecipe.data.impl.RecipeRepositoryImpl
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.util.SingleLiveEvent
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RecipeViewModel(
     application: Application
 ): AndroidViewModel(application), RecipeInteractionListener {
 
-    private val repository: PostRepository = RecipeRepositoryImpl(
-            dao = AppDb.getInstance(
-                context = application
-            ).postDao,
-        filter = null
-        )
-
-    val data by repository::data
-
-//    val sharePostContent = SingleLiveEvent<String>()
-    val navToRecipeViewing = SingleLiveEvent<Recipe?>()
-    val navToPostEditContentEvent = SingleLiveEvent<String>()
-    private val navToFeedFragment = SingleLiveEvent<Unit>()
-    private val currentRecipe = MutableLiveData<Recipe?>(null)
-//    val sharePostVideo = SingleLiveEvent<String?>()
-
-    fun onEditBackPressed(draft: String){
-        if (currentRecipe.value != null) {
-            currentRecipe.value?.copy(
-                draftTextContent = draft
-            )?.let {
-                repository.save(it)
-            }
-            currentRecipe.value = null
+    private val filterByCategory = MutableLiveData<List<RecipeCategories>>(emptyList())
+    private val filterByName = MutableLiveData<String>(null)
+    private val filterByLikedByMe = MutableLiveData<Boolean>(false)
+    private val recipeFilter = MutableLiveData(
+        filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
         }
-    }
-
-    fun onSaveClicked(content: String) {
-        if (content.isBlank()) return
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("LOCALIZE"))
-        val recipeToAdd = currentRecipe.value?.copy(
-            ingredients = content,
-            draftTextContent = null
-            ) ?: Recipe(
-            id = PostRepository.NEW_POST_ID,
-            author = "New author",
-            ingredients = content,
-            draftTextContent = null,
-            videoContent = null,
-            published = (sdf.format(Date())).toString(),
-            category = RecipeCategories.Russian,
-            name = "",
-            stages = emptyList()
+    )
+    private val repository: RecipeRepository = RecipeRepositoryImpl(
+        dao = AppDb.getInstance(context = application).recipeDao,
         )
-        repository.save(recipeToAdd)
-        currentRecipe.value = null
+    val data = recipeFilter.switchMap{ recipeFilter ->
+        repository.getAll(recipeFilter)
     }
 
-//    override fun onShareVideoClicked(recipe: Recipe) {
-//        sharePostVideo.value = recipe.videoContent
-//    }
+    val navToRecipeViewing = SingleLiveEvent<Recipe>()
+    val navToRecipeEdit = SingleLiveEvent<Recipe>()
+    private val navToFeedFragment = SingleLiveEvent<Unit>()
+    val currentRecipe = MutableLiveData<Recipe>()
+
+    override fun saveRecipe(recipeToSave: Recipe) {
+        repository.save(recipeToSave)
+    }
 
     override fun onHeartClicked(recipe: Recipe) =
         repository.likeById(recipe.id)
 
-    override fun inFilterChange(filter: String) {
-        repository.changeFilter(filter)
+    override fun recipeUp(recipeID: Long) {
+        if (recipeID == 1L) return else
+        repository.moveRecipeToPosition(recipeID, recipeID - 1L)
     }
 
-//    override fun onShareClicked(recipe: Recipe) {
-//        sharePostContent.value = recipe.ingredients
-//        repository.shareBiId(recipe.id)
-//    }
+    override fun moveRecipe(from: Long, to: Long) {
+        repository.moveRecipeToPosition(from, to)
+    }
 
-    override fun onRemoveClicked(recipe: Recipe) {
-        repository.removeById(recipe.id)
+    override fun recipeDown(recipeID: Long) {
+        if (recipeID == repository.countOfRecipes()) return else
+        repository.moveRecipeToPosition(recipeID, recipeID + 1L)
+    }
+
+    override fun inFilterByNameChange(filter: String) {
+        filterByName.value = filter
+        recipeFilter.value = filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+        }
+    }
+
+    override fun inFilterByCategoryChange(receivedCategory: RecipeCategories) {
+        var listCategory: List<RecipeCategories>? = filterByCategory.value
+        var isCategoryInList = false
+        listCategory?.map { category -> if (category == receivedCategory) isCategoryInList = true }
+        if (listCategory != null) {
+            listCategory = if (isCategoryInList) listCategory.filter { it != receivedCategory }
+            else listCategory + receivedCategory
+        }
+        filterByCategory.value = listCategory
+        recipeFilter.value = filterByCategory.value?.let {
+            filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+        }
+    }
+
+    override fun inFilterByLikedByMeChange(isNeedOnlyLikedByMe: Boolean) {
+        filterByLikedByMe.value = isNeedOnlyLikedByMe
+        recipeFilter.value = filterByCategory.value?.let {
+                filterByLikedByMe.value?.let { it1 -> RecipeFilter(filterByName.value, it, it1) }
+            }
+    }
+
+
+    override fun removeRecipeById(recipeID: Long) {
+        repository.removeById(recipeID)
         navToFeedFragment.call()
     }
 
-    override fun onEditClicked(recipe: Recipe) {
-        navToPostEditContentEvent.value =
-            recipe.draftTextContent ?: recipe.ingredients
+    override fun moveStage(from: Int, to: Int) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.toMutableList() ?: return
+        val destinationStage: Stage
+        val movableStage: Stage
+        if (from == 1 || to >= stagesToSave.size) return else {
+            destinationStage = stagesToSave[to]
+            movableStage = stagesToSave[from]
+            stagesToSave[to] = movableStage.copy(id = destinationStage.id)
+            stagesToSave[from] = destinationStage.copy(id = movableStage.id)
+        }
+//        val recipeToSave: Recipe? = currentRecipe.value
+//        if (recipeToSave != null) {
+//            repository.save(recipeToSave.copy(stages = stagesToSave))
+            currentRecipe.value = currentRecipe.value?.copy(stages = stagesToSave)
+//        }
+    }
+
+    override fun deleteStage(position: Int) {
+        val stagesToSave: MutableList<Stage> =
+            currentRecipe.value?.stages?.filter {it.id != position+1} as MutableList<Stage>
+        for ((index, eachStage) in stagesToSave.withIndex()) {
+            eachStage.id = index + 1
+        }
+        val recipeToSave: Recipe? = currentRecipe.value
+        if (recipeToSave != null) {
+            repository.save(recipeToSave.copy(stages = stagesToSave))
+            currentRecipe.value = recipeToSave.copy(stages = stagesToSave)
+        }
+    }
+
+    override fun editRecipe(recipe: Recipe) {
         currentRecipe.value = recipe
+        navToRecipeEdit.value = recipe
     }
 
     override fun onUnDoClicked() {
@@ -97,10 +130,13 @@ class RecipeViewModel(
     }
 
     override fun onAddClicked() {
-      navToPostEditContentEvent.call()
+        navToRecipeEdit.value =
+            Recipe(0,"","",RecipeCategories.Other,"", emptyList(),
+                null, "", false, 0 ,false, 0)
     }
 
-    override fun onPostContentClicked(recipe: Recipe) {
+    override fun navToRecipeViewFun(recipe: Recipe) {
+        currentRecipe.value = recipe
         navToRecipeViewing.value = recipe
     }
 }

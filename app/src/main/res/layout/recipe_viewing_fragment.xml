@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.FeedFragment"
-    android:padding="8dp">
+    android:padding="8dp"
+    >
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/post_menu_button"
-        style="@style/Widget.AppTheme.ShareButton"
+        android:id="@+id/feed_fragment_menu_button"
+        style="@style/Widget.AppTheme.ButtonsTheme"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:checkable="false"
@@ -27,7 +28,7 @@
         android:singleLine="true"
         android:textColor="#5D00F5"
         app:layout_constraintBottom_toTopOf="@id/recipe_author"
-        app:layout_constraintEnd_toStartOf="@+id/post_menu_button"
+        app:layout_constraintEnd_toStartOf="@+id/feed_fragment_menu_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Картофель по-французски." />
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@+id/feed_fragment_menu_button"
         app:layout_constraintEnd_toEndOf="@+id/recipe_name"
         app:layout_constraintStart_toStartOf="@id/recipe_name"
         app:layout_constraintTop_toBottomOf="@id/recipe_name"
@@ -60,21 +62,23 @@
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/viewing_heart"
         style="@style/Widget.AppTheme.LikeCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:button="@drawable/heart_selector"
         android:contentDescription="@string/likes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_menu_button" />
+        app:layout_constraintTop_toBottomOf="@+id/feed_fragment_menu_button" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewing_heart"
-        tools:layout_editor_absoluteX="8dp"
-        tools:listitem="@layout/card_viewing_layout" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-26dp"
+        tools:listitem="@layout/stages_viewing_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

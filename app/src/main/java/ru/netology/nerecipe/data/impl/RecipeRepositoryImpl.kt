@@ -2,22 +2,14 @@ package ru.netology.nerecipe.data.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import ru.netology.nerecipe.data.Recipe
-import ru.netology.nerecipe.data.PostRepository
-import ru.netology.nerecipe.data.RecipeCategories
-import ru.netology.nerecipe.data.Stage
-import ru.netology.nerecipe.db.PostDao
+import ru.netology.nerecipe.data.*
+import ru.netology.nerecipe.db.RecipeDao
 import ru.netology.nerecipe.db.toEntity
 import ru.netology.nerecipe.db.toModel
 
-class RecipeRepositoryImpl(
-    private val dao: PostDao, override var filter: String?
-) : PostRepository {
+class RecipeRepositoryImpl( private val dao: RecipeDao): RecipeRepository {
 
-    private var filterToDao = if (filter == null) "%"
-    else "$filter%"
-
-    override val data = dao.getAll(filterToDao).map { entities ->
+    override val data = dao.getAll("%").map { entities ->
         entities.map { it.toModel() }
     }
 
@@ -83,7 +75,6 @@ class RecipeRepositoryImpl(
                     "В кастрюлю наливаем 500 миллилитров сливок или молока (можно пополам), ставим на огонь. Добавляем 2 чайные ложки без верха соли, 0,5 чайной ложки черного молотого перца, щепотку мускатного ореха, доводим до кипения.",
                     "https://img1.russianfood.com/dycontent/images_upl/174/big_173316.jpg")
                 ),
-                draftTextContent = null,
                 videoContent = "https://youtu.be/xOgT2qYAzds",
                 published = "21 мая 2020",
                 likedByMe = true,
@@ -182,7 +173,6 @@ class RecipeRepositoryImpl(
                         "Добавляем имбирь, куркуму, карри и кориандр. Пряности выбирайте по своему вкусу - традиционно сюда в состав входит зира, но у нас в семье любителей нет, поэтому я её не добавляю.",
                         "https://img1.russianfood.com/dycontent/images_upl/411/sm_410284.jpg")
                 ),
-                draftTextContent = null,
                 videoContent = "https://youtu.be/v8xA-yuZywY",
                 published = "21 мая 2020",
                 likedByMe = false,
@@ -200,8 +190,23 @@ class RecipeRepositoryImpl(
         dao.save(recipe.toEntity())
     }
 
-    override fun changeFilter(funFilter: String) {
-        filter = funFilter
+    override fun changeFilter(filter: String): LiveData<List<Recipe>> {
+        return dao.getAll(filter).map { entities ->
+            entities.map { it.toModel() }
+        }
+    }
+
+    override fun moveRecipeToPosition(movablePosition: Long, destinationPosition: Long) {
+        val destinationRecipe =
+            dao.getById(destinationPosition)
+                .toModel()
+        val movableRecipe = dao.getById(movablePosition).toModel()
+        dao.update(movableRecipe.copy(id = destinationRecipe.id).toEntity())
+        dao.update(destinationRecipe.copy(id = movableRecipe.id).toEntity())
+    }
+
+    override fun countOfRecipes(): Long {
+        return dao.countOfRecipes()
     }
 
     override fun likeById(recipeId: Long) {
@@ -216,5 +221,37 @@ class RecipeRepositoryImpl(
         dao.removeById(recipeId)
     }
 
-    override fun getAll(): LiveData<List<Recipe>> = data
+    override fun getAll(filter: RecipeFilter?): LiveData<List<Recipe>> {
+
+        val filterByName = filter?.byName
+        val filterToDao = if (filterByName == null) "%" else "$filterByName%"
+        val liveDataFromDao = dao.getAll(filterToDao).map { entities ->
+            entities.map { it.toModel() }
+        }
+        val liveDataToReturn = liveDataFromDao.map { recipes ->
+            filterRecipesByCategory(filter?.byCategories,
+                filterRecipesByLikedByMe(filter?.byLikedByMe, recipes)
+                )
+        }
+        return liveDataToReturn
+    }
+
+    private fun filterRecipesByCategory(
+        categories: List<RecipeCategories>?,
+        recipes: List<Recipe>): List<Recipe>{
+        var result = recipes
+        categories?.forEach { category ->
+            result = result.filter { it.category != category }
+        }
+        return result
+    }
+
+    private fun filterRecipesByLikedByMe(
+        isNeedOnlyLikesByMe: Boolean?,
+        recipes: List<Recipe>
+    ): List<Recipe> {
+        var result = recipes
+        if (isNeedOnlyLikesByMe == true) result = result.filter { it.likedByMe }
+        return result
+    }
 }

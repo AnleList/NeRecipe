@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -19,7 +19,7 @@
         <item name="buttonTint">@color/heart_color_selector</item>
 </style>
 
-    <style name="Widget.AppTheme.ShareButton"
+    <style name="Widget.AppTheme.ButtonsTheme"
         parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconTint">@color/share_color_selector</item>
     </style>

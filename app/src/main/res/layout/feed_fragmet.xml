@@ -15,6 +15,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="27dp"
         tools:listitem="@layout/recipe_card_layout" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -22,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="filter, filter_by_name"
+        app:constraint_referenced_ids="filterMenuButton, filter_by_name"
         android:paddingVertical="8dp"/>
 
     <EditText
@@ -30,24 +32,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:autofillHints="укажите категорю здесь"
         android:background="@android:color/transparent"
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingTop="8dp"
         android:paddingEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/filter"
+        app:layout_constraintEnd_toStartOf="@+id/filterMenuButton"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlSymmetry"
-        tools:text="Европейская" />
+        android:autofillHints="auto"
+        android:hint="@string/feedFilterHint" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/filter"
-        style="@style/Widget.AppTheme.LikeCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/ic_baseline_filter_list_24"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filterMenuButton"
+        style="@style/Widget.AppTheme.ButtonsTheme"
+        android:checkable="false"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon= "@drawable/ic_baseline_filter_list_24"
         app:layout_constraintBottom_toBottomOf="@+id/filter_by_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/filter_by_name"
@@ -60,11 +63,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#0000ffff"
-        android:contentDescription="@string/fabContentDescription"
         app:layout_constraintBottom_toBottomOf="@+id/recipesRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/recipesRecyclerView"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
-        tools:ignore="RtlSymmetry" />
+        android:contentDescription="@string/fabContentDescription"
+        android:backgroundTint="#25DA00FF"
+        android:backgroundTintMode="src_in"
+        app:backgroundTint="#00FFFFFF"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:maxImageSize="36dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

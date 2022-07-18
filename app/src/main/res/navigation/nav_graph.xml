@@ -8,37 +8,46 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="ru.netology.nerecipe.ui.FeedFragment"
+        android:label="@string/home"
         tools:layout="@layout/feed_fragmet" >
         <action
-            android:id="@+id/action_feedFragment_to_postContentFragment"
-            app:destination="@id/postContentFragment" />
+            android:id="@+id/action_feedFragment_to_recipeEditFragment"
+            app:destination="@id/recipeEditFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_feedFragment_to_postViewingFragment"
-            app:destination="@id/postViewingFragment" />
+            android:id="@+id/action_feedFragment_to_recipeViewingFragment"
+            app:destination="@id/recipeViewingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/postContentFragment"
-        android:name="ru.netology.nerecipe.ui.PostEditContentFragment"
-        tools:layout="@layout/post_edit_content_fragment" >
+        android:id="@+id/recipeEditFragment"
+        android:name="ru.netology.nerecipe.ui.RecipeEditContentFragment"
+        tools:layout="@layout/recipe_edit_content_fragment" >
 
         <argument
             android:name="initialContent"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/postViewingFragment"
-        android:name="ru.netology.nerecipe.ui.PostViewingFragment"
-        android:label="post_viewing_fragment"
-        tools:layout="@layout/post_viewing_fragment" >
+            app:argType="ru.netology.nerecipe.data.Recipe"
+            app:nullable="false" />
         <action
-            android:id="@+id/action_postViewingFragment_to_postContentFragment"
-            app:destination="@id/postContentFragment" />
-        <argument
-            android:name="postToViewing"
-            app:argType="ru.netology.nerecipe.data.Recipe" />
-        <action
-            android:id="@+id/action_postViewingFragment_to_feedFragment"
+            android:id="@+id/action_recipeEditFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recipeViewingFragment"
+        android:name="ru.netology.nerecipe.ui.RecipeViewingFragment"
+        tools:layout="@layout/recipe_viewing_fragment">
+        <action
+            android:id="@+id/action_recipeViewingFragment_to_recipeContentFragment"
+            app:destination="@id/recipeEditFragment" />
+        <argument
+            android:name="recipeToViewing"
+            app:argType="ru.netology.nerecipe.data.Recipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="ru.netology.nerecipe.ui.FavouritesFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/fragment_favourites" />
 </navigation>

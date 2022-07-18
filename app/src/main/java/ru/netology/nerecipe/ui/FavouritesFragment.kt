@@ -1,50 +1,24 @@
 package ru.netology.nerecipe.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nerecipe.R
-import ru.netology.nerecipe.adapters.RecipesAdapter
+import ru.netology.nerecipe.adapters.FavoriteRecipesAdapter
 import ru.netology.nerecipe.data.RecipeCategories
 import ru.netology.nerecipe.databinding.FeedFragmetBinding
 import ru.netology.nerecipe.view_models.RecipeViewModel
 
-
-class FeedFragment : Fragment() {
+class FavouritesFragment : Fragment() {
 
     private val viewModel by activityViewModels<RecipeViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.navToRecipeEdit.observe(this) { recipe ->
-            val direction = recipe?.let {
-                FeedFragmentDirections.actionFeedFragmentToRecipeEditFragment(recipe)
-            }
-            if (direction != null) {
-                findNavController().navigate(direction)
-            }
-        }
-
-        viewModel.navToRecipeViewing.observe(this) { recipe ->
-            val direction
-                = recipe?.let {
-                FeedFragmentDirections.actionFeedFragmentToRecipeViewingFragment(it)
-                }
-            if (direction != null) {
-                findNavController().navigate(direction)
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,36 +29,12 @@ class FeedFragment : Fragment() {
     ).also { binding ->
         var filterText: String
 
-        val adapter = RecipesAdapter(viewModel)
+        val adapter = FavoriteRecipesAdapter(viewModel)
         binding.recipesRecyclerView.adapter = adapter
-        viewModel.inFilterByLikedByMeChange(false)
+        viewModel.inFilterByLikedByMeChange(true)
         viewModel.data.observe(viewLifecycleOwner) {recipes ->
             adapter.submitList(recipes)
-            viewModel.currentRecipe.value = null
         }
-
-        val simpleCallback = object :
-            ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_DRAG,
-                ItemTouchHelper.ANIMATION_TYPE_SWIPE_CANCEL) {
-            override fun isLongPressDragEnabled(): Boolean {
-                return true
-            }
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                val fromPosition = viewHolder.adapterPosition
-                val toPosition = target.adapterPosition
-                viewModel.moveRecipe(fromPosition.toLong() + 1L, toPosition.toLong() + 1L)
-                return true
-            }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(binding.recipesRecyclerView)
 
         val filterMenu by lazy {
             PopupMenu(context, binding.filterMenuButton).apply {
@@ -145,9 +95,7 @@ class FeedFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
-        binding.fab.setOnClickListener {
-            viewModel.onAddClicked()
-        }
+        binding.fab.visibility = View.INVISIBLE
         binding.filterMenuButton.setOnClickListener {
             filterMenu.show()
         }

@@ -1,9 +1,9 @@
 package ru.netology.nerecipe.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +12,9 @@ import ru.netology.nerecipe.data.Recipe
 import ru.netology.nerecipe.databinding.RecipeCardLayoutBinding
 import ru.netology.nerecipe.valueToStringForShowing
 
-internal class RecipesAdapter(
+internal class FavoriteRecipesAdapter(
     private val interactionListener: RecipeInteractionListener
-) : ListAdapter<Recipe, RecipesAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Recipe, FavoriteRecipesAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -33,41 +33,11 @@ internal class RecipesAdapter(
 
         private lateinit var recipe: Recipe
 
-        private val popupMenu by lazy {
-            PopupMenu(itemView.context, binding.recipeCardMenuButton).apply {
-                inflate(R.menu.options_recipe)
-                setOnMenuItemClickListener { menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.removeItem -> {
-                            listener.removeRecipeById(recipe.id)
-                            true
-                        }
-                        R.id.editItem -> {
-                            listener.editRecipe(recipe)
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            }
-        }
-
         init {
             binding.recipeCardHeart.setOnClickListener {
                 listener.onHeartClicked(recipe)
             }
-            binding.recipeName.setOnClickListener {
-                listener.navToRecipeViewFun(recipe)
-            }
-            binding.recipeAuthor.setOnClickListener {
-                listener.navToRecipeViewFun(recipe)
-            }
-            binding.recipeCategory.setOnClickListener {
-                listener.navToRecipeViewFun(recipe)
-            }
-            binding.recipeCardMenuButton.setOnClickListener {
-                popupMenu.show()
-            }
+            binding.recipeCardMenuButton.isVisible = false
         }
 
         fun bind(recipe: Recipe) {

@@ -4,28 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
-interface PostDao {
-    @Query("SELECT * FROM recipes WHERE recipeCategory LIKE :ink")
-    fun getAll(ink: String): LiveData<List<PostEntity>>
+interface RecipeDao {
+    @Query("SELECT * FROM recipes WHERE recipeName LIKE :partName")
+    fun getAll(partName: String): LiveData<List<RecipeEntity>>
+
+    @Query("SELECT * FROM recipes WHERE id = :id")
+    fun getById(id: Long): RecipeEntity
 
     @Insert
-    fun insert(post: PostEntity)
+    fun insert(recipe: RecipeEntity)
+
+    @Update()
+    fun update(recipe: RecipeEntity)
 
     @Query("UPDATE recipes SET recipeName = :content WHERE id = :id")
     fun updateContentById(id: Long, content: String)
 
-    @Query("UPDATE recipes SET draftTextContent = :draft WHERE id = :id")
-    fun updateDraftById(id: Long, draft: String)
-
-    fun save(post: PostEntity) =
-        if (post.id == 0L)
-            insert(post)
-        else if (post.draftTextContent != null) {
-            updateDraftById(post.id, post.draftTextContent)
-        } else
-            updateContentById(post.id, post.recipeName)
+    fun save(recipe: RecipeEntity) =
+        if (recipe.id == 0L) insert(recipe)
+        else update(recipe)
 
     @Query(
         """
@@ -52,4 +52,7 @@ interface PostDao {
 
     @Query("SELECT COUNT(id) FROM recipes LIMIT 1")
     fun hasAnyRecipes(): Boolean
+
+    @Query("SELECT COUNT(id) FROM recipes")
+    fun countOfRecipes(): Long
 }
